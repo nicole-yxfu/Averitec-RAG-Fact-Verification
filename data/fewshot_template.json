@@ -1,0 +1,16 @@
+[
+  {
+    "claim": "The Sun rises in the West.",
+    "speaker": "anonymous",
+    "source": "social media post",
+    "evidence_text": "[1] According to NASA, the Sun rises in the East and sets in the West due to Earth's west-to-east rotation.\n[2] Multiple astronomical references confirm Earth rotates eastward, causing the Sun to appear to rise in the East from any non-polar location.",
+    "label": "refuted"
+  },
+  {
+    "claim": "Company X's revenue grew 50% in 2023.",
+    "speaker": "CFO of Company X",
+    "source": "earnings call transcript",
+    "evidence_text": "[1] Company X's Q1+Q2 2023 reported revenue was up 50% year-over-year, per the earnings release.\n[2] However, the audited annual report shows full-year 2023 revenue declined 5% vs 2022 due to a major H2 customer loss; the CFO's '50%' figure referred only to a single product line, not total revenue.",
+    "label": "conflicting evidence/cherrypicking"
+  }
+]

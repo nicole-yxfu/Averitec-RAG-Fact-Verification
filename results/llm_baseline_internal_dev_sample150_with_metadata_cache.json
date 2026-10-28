@@ -1,0 +1,1502 @@
+{
+  "claim_0": {
+    "claim": "Kenya's Installed capacity has increased from 1,768 MW in March 2013 to the current 2,712 MW",
+    "speaker": "Uhuru Kenyatta, C.G.H., President Of The Republic Of Kenya",
+    "source": "State of the Nation address 2019",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 128,
+    "completion_tokens": 2
+  },
+  "claim_1": {
+    "claim": "Over the past five years, the Ramaphosa administration has built two new universities",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 97,
+    "completion_tokens": 4
+  },
+  "claim_2": {
+    "claim": "Indian banks are to be closed continuously from 26th September 2019 to 30th September 2019.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 104,
+    "completion_tokens": 3
+  },
+  "claim_3": {
+    "claim": "There is now a 10-year rule. If you damage a federal property such as courthouse, you go to jail for 10 years.",
+    "speaker": "Donald Trump",
+    "source": "Axios on HBO",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 111,
+    "completion_tokens": 4
+  },
+  "claim_4": {
+    "claim": "The NHS Long Term Plan will save 500,000 lives.",
+    "speaker": "NHS England",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 94,
+    "completion_tokens": 4
+  },
+  "claim_5": {
+    "claim": "Viral image quotes Joe Biden as saying the Germans Bombed Pearl Harbour.",
+    "speaker": "Richard Wade",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 95,
+    "completion_tokens": 3
+  },
+  "claim_6": {
+    "claim": "Home Minister Anil Deshmukh said “No Hindu among those arrested in Palghar lynching incident\".",
+    "speaker": "Jainendra Karn",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 103,
+    "completion_tokens": 4
+  },
+  "claim_7": {
+    "claim": "The U.S. women’s soccer team bring in more revenue but get paid less than the men",
+    "speaker": "Sen. Elizabeth Warren of Massachusetts",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 105,
+    "completion_tokens": 2
+  },
+  "claim_8": {
+    "claim": "South Africa “has an established vaccine manufacturing capability”",
+    "speaker": "Cyril Ramaphosa",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "supported",
+    "prompt_tokens": 93,
+    "completion_tokens": 2
+  },
+  "claim_9": {
+    "claim": "Gold fringe on a U.S. flag signifies maritime and martial law is in effect.",
+    "speaker": "Bob Mayo",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 98,
+    "completion_tokens": 3
+  },
+  "claim_10": {
+    "claim": "Alkaline foods keep you from getting cancer.",
+    "speaker": "Patriot Jaye Citizens Investigative Journalism",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 96,
+    "completion_tokens": 4
+  },
+  "claim_11": {
+    "claim": "Journalists in China, Singapore and the UK and US, can only operate if they obtain government-issued press passes.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 103,
+    "completion_tokens": 3
+  },
+  "claim_12": {
+    "claim": "Social Security beneficiaries count on the post office to get their checks.",
+    "speaker": "Eva Longoria Bastón",
+    "source": "2020 Democratic National Convention",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 102,
+    "completion_tokens": 2
+  },
+  "claim_13": {
+    "claim": "Trade agreements like NAFTA and permanent normal trade relations with China, which forced American workers to compete against people making pennies an hour, has resulted in the loss of 160,000 jobs in Michigan.",
+    "speaker": "Bernie Sanders",
+    "source": "NBC",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 121,
+    "completion_tokens": 4
+  },
+  "claim_14": {
+    "claim": "A mixture of aspirin, honey, and lemon juice attacks COVID-19 and cures coronavirus.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 98,
+    "completion_tokens": 3
+  },
+  "claim_15": {
+    "claim": "Virginia House Delegate says that Republicans have had more African-Americans on key committees than when the Democrats were in control.",
+    "speaker": "Chris Jones",
+    "source": "Chris Jones Speech",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 105,
+    "completion_tokens": 4
+  },
+  "claim_16": {
+    "claim": "Ivanka Trump has created 14 million jobs.",
+    "speaker": "Trump",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 90,
+    "completion_tokens": 3
+  },
+  "claim_17": {
+    "claim": "Ear loop face masks don't protect against Covid-19.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 91,
+    "completion_tokens": 3
+  },
+  "claim_18": {
+    "claim": "Covid-19 pandemic is not real",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 88,
+    "completion_tokens": 3
+  },
+  "claim_19": {
+    "claim": "Kenya has one of the worst maternal mortality rates in the world",
+    "speaker": "Penny Appeal UK registered charity.",
+    "source": "Fragile Lives website",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 100,
+    "completion_tokens": 2
+  },
+  "claim_20": {
+    "claim": "If one gets the Spanish flu you have a 50% chance of dying",
+    "speaker": "Donald Trump ",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 97,
+    "completion_tokens": 3
+  },
+  "claim_21": {
+    "claim": "In 2017, South Africa recorded an inflow of foreign direct investment amounting to R17 billion",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_22": {
+    "claim": "Without Donald Trump's China travel ban, millions would have died of coronavirus",
+    "speaker": "Natalie Harp",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 96,
+    "completion_tokens": 4
+  },
+  "claim_23": {
+    "claim": "Donald Trumps tax cut was about 1.5 trillion dollars scored. It has been virtually paid for, at least 80 percent paid for and that’s by the CBO’s own numbers.",
+    "speaker": "Larry Kudlow",
+    "source": "CNBC",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "conflicting evidence/cherrypicking",
+    "prompt_tokens": 122,
+    "completion_tokens": 8
+  },
+  "claim_24": {
+    "claim": "In the US, it costs almost $4,000 to get tested for COVID-19 without insurance.",
+    "speaker": "Leo Starceed",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 103,
+    "completion_tokens": 4
+  },
+  "claim_25": {
+    "claim": "Mexico does not have any cases of the novel coronavirus.",
+    "speaker": "Tina Cruz-Lopez",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 94,
+    "completion_tokens": 3
+  },
+  "claim_26": {
+    "claim": "Democratic Rep. Alexandria Ocasio-Cortez said, “Attorneys don’t know much about the law as lawyers do and Ben Shapiro is just an attorney. So, yeah.”",
+    "speaker": "Alexandria Ocasio-Cortez",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 124,
+    "completion_tokens": 4
+  },
+  "claim_27": {
+    "claim": "\"I have been consistent (on the Hyde Amendment). I have always believed in that.\"",
+    "speaker": "Bernie Sanders",
+    "source": "CNN",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_28": {
+    "claim": "Russia has successfully developed a vaccine for Covid-19 and it has passed all checks.",
+    "speaker": "Vladimir Putin",
+    "source": "facebook,twitter and whatapp",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking",
+    "prompt_tokens": 103,
+    "completion_tokens": 8
+  },
+  "claim_29": {
+    "claim": "Consuming a wax-coated apple can kill you.",
+    "speaker": "Dikshita Mahanta",
+    "source": "Facebook ",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 95,
+    "completion_tokens": 3
+  },
+  "claim_30": {
+    "claim": "Adam Schiff used tax dollars to settle sexual harassment lawsuit witha 19 year old man.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 98,
+    "completion_tokens": 4
+  },
+  "claim_31": {
+    "claim": "If they have a vote to do a formal impeachment inquiry, historically, precedent is such that, yes, then everyone gets the right, the minority party gets rights. Certainly, the White House gets rights. The president gets rights that aren’t there now.",
+    "speaker": "Jim Jordan",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "supported",
+    "prompt_tokens": 132,
+    "completion_tokens": 2
+  },
+  "claim_32": {
+    "claim": "Joe Biden, whilst vice president, said the Obama administration had passed the criminal justice reform bill.",
+    "speaker": "Joe Biden",
+    "source": "Washington Post",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 101,
+    "completion_tokens": 2
+  },
+  "claim_33": {
+    "claim": "A majority of 6,200 doctors said hydroxychloroquine is the most effective coronavirus treatment.",
+    "speaker": "Connor Boyd",
+    "source": "MailOnline",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 102,
+    "completion_tokens": 3
+  },
+  "claim_34": {
+    "claim": "Thomas Jefferson said, “When the people fear the government, there is tyranny. When the government fears the people, there is liberty.”",
+    "speaker": "Christina Brewster ",
+    "source": "Facebook ",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 110,
+    "completion_tokens": 3
+  },
+  "claim_35": {
+    "claim": "The Nationals party, represents the poorest electorates in Australia.",
+    "speaker": "Barnaby Joyce",
+    "source": "Twitter @SkyNewsAust",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_36": {
+    "claim": "US Rep Mark Pocan stated on January 16, 2020 in a tweet:\n“There’s an Amazon distribution center that was advertising, last time I was there, up to $12.75 an hour. Your parents made that three decades ago.”",
+    "speaker": "Rep Mark Pocan",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 134,
+    "completion_tokens": 4
+  },
+  "claim_37": {
+    "claim": "County governments have allocated on average 6.7 % of their total budgets to the agriculture sector.",
+    "speaker": "Wycliffe Oparanya",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 105,
+    "completion_tokens": 4
+  },
+  "claim_38": {
+    "claim": "26,383 people die of cancer each day.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 91,
+    "completion_tokens": 4
+  },
+  "claim_39": {
+    "claim": "Pope Francis and two aides have tested positive for Coronavirus.",
+    "speaker": "ChaddSinclair",
+    "source": "Youtube",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 94,
+    "completion_tokens": 4
+  },
+  "claim_40": {
+    "claim": "sodium bicarbonate (baking soda) can cure cancer.",
+    "speaker": " Tullio Simoncini",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 98,
+    "completion_tokens": 3
+  },
+  "claim_41": {
+    "claim": "Dominic Raab posted and then deleted a tweet describing Scotland as a region of England.",
+    "speaker": "Mark Harper",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 98,
+    "completion_tokens": 4
+  },
+  "claim_42": {
+    "claim": "Black Friday originated with the practice of selling off slaves on the day after Thanksgiving.",
+    "speaker": "Ngemani Sosbozi Mahlangu",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 103,
+    "completion_tokens": 3
+  },
+  "claim_43": {
+    "claim": "Democrats recited the US Pledge of Allegiance tonight and took out \"under God\".",
+    "speaker": "Kimber L Byrd",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 101,
+    "completion_tokens": 4
+  },
+  "claim_44": {
+    "claim": "CNN admitted the Entire Russian Collusion Theory Was A Hoax",
+    "speaker": "none",
+    "source": "thelast-news.com",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 96,
+    "completion_tokens": 3
+  },
+  "claim_45": {
+    "claim": "104 US House Democrats voted for impeachment of US President Donald Trump before the Ukraine call in which Trump asked  Ukrainian President Volodymyr Zelensky to  look into activities in Ukraine by Democratic presidential contender Joe Biden’s son Hunter.",
+    "speaker": "U.S. Rep. Jim Sensenbrenner,",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 137,
+    "completion_tokens": 3
+  },
+  "claim_46": {
+    "claim": "Stanley Johnson, father of Prime Minister Boris Johnson, wrote a novel called ‘The Virus’ in 1982.",
+    "speaker": "none",
+    "source": "Instagram",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 103,
+    "completion_tokens": 2
+  },
+  "claim_47": {
+    "claim": "President Donald Trump gave John McCain the kind of funeral he wanted, which as president he had to approve but got no thanks for.",
+    "speaker": "President Donald Trump",
+    "source": "New York Times",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "refuted",
+    "prompt_tokens": 112,
+    "completion_tokens": 3
+  },
+  "claim_48": {
+    "claim": "Wetting your head before your body while showering can lead to a stroke.",
+    "speaker": "Harry P. Basingat",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 101,
+    "completion_tokens": 3
+  },
+  "claim_49": {
+    "claim": "There is always the possibility of an iatrogenic reaction to a vaccine.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 95,
+    "completion_tokens": 2
+  },
+  "claim_50": {
+    "claim": "Answering a call from '+140' will empty your bank account.",
+    "speaker": "I Love Bhatkal",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 98,
+    "completion_tokens": 3
+  },
+  "claim_51": {
+    "claim": "Before he was mayor, Pete Buttigieg ran statewide in Indiana and lost by 20 points.",
+    "speaker": "Amy Klobuchar",
+    "source": "Sixth Democratic presidential debate ",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "refuted",
+    "prompt_tokens": 107,
+    "completion_tokens": 3
+  },
+  "claim_52": {
+    "claim": "The US Biden-Sanders unity task force seeks to abolish immigration detention in the US.",
+    "speaker": "President Donald Trump",
+    "source": "News conference at the White House",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 105,
+    "completion_tokens": 4
+  },
+  "claim_53": {
+    "claim": "Alexandria Ocasio-Cortez claimed Amazon was paying full-time employees so little that they required government food assistance.",
+    "speaker": "Alexandria Ocasio-Cortez",
+    "source": "Interview",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "supported",
+    "prompt_tokens": 109,
+    "completion_tokens": 2
+  },
+  "claim_54": {
+    "claim": "In 2018, provisional estimates show the Kenyan economy grew by 6.1%",
+    "speaker": "Uhuru Kenyatta",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 102,
+    "completion_tokens": 2
+  },
+  "claim_55": {
+    "claim": "There are only DUP members (who are/were members of a Northern Ireland political party) in the House of Lords.",
+    "speaker": "Andrew Adonis",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 106,
+    "completion_tokens": 3
+  },
+  "claim_56": {
+    "claim": "Over 175,000 Kenyans have already registered under the voluntary scheme known as boma yangu.",
+    "speaker": "Uhuru Kenyatta",
+    "source": "Republic of Kenya",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 106,
+    "completion_tokens": 4
+  },
+  "claim_57": {
+    "claim": "The price of oil was lower when president Obasanjo and Abubakar assumed office on 29 May 1999 than it is today ...",
+    "speaker": "Atiku Abubakar",
+    "source": "Daily Vanguard News paper",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 116,
+    "completion_tokens": 4
+  },
+  "claim_58": {
+    "claim": "Bill Gates admits that 700,000 people will be harmed or killed by his coronavirus vaccines",
+    "speaker": "Bill Gates",
+    "source": "Youtube",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 100,
+    "completion_tokens": 3
+  },
+  "claim_59": {
+    "claim": "Every week, at least 12 doctors leave Nigeria to seek employment in the UK.",
+    "speaker": " Socrates Mbamalu",
+    "source": "Al Jazeera report",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 105,
+    "completion_tokens": 4
+  },
+  "claim_60": {
+    "claim": "This photo shows women working for the Red Cross arriving at Normandy beach in 1944 to assist injured troops.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_61": {
+    "claim": "Boris Johnson said a variety of outrageous things about Scotland and its resources.",
+    "speaker": "Frankie Mullen",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 96,
+    "completion_tokens": 4
+  },
+  "claim_62": {
+    "claim": "The allocation to agriculture is an increase of 0.6% from what was reported last year in Kenya.",
+    "speaker": "Wycliffe Oparanya",
+    "source": "State of Devolution Address",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 111,
+    "completion_tokens": 4
+  },
+  "claim_63": {
+    "claim": "Since April 2013, more than KSh1.7 trillion shillings have been transferred to the Kenyan counties.",
+    "speaker": "Uhuru Kenyatta",
+    "source": "Republic of Kenya",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "supported",
+    "prompt_tokens": 111,
+    "completion_tokens": 2
+  },
+  "claim_64": {
+    "claim": "The poet T.S. Eliot once said, “The very existence of libraries affords the best evidence that we may yet have hope for the future of man.”",
+    "speaker": "The Medieval Professor",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 113,
+    "completion_tokens": 4
+  },
+  "claim_65": {
+    "claim": "Professor HC Verma still drives an old scooter.",
+    "speaker": "Work For Unity ",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 92,
+    "completion_tokens": 4
+  },
+  "claim_66": {
+    "claim": "The antibiotics gentamicin sulfate and polymyxin b are in vaccines and can cause allergic reactions ranging from mild to life-threatening.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "supported",
+    "prompt_tokens": 106,
+    "completion_tokens": 2
+  },
+  "claim_67": {
+    "claim": "Olive Garden restaurant chain  are funding trumps 2020 campaign.",
+    "speaker": "@billybobsanderz",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 100,
+    "completion_tokens": 4
+  },
+  "claim_68": {
+    "claim": "During the tenure of Nigerian President Jonathan, the inflationary pressure was kept at single digit.",
+    "speaker": "Goodluck Jonathan",
+    "source": "Permium Times",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 102,
+    "completion_tokens": 3
+  },
+  "claim_69": {
+    "claim": "Kobe Bryant's business ventures in China, posed a threat to the NBA's success.",
+    "speaker": "FammTV",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_70": {
+    "claim": "Colloidal silver is effective for any infection when applied topically and taken orally and can be used to fight infections and heal wounds, support the immune system, and eliminate nasty germs",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 117,
+    "completion_tokens": 3
+  },
+  "claim_71": {
+    "claim": "Leaves of sweet potatoes can kill cancer.",
+    "speaker": "Philippine Health Tips",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 90,
+    "completion_tokens": 4
+  },
+  "claim_72": {
+    "claim": "A screenshot shows a tweet from UK Labour leader Jeremy Corbyn saying the London Bridge attacker was \"murdered by British Police”.",
+    "speaker": "We Love England",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 108,
+    "completion_tokens": 3
+  },
+  "claim_73": {
+    "claim": "Nigeria spent 1 billion naira on COVID-19 text messages",
+    "speaker": "Metro daily Nigeria",
+    "source": "FACEBOOK",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 96,
+    "completion_tokens": 4
+  },
+  "claim_74": {
+    "claim": "Nancy Pelosi assured Iran that Trump will \"pay for his crimes.\"",
+    "speaker": "none",
+    "source": "Massachusetts Daily",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 94,
+    "completion_tokens": 4
+  },
+  "claim_75": {
+    "claim": "The Kenyatta administration has more than doubled the volume of cleared cargo passing through Kilindini, Mombasa's main port, annually.”",
+    "speaker": "President Kenyatta",
+    "source": "National Day Speech 2019",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "supported",
+    "prompt_tokens": 117,
+    "completion_tokens": 2
+  },
+  "claim_76": {
+    "claim": "20% of African Americans had jobs where they could work from home during the Covid 2020 crisis",
+    "speaker": "Desiree Rogers",
+    "source": "CNN",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 104,
+    "completion_tokens": 4
+  },
+  "claim_77": {
+    "claim": "KSh1.57 trillion is equivalent to 20% of the total shareable revenue of 7.8 trillion shillings in Kenya.",
+    "speaker": "Wycliffe Oparanya ",
+    "source": "2019 State of Devolution Address",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 122,
+    "completion_tokens": 2
+  },
+  "claim_78": {
+    "claim": "There is a phone scam in which \"these guys only ring once and hang up,\" and if you call back, they can copy your contact list in three seconds as well as your bank or credit details.",
+    "speaker": "Alexis Lann",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 123,
+    "completion_tokens": 4
+  },
+  "claim_79": {
+    "claim": "In the US, envelopes used for mail-in ballots in general elections reveal the party affiliation of the voter allowing postal workers to toss votes.",
+    "speaker": "Justin Bonanno ",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 109,
+    "completion_tokens": 3
+  },
+  "claim_80": {
+    "claim": "BBC Poll Shows BJP Win Between 323 To 380 Seats In The 2019 General Elections",
+    "speaker": "Chetan Dalvi",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 104,
+    "completion_tokens": 4
+  },
+  "claim_81": {
+    "claim": "The COVID-19 vaccine developed by Bharat Biotech will be available on the market on August 15, 2020.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 105,
+    "completion_tokens": 3
+  },
+  "claim_82": {
+    "claim": "Women in Russia get paid less than men for the same work.",
+    "speaker": "Tamara Pletneva",
+    "source": "RIA Novosti",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 101,
+    "completion_tokens": 2
+  },
+  "claim_83": {
+    "claim": "$53 million a week is coming across the Mexico/US border in drugs",
+    "speaker": "Rep. David McKinley, R-W.Va.",
+    "source": "Intelligencer",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 108,
+    "completion_tokens": 4
+  },
+  "claim_84": {
+    "claim": "Presidential candidate Joe Biden referred to the novel Coronavirus pandemic as a time when \"people are dying that have never died before.\"",
+    "speaker": "Daniel Yahola",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 106,
+    "completion_tokens": 4
+  },
+  "claim_85": {
+    "claim": "President Trump immediately dropped American sanctions against Russia after his election,",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 92,
+    "completion_tokens": 3
+  },
+  "claim_86": {
+    "claim": "An Illinois News Station Air ‘Pre-Rigged Election Results’ The Day Before The Primary.",
+    "speaker": "none",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_87": {
+    "claim": "Literal manure is coming out of taps in some US counties with CAFOs.",
+    "speaker": "US State Rep. Jimmy Anderson (D-Fitchburg)",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 106,
+    "completion_tokens": 4
+  },
+  "claim_88": {
+    "claim": "Donald Trump and the Republicans are committed to protecting people who have preexisting medical conditions.",
+    "speaker": "Donald Trump",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking",
+    "prompt_tokens": 98,
+    "completion_tokens": 8
+  },
+  "claim_89": {
+    "claim": "Donald Trump claimed that he met with the leaders of health insurance industry, who agreed to waive all co-payments for coronavirus treatments.",
+    "speaker": "Donald Trump",
+    "source": "Speech at Washington",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 109,
+    "completion_tokens": 4
+  },
+  "claim_90": {
+    "claim": "Over 700,000 children [accessed] early childhood education in the last financial year",
+    "speaker": "Cyril Ramaphosa",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_91": {
+    "claim": "Donal d trump claims \"The unemployment rate has reached the lowest in over 51 years. And African American, … Hispanic American, Asian American unemployment rates are at their all-time historic lows.\"",
+    "speaker": "Donald trump",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 120,
+    "completion_tokens": 2
+  },
+  "claim_92": {
+    "claim": "The external reserves of Nigeria grew from $33.42 billion on April 29th, 2020 to about $36 billion in May 2020.",
+    "speaker": "President Muhammadu Buhari of Nigeria",
+    "source": "democracy day address",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 119,
+    "completion_tokens": 2
+  },
+  "claim_93": {
+    "claim": "Abortion is never medically necessary.",
+    "speaker": "Lila Rose",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 89,
+    "completion_tokens": 3
+  },
+  "claim_94": {
+    "claim": "3.15 crore children vaccinated in India by August 2018.",
+    "speaker": "BJP government in India",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 98,
+    "completion_tokens": 2
+  },
+  "claim_95": {
+    "claim": "100,000 people have arrived in the UK since the lockdown began in mid to late March 2020.",
+    "speaker": "Keir Starmer",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 106,
+    "completion_tokens": 4
+  },
+  "claim_96": {
+    "claim": "West Virginia highways move up twenty places in the U.S national highway system to place sixteenth, and affirms all the hard work we do on our states roads.",
+    "speaker": "Jim Justice",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 114,
+    "completion_tokens": 4
+  },
+  "claim_97": {
+    "claim": "2.5 million passengers have travelled using Madaraka Express between its inception in May 2017 and April 2019.",
+    "speaker": "Uhuru Kenyatta",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "supported",
+    "prompt_tokens": 110,
+    "completion_tokens": 2
+  },
+  "claim_98": {
+    "claim": "The Supreme Leader of North Korea, Kim Jung Un, is seriously ill.",
+    "speaker": "The weekly Shukan Gendai",
+    "source": "MarketWatch",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_99": {
+    "claim": "Trump insisted that the special counsel was totally conflicted",
+    "speaker": "Donald Trump",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "supported",
+    "prompt_tokens": 92,
+    "completion_tokens": 2
+  },
+  "claim_100": {
+    "claim": "The sixth Democratic presidential debate of the 2020 campaign, hosted by PBS and Politico, had seven candidates, lasted more than 2½ hours — and did not have many statements that merited fact-checking. Here are six claims that caught our attention, some of which may seem familiar from previous debates. Our practice is not to award Pinocchios in debate roundups.",
+    "speaker": "  Glenn Kessler and  Salvador Rizzo",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 167,
+    "completion_tokens": 4
+  },
+  "claim_101": {
+    "claim": "“India let 65 lakh tonne of grain go waste in four months, even as the poor went hungry.",
+    "speaker": "Vikas Rawal, Manish Kumar, Ankur Verma & Jesim Pais",
+    "source": "Scroll In",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 119,
+    "completion_tokens": 4
+  },
+  "claim_102": {
+    "claim": "Former Vice President Atiku Abubakar and His Team Cleared Nigeria’s Entire Debt In 2006.",
+    "speaker": "Atiku Abubakar",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 106,
+    "completion_tokens": 3
+  },
+  "claim_103": {
+    "claim": "There is a 70% contagion probability between a COVID-19 carrier not wearing a mask and a non-carrier wearing a mask; a 5% contagion probability between a COVID-19 carrier wearing a mask and a non-carrier not wearing a mask; and a 1.5% contagion probability between a COVID-19 carrier and a non-carrier both wearing masks.",
+    "speaker": "none",
+    "source": "Social Media",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 160,
+    "completion_tokens": 4
+  },
+  "claim_104": {
+    "claim": "The United States of America has removed Zamfara from the list of terrorist states in Nigeria",
+    "speaker": "Governor Bello Matawalle",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 103,
+    "completion_tokens": 4
+  },
+  "claim_105": {
+    "claim": "The standard gauge railway has been in the books of the Kenyan government for 30 years but it was not built.",
+    "speaker": "Kenyan Deputy President, William Ruto ",
+    "source": "Chatham House speech",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 112,
+    "completion_tokens": 4
+  },
+  "claim_106": {
+    "claim": "80.63 lakh pregnant women have been immunized in India by August 2018.",
+    "speaker": "BJP government in India",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_107": {
+    "claim": "Nicole Kidman ‘blacklisted’ from Hollywood for vowing to support president Donald Trump.",
+    "speaker": "News punch ",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 99,
+    "completion_tokens": 3
+  },
+  "claim_108": {
+    "claim": "The Obama administration in the USA has cut the citizenship question from the US census in 2010.",
+    "speaker": "Kellyanne Conway",
+    "source": "Fox News",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 103,
+    "completion_tokens": 3
+  },
+  "claim_109": {
+    "claim": "Rep. Tim Ryan of Ohio said: “The bottom 60 percent of Americans haven’t seen a raise since 1980.”",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 106,
+    "completion_tokens": 4
+  },
+  "claim_110": {
+    "claim": "Children can’t get COVID-19.",
+    "speaker": "Allison Pearson",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 89,
+    "completion_tokens": 3
+  },
+  "claim_111": {
+    "claim": "Amy Klobuchar’s health plan is just two paragraphs long.",
+    "speaker": "Elizabeth Warren",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 94,
+    "completion_tokens": 4
+  },
+  "claim_112": {
+    "claim": "Video clip showing police entering people’s homes by force committing  atrocities on Kashmiris, India.",
+    "speaker": "none",
+    "source": " WhatsApp.",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_113": {
+    "claim": "The Indian government has procured 16.24 lakh metric tonnes of pulses as of March 2018",
+    "speaker": "India Government",
+    "source": "48 Months Portal",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 106,
+    "completion_tokens": 2
+  },
+  "claim_114": {
+    "claim": "or the first time ever, an African passport is among the top five most powerful in the world. Revealing this on Monday on its website, the Henley Passport Index released its ranking for the year 2020 and Nigeria had a dramatic rise from being at the 95th spot to going up to the 5th most powerful knocking out both Spain and Denmark and tying with Luxembourg.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 158,
+    "completion_tokens": 3
+  },
+  "claim_115": {
+    "claim": "Congress has raised the minimum wage only once in the last 18 years but raised their own salaries nine times.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 102,
+    "completion_tokens": 4
+  },
+  "claim_116": {
+    "claim": "In the last two years The U.S. Immigration and Customs Enforcement officers have made 266,000 arrests of criminal aliens…including those charged or convicted of nearly 100,000 assaults, 30,000 sex crimes, 4,000 kidnappings, and 4,000 murders.",
+    "speaker": "US President Donald Trump",
+    "source": "Grand Rapids, Michigan political rally",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 147,
+    "completion_tokens": 4
+  },
+  "claim_117": {
+    "claim": "95% percent of America's customers are outside it's borders.",
+    "speaker": "Amy Klobucher",
+    "source": "The Washington Post",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "refuted",
+    "prompt_tokens": 97,
+    "completion_tokens": 3
+  },
+  "claim_118": {
+    "claim": "Nigeria has a population exceeding 200 million.",
+    "speaker": "President Muhammadu Buhari",
+    "source": "https://www.channelstv.com/2020/10/01/nigeria-at-60-president-buharis-independence-anniversary-speech-full-text/",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 123,
+    "completion_tokens": 2
+  },
+  "claim_119": {
+    "claim": "The first Prime Minister of India, Pt. Jawaharlal Nehru gave an interview to Playboy magazine and the article was published in 1963.",
+    "speaker": "Mukesh Ambani (Parody Account)",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "refuted",
+    "prompt_tokens": 119,
+    "completion_tokens": 3
+  },
+  "claim_120": {
+    "claim": "3.8% of Wisconsin’s coronavirus funding has been spent.",
+    "speaker": "Bryan Steil",
+    "source": "Twitter",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 96,
+    "completion_tokens": 4
+  },
+  "claim_121": {
+    "claim": "The BJP government aims to cover 28.5 lakh hectare area under irrigation",
+    "speaker": "BJP Government ",
+    "source": "BJP Government ",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_122": {
+    "claim": "George Washington said “It will be found an unjust and unwise jealousy to deprive a man of his natural liberty upon the supposition he may abuse it.”",
+    "speaker": "Liquid Screed Quote me Happy",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 117,
+    "completion_tokens": 4
+  },
+  "claim_123": {
+    "claim": "Elephant dung is a cure for COVID-19.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 90,
+    "completion_tokens": 3
+  },
+  "claim_124": {
+    "claim": "HR 1 is going to take your hard-earned tax dollars and millions more and send them to (a political candidate’s) campaign so (they) can put ads on TV",
+    "speaker": "Mark Walker",
+    "source": "Video",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 117,
+    "completion_tokens": 4
+  },
+  "claim_125": {
+    "claim": "Kobe Bryant was assassinated by the NBA",
+    "speaker": "FammTV",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 91,
+    "completion_tokens": 3
+  },
+  "claim_126": {
+    "claim": "Atiku Abubaka, Nigerian presidential candidate, claimed Nigeria had 21 million unemployed young men and women in 2018.",
+    "speaker": "Atiku Abubaka",
+    "source": "Public Meeting",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 111,
+    "completion_tokens": 4
+  },
+  "claim_127": {
+    "claim": "Nigel Farage stated Nearly two-thirds of British businesses do not make a profit of over £10,000 but are subjected to corporation tax.",
+    "speaker": "Nigel Farage ",
+    "source": "The Telegraph",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 111,
+    "completion_tokens": 4
+  },
+  "claim_128": {
+    "claim": "84% of all households in South Africa have electricity.",
+    "speaker": "Cyril Ramaphosa",
+    "source": "SA Govt.",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 97,
+    "completion_tokens": 2
+  },
+  "claim_129": {
+    "claim": "face coverings/masks became “mandatory” in shops and indoor public spaces in Northern Ireland on 1 August 2020",
+    "speaker": "Kellie Armstrong MLA",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "supported",
+    "prompt_tokens": 108,
+    "completion_tokens": 2
+  },
+  "claim_130": {
+    "claim": "There is no vaccine for tuberculosis.",
+    "speaker": "Volunteers For Building A Border Wall",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 92,
+    "completion_tokens": 3
+  },
+  "claim_131": {
+    "claim": "Uganda’s President Yoweri Museveni said trees in Finland can take 120 years to mature.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 100,
+    "completion_tokens": 4
+  },
+  "claim_132": {
+    "claim": "US President Donald Trump is morbidly obese.",
+    "speaker": "Nancy Pelos",
+    "source": "Interview with CNN",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 94,
+    "completion_tokens": 4
+  },
+  "claim_133": {
+    "claim": "24,641 die of heart disease every day.",
+    "speaker": "none",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 91,
+    "completion_tokens": 4
+  },
+  "claim_134": {
+    "claim": "Walmart Tweeted \"We wont be Rebuilding Walmarts in Cities without police\"",
+    "speaker": "M. Cody Clifton",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 100,
+    "completion_tokens": 4
+  },
+  "claim_135": {
+    "claim": "The enumeration clause of the US Constitution speaks to the count of every individual and not just Americans, not just citizens. It’s everyone.\"",
+    "speaker": "Letitia James",
+    "source": "C-Span",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 111,
+    "completion_tokens": 2
+  },
+  "claim_136": {
+    "claim": "PM Modi announced a child helpline (1098) for the benefit of children in various crisis situations.",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "supported",
+    "prompt_tokens": 101,
+    "completion_tokens": 2
+  },
+  "claim_137": {
+    "claim": "The FEC report once again highlights President Trump’s immense grassroots support among small donors. 98.79% of first quarter contributions to the Campaign and the joint committees came from ‘low-dollar’ contributions, defined as $200 or less.",
+    "speaker": "President Trump’s reelection campaign",
+    "source": "Email from President Trump’s reelection campaign",
+    "input_mode": "with_metadata",
+    "true_label": 2,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 140,
+    "completion_tokens": 4
+  },
+  "claim_138": {
+    "claim": "Kenyan County Governments allocated out of their budgets at least 20% to health in the 2018/19 financial year.",
+    "speaker": "Wycliffe Oparanya ",
+    "source": "2019 State of Devolution Address",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "refuted",
+    "prompt_tokens": 117,
+    "completion_tokens": 3
+  },
+  "claim_139": {
+    "claim": "Alex Jones claimed on the InfoWars website that The United Nations said the economic crisis caused by the Covid-19 pandemic was ‘a good thing'.",
+    "speaker": "Alex Jones",
+    "source": "InfoWars Website",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 112,
+    "completion_tokens": 4
+  },
+  "claim_140": {
+    "claim": "Former Vice President Joe Biden was among the poorest men in government.",
+    "speaker": "Joe Biden",
+    "source": "Campaign speech in Columbus",
+    "input_mode": "with_metadata",
+    "true_label": 3,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 97,
+    "completion_tokens": 4
+  },
+  "claim_141": {
+    "claim": "President Trump Said \"I Will Pay For July 4 Parade Out Of My Own Pocket\"",
+    "speaker": "none",
+    "source": "Taters",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 99,
+    "completion_tokens": 4
+  },
+  "claim_142": {
+    "claim": "Slowed Coronavirus testing was due to Obama-era regulations.",
+    "speaker": "Donald Trump",
+    "source": "Whitehouse.gov",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "refuted",
+    "prompt_tokens": 94,
+    "completion_tokens": 3
+  },
+  "claim_143": {
+    "claim": "Donald Trump did not support the people in Hong Kong standing up for democracy.",
+    "speaker": "Pete Buttigieg",
+    "source": "The Washington Post",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 100,
+    "completion_tokens": 4
+  },
+  "claim_144": {
+    "claim": "Doctors in India have been successful in treating Coronavirus using combination of drugs used: Lopinavir, Retonovir, Oseltamivir along with Chlorphenamine. They are going to suggest same medicine, globally",
+    "speaker": "none",
+    "source": "none",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 123,
+    "completion_tokens": 4
+  },
+  "claim_145": {
+    "claim": "The Information and Communication Technology sector contributes more to Nigeria’s Gross Domestic Product than the Oil and Gas sector.",
+    "speaker": "Dr. Isa Ibrahim- Minister of Communications and Digital Economy",
+    "source": "Nile University Abuja",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 113,
+    "completion_tokens": 4
+  },
+  "claim_146": {
+    "claim": "Cannabis Boosts immunity against Novel Coronavirus",
+    "speaker": "Ada Dawasa ",
+    "source": "Youtube",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 90,
+    "completion_tokens": 4
+  },
+  "claim_147": {
+    "claim": "International students contributed over $40 billion to the U.S. economy in 2018-19.",
+    "speaker": "Chris Hayes",
+    "source": "MSNBC",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "supported",
+    "prompt_tokens": 101,
+    "completion_tokens": 2
+  },
+  "claim_148": {
+    "claim": "A Sri Lankan military hospital, Kotelawala Defence University Hospital, has been reserved exclusively for the use of \"VIPs\" who test positive for COVID-19.",
+    "speaker": "100% Aim",
+    "source": "Facebook",
+    "input_mode": "with_metadata",
+    "true_label": 1,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 116,
+    "completion_tokens": 4
+  },
+  "claim_149": {
+    "claim": "The United Nations Economic Commission for Africa is projecting that Africa’s growth will drop to 1.8%, and perhaps lower.",
+    "speaker": "Former Nigerian vice president Atiku Abubakar",
+    "source": "Daily Vanguard newspaper",
+    "input_mode": "with_metadata",
+    "true_label": 0,
+    "raw_output": "not enough evidence",
+    "prompt_tokens": 115,
+    "completion_tokens": 4
+  }
+}

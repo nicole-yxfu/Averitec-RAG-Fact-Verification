@@ -1,0 +1,106 @@
+[
+  {
+    "claim": "The judiciary does not even get 1% of the Kenyan national budget.",
+    "speaker": "David Maraga",
+    "source": "NTV",
+    "evidence_text": "[1] Q: What share percentage did the judiciary receive from the Kenyan national budget in 2019/20?\n    A: 0.7%\n[2] Q: What share percentage did the judiciary receive from the Kenyan national budget in 2020/21?\n    A: 0.6%\n[3] Q: Has the judiciary ever received 1% of the Kenyan national budget?\n    A: Yes\n[4] Q: When was the claim made?\n    A: 1st August 2020.",
+    "label": "supported",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 1810,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  },
+  {
+    "claim": "A satire website posted a story that AOC Proposed Ending Social Security Benefits After Age 75",
+    "speaker": "Christopher Blair",
+    "source": "Bustatroll.org",
+    "evidence_text": "[1] Q: Who is the 'AOC'  the claim refers to?\n    A: U.S. Rep. Alexandria Ocasio-Cortez of New York\n[2] Q: Which website does the claim refer to as publishing the story in the claim?\n    A: Bustatroll.org\n[3] Q: Did Bustatroll.org publish a story saying that, 'AOC Proposed Ending Social Security Benefits After Age 75'?\n    A: Yes\n[4] Q: Is the site (Bustatroll.org) a satire website?\n    A: Yes",
+    "label": "supported",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 222,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  },
+  {
+    "claim": "NY: EXHAUSTED FUNERAL HOME EMPLOYEE CREMATED BY MISTAKE WHILE TAKING A NAP",
+    "speaker": "Punjabi Hub TV",
+    "source": "facebook",
+    "evidence_text": "[1] Q: What was the name of the man who was mistakenly cremated\n    A: Michael Jones\n[2] Q: Why did Facebook flag the post\n    A: Facebook flagged the post as false because the original story came from a site that publishes fiction\n[3] Q: Have there been other similar claims\n    A: Yes\n[4] Q: Was an exhausted funeral home employee  cremated by mistake while taking a nap in New York ?\n    A: No, this is a fake news that is satirical nature",
+    "label": "refuted",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 466,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": true
+    }
+  },
+  {
+    "claim": "Jim Carrey said,  'Hollywood Elites Eat Whole Babies For Christmas' - 'The More They Suffer - The Better They Taste'",
+    "speaker": "unknown",
+    "source": "unknown",
+    "evidence_text": "[1] Q: Is there any record of Jim Carrey saying that Hollywood elite eat babies?\n    A: No answer could be found.\n[2] Q: Where was this claim first published?\n    A: The story was published in a blog post though they credited Newspunch for the story. Newspunch have removed the story now from their site.\n[3] Q: So is there any proof that Jim Carey said this remark?\n    A: News punch removed as it was considered outdated and inaccurate.,",
+    "label": "refuted",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 396,
+      "n_questions": 3,
+      "hand_pinned_pragmatic_refutation": true
+    }
+  },
+  {
+    "claim": "In Kenya in 2022, a population of about 48 million people has just one judge per 300,000 people.",
+    "speaker": "David Maraga",
+    "source": "Interview",
+    "evidence_text": "[1] Q: How many people live in Kenya?\n    A: The population has grown to 47.6 Million in 2019\n[2] Q: How many judges do they have in Kenya ?\n    A: No answer could be found.\n[3] Q: So how many people are there for each judge?\n    A: No answer could be found.\n[4] Q: What is the judge-population ratio in Kenya?\n    A: No answer could be found.",
+    "label": "not enough evidence",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 127,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  },
+  {
+    "claim": "Nigeria has 69 research institutes",
+    "speaker": "sam ohuabunwa",
+    "source": "Punch",
+    "evidence_text": "[1] Q: how many research institutes does Nigeria have\n    A: Government\nARCN\n\nAgricultural Research Council of Nigeria\n\nNVRI\n\nNational Veterinary Research Institute\n\nNIOMR\n\nNigerian Institute for Oceanography and Marine Research\n\nNIFOR\n\nNigerian Institute for Oil-Palm Research\n\nNRCRI\n\nNational Root Crops Research Institute\n\nNIHORT\n\nNational Horticultural Research Institute\n\nCRIN\n\nCocoa Research Institute of Nigeria\n\nRRIN\n\nRubber Research Institute of Nigeria\n\nNSPRI\n\nThe Nigerian Stored Products Research Institute\n\nNCRI\n\nNational Cereals Research Institute\n\nIAR\n\nInstitute for Agricultural Research\n\nIAR&T\n\nInstitute of Agricultural Research & Training\n\nNAERLS\n\nNational Agricultural Extension and Research Liaison Services\n\nLCRI\n\nLake Chad Research Institute\n\nNIFFR\n\nNational Institute for Freshwater Fisheries Research\n\nNAPRI\n\nNational Animal Production Research Institute\n\nNACGRAB\n\nNational Center For Genetic Resources & Biotechnology\n\nFIIRO\n\nFederal Institute Of Industrial Research, Oshodi\n\nPRODA\n\nProjects Development Institute\n\nNITR\n\nNigerian Institute for Trypanosomiasis Research\n\nFRIN\n\nForestry Research Institute of Nigeria\n\nNARICT\n\nNational Research Institute for Chemical Technology\n\nNISER\n\nNigerian Institute of Social and Economic Research\n\nHigher education\nUNN\n\nUniversity of Nigeria - Faculty of Agriculture\n\nUNN\n\nUniversity of Nigeria - Faculty of Veterinary Medicine\n\nUNN\n\nUniversity of Nigeria - Faculty of Engineering - Agriculture & Bioresources Engineering\n\nUNN\n\nUniversity of Nigeria - Centre for Rural Development & Cooperatives\n\nUNAAB\n\nUniversity of Agriculture, Abeokuta\n\nUniversity of Benin - Faculty of Agriculture\n\nABU\n\nAhmadu Bello University - Faculty of Veterinary Medicine\n\nABU\n\nAhmadu Bello University - Faculty of Agriculture\n\nABU\n\nAhmadu Bello University - Faculty of Engineering - Agricultural Engineering Department\nUniversity of Ibadan - Faculty of Agriculture and Forestry\nUniversity of Ibadan - Faculty of Veterinary Medicine\nUniversity of Ibadan - Faculty of Technology - Department of Agricultural and Environme\n[2] Q: According to the National bureau of statistics, how many institutes are there ?\n    A: 41\n[3] Q: Are there different types of research institutions other than the 41 ?\n    A: Yes, some are public, private or independent and there are some at universities.\n[4] Q: So is it possible to tell what type of research institute the man that made the claim (Ohuabunwa) is referring to?\n    A: No",
+    "label": "not enough evidence",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 2356,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  },
+  {
+    "claim": "A double taxation avoidance agreement was signed between India and three new countries, which are: Mauritius, Cyprus, and Singapore.",
+    "speaker": "unknown",
+    "source": "unknown",
+    "evidence_text": "[1] Q: Which countries have signed the Double taxation avoidance agreement?\n    A: India had completed DTAA renegotiations with 23 countries, including Switzerland.\n[2] Q: When did Mauritius sign the  double taxation avoidance agreement?\n    A: Signed in 1983\n[3] Q: When did Cyprus sign the  double taxation avoidance agreement?\n    A: 18th of November 2016\n[4] Q: When did Singapore sign the double taxation avoidance agreement?\n    A: 24th January, 1994",
+    "label": "conflicting evidence/cherrypicking",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 657,
+      "n_questions": 4,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  },
+  {
+    "claim": "Since Trump took office, 7 million more people lack health insurance that used to have it.",
+    "speaker": "Bernie Sanders",
+    "source": "Fox News",
+    "evidence_text": "[1] Q: Where are Sanders' numbers from?\n    A: The January 2019 Gallup estimate\n[2] Q: What does the Gallup estimate to be the amount of people who lost insurance in 2019?\n    A: 2.8 percentage points from its low in 2016. Gallup ran the numbers and converted that rise into 7 million people who lost insurance.\n[3] Q: What number did the government survey say?\n    A: About 1.3 million people.",
+    "label": "conflicting evidence/cherrypicking",
+    "_picker_meta": {
+      "picker": "clean-v1 (internal_train only, eval-split overlap excluded)",
+      "claim_idx_in_internal_train": 731,
+      "n_questions": 3,
+      "hand_pinned_pragmatic_refutation": false
+    }
+  }
+]
