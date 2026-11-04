@@ -13,10 +13,15 @@ bin/*.pt
 bin/*.bin
 
 # ─── Large regeneratable caches (kept local, never committed) ────────
-results/bm25_corpus_cache/       # ~32 MB, ~10 h to rebuild via warmup_dev_corpus.py
-results/bm25_ranking_cache/      # per-claim BM25 rankings, regeneratable
-results/duckduckgo_cache/        # per-query DDG snippets, regeneratable (rate-limited)
-results/*_retrieval_cache.json   # large retrieval caches; re-run retrieval to rebuild
+# NOTE: .gitignore does NOT support inline comments — patterns must stand alone.
+# bm25_corpus_cache: ~32 MB, ~10 h to rebuild via warmup_dev_corpus.py
+# bm25_ranking_cache: per-claim BM25 rankings, regeneratable
+# duckduckgo_cache:   per-query DDG snippets, regeneratable (rate-limited)
+# *_retrieval_cache / *_top5 / *_pool30: large retrieval caches, re-run retrieval to rebuild
+results/bm25_corpus_cache/
+results/bm25_ranking_cache/
+results/duckduckgo_cache/
+results/*_retrieval_cache.json
 results/bm25_baseline_*_top5*.json
 results/dense_v2_*_pool30_top5_cache.json
 

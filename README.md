@@ -43,6 +43,32 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 
 Reading down the three evidence rungs (closed → open → oracle) is the main result; the two prompt rows under *Open web* isolate the prompt effect at a fixed source; *Dense rerank* and *8-shot ICL* are the retrieval- and prompt-side ablations. Even under gold evidence, the **Conflicting** class stays near zero (F1 0.045) — the motivation for the error analysis below.
 
+## Faithfulness (is the verdict grounded, or hallucinated?)
+
+Macro-F1 measures whether a verdict is **correct**; it says nothing about whether the verdict is **grounded in the evidence actually retrieved**. A fact-checker that guesses right from the model's parametric memory is still unsafe. `src/rag_eval.py` adds a RAGAS-style **faithfulness** metric via an LLM-as-judge: given *only* the retrieved evidence and the system's verdict, is that verdict justified?
+
+Faithfulness on 150 dev claims (judge = `gpt-4.1-mini`):
+
+| Verdict | Closed-web (BM25) | Open-web (DDG) |
+|---|---|---|
+| Supported | 0.581 | **0.892** |
+| Refuted | 0.800 | 0.867 |
+| NEE | 0.431 | 0.414 |
+| Conflicting | 0.500 | 0.500 |
+| **Overall** | **0.592** | **0.772** |
+
+Two findings this adds on top of accuracy:
+
+1. **Open-web retrieval improves faithfulness (+0.18), not just accuracy (+0.085 Macro-F1).** Almost all of the gain is in *Supported* verdicts (0.58 → 0.89): the closed-web system frequently claimed support the Knowledge Store did not actually contain — a hallucination the open web closes by retrieving the real supporting page.
+2. **NEE verdicts are the least grounded under *both* sources (~0.42).** Because this is source-invariant, the over-prediction of "not enough evidence" is a model-reasoning limitation, not a retrieval one — independently corroborating the error analysis below.
+
+```bash
+python src/rag_eval.py \
+    --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
+    --prediction-cache results/ddg_direct_dev500_plain_eval_cache.json \
+    --output-cache results/faithfulness_ddg_plain_s150.json --sample 150
+```
+
 ## Setup
 
 ```bash
@@ -135,6 +161,7 @@ python tests/test_core.py     # no pytest required
 - `perceptron.py`, `train_perceptron.py`, `features.py`, `dataset.py`, `dummy_baselines.py`
 
 **Evaluation & analysis**
+- `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?)
 - `make_results_table.py` — scores every prediction cache and regenerates the full results table above (no API calls)
 - `evaluate_retrieval.py` (URL Recall@5), `evaluate_text_overlap.py` (text-overlap recall + permutation null)
 - `analyze_gold_gap.py` — oracle gap decomposition (quantitative)
