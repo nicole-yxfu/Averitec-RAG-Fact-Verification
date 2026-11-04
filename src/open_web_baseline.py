@@ -1,38 +1,28 @@
 """
-open_web_baseline.py — DuckDuckGo open-web retrieval on AVeriTeC (Week 5 Task 1).
+open_web_baseline.py — DuckDuckGo open-web retrieval on AVeriTeC.
 
-This is the AVeriTeC side of the shared "Direct + DDG top-5" cross-dataset
-anchor with the LIAR-side implementation in
-TruthMatters/xingyu_implementation/src/{direct_query_generation,duckduckgo_retrieval}.py.
+Swaps the closed AVeriTeC Knowledge Store for live open-web search, holding
+the LLM and prompt fixed so the only variable is the evidence SOURCE. This is
+the "open-web" rung of the evidence-availability ladder (closed KS -> open web
+-> gold oracle).
 
-Retrieval behavior is MIRRORED from the teammate's code so the anchor is
-implementation-identical on both datasets (RQ3: does a retrieval pipeline
-optimized on LIAR generalize to AVeriTeC?):
+Retrieval configuration:
 
-  - Query = the AVeriTeC claim text, .strip() only, no reformulation
-    (matches teammate's generate_direct_query)
+  - Query = the AVeriTeC claim text, .strip() only, no reformulation (direct).
   - Engine = ddgs.DDGS().text(query, max_results=5)  (defaults; no region /
-    safesearch overrides — matches teammate's retrieve_duckduckgo_evidence)
-  - Retries: up to 3 attempts, sleep(2) between attempts
+    safesearch overrides).
+  - Retries: up to 3 attempts, sleep(2) between attempts.
   - Per-result throttle: sleep(1) after each of the 5 results is unpacked
-    (kept for behavior parity even though it's not strictly needed)
-  - Evidence unit stored for each hit: dict(title, snippet, url)
+    (conservative pacing to avoid rate limits).
+  - Evidence unit stored for each hit: dict(title, snippet, url).
 
-Where we DIVERGE from the teammate — and why:
-
-  - She writes a single string 'Result i\\nTitle:...\\nSnippet:...\\nURL:...'
-    into a CSV; we write a per-passage tuple (score=0.0, url, "Title: ...\\n
-    Snippet: ...") so `reprompt_eval.py` can consume this cache unchanged
-    (same schema as BM25 retrieval caches: `top_passages: list[[score, url,
-    passage]]`). The rendered LLM input via `build_user_input()` will then
-    read '[i] {url}\\nTitle: ...\\nSnippet: ...' — same three fields as hers,
-    just re-ordered because our BM25 template puts the URL first. This is an
-    intentional integration point, not a config difference.
-
-  - LLM/prompt are ours (gpt-4.1-mini + plain zero-shot); hers are hers
-    (GPT-5-mini + custom binary prompt). Model asymmetry is a documented
-    limitation for RQ3 transfer (course permits different models); the
-    RETRIEVAL SIDE is what the anchor pins down.
+Each hit is written as a per-passage tuple (score=0.0, url, "Title: ...\\n
+Snippet: ...") so `reprompt_eval.py` consumes this cache unchanged — it uses
+the same schema as the BM25 retrieval caches (`top_passages: list[[score,
+url, passage]]`). The rendered LLM input via `build_user_input()` then reads
+'[i] {url}\\nTitle: ...\\nSnippet: ...'. Keeping retrieval and the LLM step
+decoupled behind a shared cache is what lets every ablation change exactly
+one component.
 
 Disk cache: results/duckduckgo_cache/{sha1(query)}.json — one file per
 UNIQUE query text, so retries after a DDG ban don't re-hit the network for
@@ -89,7 +79,7 @@ def ddg_search_cached(query: str, cache_dir: str, top_k: int = 5,
                       max_retries: int = 3, retry_sleep: float = 2.0,
                       per_result_sleep: float = 1.0) -> list[dict]:
     """
-    Mirrors teammate's retrieve_duckduckgo_evidence: up to `max_retries`
+    DuckDuckGo text search with retry + throttling: up to `max_retries`
     attempts, sleep(retry_sleep) between attempts, sleep(per_result_sleep)
     between per-result unpacks. Returns a list of dicts with keys
     (title, snippet, url); [] on total failure.

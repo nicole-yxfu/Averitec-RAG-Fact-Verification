@@ -1,18 +1,28 @@
-# AVeriTeC — Advanced Approaches 
-Retrieval-augmented LLM fact verification on **AVeriTeC** (4-class: Supported / Refuted / Not Enough Evidence / Conflicting). This repository contains a controlled decomposition of the RAG pipeline into three components — evidence source, prompt design, and retrieval strategy — plus a mechanism-oriented error analysis. It covers both the traditional (no-evidence) baseline and the advanced RAG system.
+# What Actually Drives Retrieval-Augmented Fact Verification?
 
+**A controlled study on AVeriTeC showing that *where* evidence comes from matters far more than *how* it is retrieved.**
 
-## Central finding
+Fact-checking with retrieval-augmented LLMs has three tunable components — the **evidence source**, the **prompt**, and the **retrieval strategy** — and most research pours effort into the last one (dense retrievers, query reformulation, decomposition). This project asks: *which one actually moves the needle?* By decoupling the pipeline and caching every stage, each experiment changes exactly one component, cleanly isolating its effect on 4-class veracity prediction (Supported / Refuted / Not Enough Evidence / Conflicting).
 
-`Evidence Source ≫ Prompt Design > Retrieval Strategy` on the official 500-claim dev set (Macro-F1):
+### Headline result
 
-| Configuration | Macro-F1 | Cache |
+> **Evidence Source ≫ Prompt Design > Retrieval Strategy**
+
+Climbing an evidence-availability ladder on the official 500-claim dev set (Macro-F1):
+
+| Configuration | Macro-F1 | |
 |---|---|---|
-| Averaged Perceptron (no evidence) | 0.3546 | `results/perceptron_predictions.csv` |
-| LLM zero-shot (no evidence) | 0.3365 | `results/llm_baseline_official_dev_with_metadata_cache.json` |
-| BM25 closed-web + plain prompt | 0.3644 | `results/bm25_official_dev_plain_prompt_cache.json` |
-| **DuckDuckGo open-web + plain prompt** | **0.4495** | `results/ddg_direct_dev500_plain_eval_cache.json` |
-| Gold evidence (oracle) | 0.5633 | `results/gold_baseline_official_dev_with_metadata_cache.json` |
+| Averaged Perceptron (no evidence) | 0.3546 | traditional baseline |
+| LLM zero-shot (no evidence) | 0.3365 | reasoning alone isn't the bottleneck |
+| BM25 closed-web + plain prompt | 0.3644 | curated Knowledge Store |
+| **DuckDuckGo open-web + plain prompt** | **0.4495** | **+0.085, McNemar p = 2.5e-7** |
+| Gold evidence (oracle) | 0.5633 | upper bound |
+
+Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling. In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** reliably adds a secondary +0.03–0.04 across both evidence sources.
+
+An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
+
+**Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · scikit-learn · NLTK
 
 ## Setup
 
@@ -96,7 +106,7 @@ python tests/test_core.py     # no pytest required
 **Core pipeline**
 - `bm25_baseline.py` — BM25 Okapi retrieval over the Knowledge Store; 3-tier cache, atomic writes, `--retrieval-only` decoupling. The project's backbone.
 - `dense_rerank.py` — BM25 prefilter → mpnet bi-encoder rerank → top-5 (retrieval-strategy ablation).
-- `open_web_baseline.py` — DuckDuckGo open-web retrieval; mirrors the LIAR-side retrieval config for the cross-dataset anchor.
+- `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder.
 - `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard}`, `--fewshot-file`.
 - `gold_baseline.py` — gold-evidence oracle upper bound.
 - `llm_baseline.py` — LLM zero-shot, no retrieval.
