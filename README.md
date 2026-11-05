@@ -47,26 +47,40 @@ Reading down the three evidence rungs (closed → open → oracle) is the main r
 
 Macro-F1 measures whether a verdict is **correct**; it says nothing about whether the verdict is **grounded in the evidence actually retrieved**. A fact-checker that guesses right from the model's parametric memory is still unsafe. `src/rag_eval.py` adds a RAGAS-style **faithfulness** metric via an LLM-as-judge: given *only* the retrieved evidence and the system's verdict, is that verdict justified?
 
-Faithfulness on 150 dev claims (judge = `gpt-4.1-mini`):
+Faithfulness across the full evidence ladder (all 500 official dev claims, judge = `gpt-4.1-mini`):
 
-| Verdict | Closed-web (BM25) | Open-web (DDG) |
-|---|---|---|
-| Supported | 0.581 | **0.892** |
-| Refuted | 0.800 | 0.867 |
-| NEE | 0.431 | 0.414 |
-| Conflicting | 0.500 | 0.500 |
-| **Overall** | **0.592** | **0.772** |
+| Verdict | Closed-web (BM25) | Open-web (DDG) | Gold (oracle) |
+|---|---|---|---|
+| Supported | 0.726 | 0.803 | 0.800 |
+| Refuted | 0.760 | 0.861 | 0.884 |
+| NEE | 0.484 | 0.522 | 0.659 |
+| Conflicting | 0.500 | 0.600 | 0.667 |
+| **Overall** | **0.637** | **0.753** | **0.822** |
+
+<sub>Judged on 487 / 485 / 488 claims respectively; 9–12 per config are dropped where Azure's content filter blocks the judge call. Faithfulness is the share of verdicts the judge rules justified *by the evidence shown* (not by real-world truth).</sub>
 
 Two findings this adds on top of accuracy:
 
-1. **Open-web retrieval improves faithfulness (+0.18), not just accuracy (+0.085 Macro-F1).** Almost all of the gain is in *Supported* verdicts (0.58 → 0.89): the closed-web system frequently claimed support the Knowledge Store did not actually contain — a hallucination the open web closes by retrieving the real supporting page.
-2. **NEE verdicts are the least grounded under *both* sources (~0.42).** Because this is source-invariant, the over-prediction of "not enough evidence" is a model-reasoning limitation, not a retrieval one — independently corroborating the error analysis below.
+1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. Better evidence doesn't just make the system *more often right*, it makes its verdicts *better grounded*: the single most effective accuracy lever (swapping the evidence source) is also the most effective faithfulness lever. The closed-web system is unfaithful on ~36% of its verdicts — asserting support or refutation the Knowledge Store does not actually contain — and moving to the open web closes a third of that gap (+0.12 faithfulness).
+2. **"Not enough evidence" is the least-grounded verdict at every rung** (0.48 → 0.52 → 0.66) — the system's weakest class for grounding, and precisely the class the oracle-gap error analysis flags as the dominant residual error. It improves with better evidence, but stays lowest *even under gold evidence* (a third of gold-NEE verdicts are still unjustified), so the NEE weakness is partly a reasoning limit, not purely a retrieval one — independently corroborating the error analysis below.
+
+Reproduce (the gold column first materializes gold QA pairs into retrieval-cache shape, then runs the same judge):
 
 ```bash
+# Open-web column
 python src/rag_eval.py \
     --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
     --prediction-cache results/ddg_direct_dev500_plain_eval_cache.json \
-    --output-cache results/faithfulness_ddg_plain_s150.json --sample 150
+    --output-cache results/faithfulness_ddg_plain_dev500.json
+
+# Gold (oracle) column
+python src/build_gold_evidence_cache.py \
+    --data-file data/dev.json \
+    --output-cache results/gold_evidence_dev500_retrieval_cache.json
+python src/rag_eval.py \
+    --retrieval-cache results/gold_evidence_dev500_retrieval_cache.json \
+    --prediction-cache results/gold_baseline_official_dev_with_metadata_cache.json \
+    --output-cache results/faithfulness_gold_plain_dev500.json
 ```
 
 ## Setup
@@ -161,7 +175,8 @@ python tests/test_core.py     # no pytest required
 - `perceptron.py`, `train_perceptron.py`, `features.py`, `dataset.py`, `dummy_baselines.py`
 
 **Evaluation & analysis**
-- `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?)
+- `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?), with 429 back-off and resumable caching.
+- `build_gold_evidence_cache.py` — materializes gold QA pairs into retrieval-cache shape so the oracle config can be scored for faithfulness with the same judge.
 - `make_results_table.py` — scores every prediction cache and regenerates the full results table above (no API calls)
 - `evaluate_retrieval.py` (URL Recall@5), `evaluate_text_overlap.py` (text-overlap recall + permutation null)
 - `analyze_gold_gap.py` — oracle gap decomposition (quantitative)

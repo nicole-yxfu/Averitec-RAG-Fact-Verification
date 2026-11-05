@@ -31,6 +31,7 @@ import argparse
 import json
 import os
 import sys
+import time
 
 from dotenv import load_dotenv
 from sklearn.metrics import f1_score  # noqa: F401  (kept for parity / future axes)
@@ -143,22 +144,37 @@ def main():
             continue  # unparseable verdict — skip faithfulness
         user_input = build_judge_input(
             rentry.get("claim", ""), NAMES[pred], rentry.get("top_passages", []))
-        try:
-            raw, _p, _c = call_fn(client, JUDGE_SYSTEM, user_input)
-            faithful = parse_judge(raw)
-            note = raw.strip()[:40]
-        except Exception as e:
-            # Azure content filter trips on a few claims whose evidence text is
-            # flagged; record and skip (faithful=-1) so reruns don't retry them.
-            err = str(e)
-            if "content_filter" in err or "ResponsibleAI" in err:
-                faithful, note = -1, "content_filtered"
-            else:
+        # Judge call with bounded exponential backoff on rate limits (HTTP 429).
+        # Content-filtered evidence is recorded (faithful=-1) so reruns skip it;
+        # any other error after retries is left uncached so a rerun retries it.
+        faithful, note, done = None, None, False
+        for attempt in range(6):
+            try:
+                raw, _p, _c = call_fn(client, JUDGE_SYSTEM, user_input)
+                faithful, note, done = parse_judge(raw), raw.strip()[:40], True
+                break
+            except Exception as e:
+                err = str(e)
+                if "content_filter" in err or "ResponsibleAI" in err:
+                    faithful, note, done = -1, "content_filtered", True
+                    break
+                if "429" in err or "rate" in err.lower():
+                    wait = 5 * (2 ** attempt)  # 5,10,20,40,80,160s
+                    print(f"  [429] {cid}: backing off {wait}s (attempt {attempt+1}/6)")
+                    time.sleep(wait)
+                    continue
                 print(f"  [error] {cid}: {err[:120]}")
-                continue
+                break
+        if not done:
+            continue  # exhausted retries / hard error — leave uncached for rerun
         cache[cid] = {"pred": pred, "faithful": faithful, "judge_raw": note}
         new_calls += 1
-        _write_json_atomic(args.output_cache, cache)
+        try:
+            _write_json_atomic(args.output_cache, cache)
+        except OSError as e:
+            # A transient filesystem hiccup on the atomic replace must not drop
+            # all progress; the in-memory cache persists on the next write.
+            print(f"  [warn] cache write failed ({e}); will retry next claim")
         if new_calls % 25 == 0:
             print(f"  {i}/{len(cids)} | judged {new_calls} new")
 

@@ -1,0 +1,2487 @@
+{
+  "claim_0": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_1": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_2": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_3": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_4": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_5": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_6": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_7": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_8": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_9": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_10": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_11": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_12": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_13": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_14": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_15": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_16": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_17": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_18": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_19": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_20": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_21": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_22": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_23": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_24": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_25": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_26": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_27": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_28": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_29": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_30": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_31": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_32": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_33": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_34": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_35": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_36": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_37": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_38": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_39": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_40": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_41": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_42": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_43": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_44": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_45": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_46": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_47": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_48": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_49": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_50": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_51": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_53": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_54": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_55": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_56": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_57": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_58": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_60": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_62": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_63": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_64": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_65": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_66": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_68": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_70": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_71": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_72": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_74": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_75": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_78": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_81": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_84": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_85": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_86": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_88": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_89": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_91": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_92": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_93": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_97": {
+    "pred": 2,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_98": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_100": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_101": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_102": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_103": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_104": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_107": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_108": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_109": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_111": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_113": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_115": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_117": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_119": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_121": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_122": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_126": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_129": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_134": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_137": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_138": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_144": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_145": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_147": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_152": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_155": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_158": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_160": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_164": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_167": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_169": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_170": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_172": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_176": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_177": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_181": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_182": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_183": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_186": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_188": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_189": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_190": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_194": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_196": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_197": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_199": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_200": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_201": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_203": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_209": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_210": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_211": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_218": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_227": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_228": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_229": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_235": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_236": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_239": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_242": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_244": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_245": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_246": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_247": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_249": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_259": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_261": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_262": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_263": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_267": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_269": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_270": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_271": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_272": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_273": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_276": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_277": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_278": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_279": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_280": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_281": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_282": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_285": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_286": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_287": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_288": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_289": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_290": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_292": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_293": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_295": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_296": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_297": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_298": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_299": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_300": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_301": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_302": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_303": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_304": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_305": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_306": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_307": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_308": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_309": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_310": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_311": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_312": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_313": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_314": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_315": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_316": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_317": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_318": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_319": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_320": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_321": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_322": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_323": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_324": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_325": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_326": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_327": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_328": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_329": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_330": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_331": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_333": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_334": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_335": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_336": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_337": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_338": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_339": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_340": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_341": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_342": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_343": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_344": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_345": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_346": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_347": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_348": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_349": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_350": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_351": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_352": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_353": {
+    "pred": 3,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_354": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_355": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_356": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_357": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_358": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_359": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_360": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_361": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_362": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_363": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_364": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_365": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_366": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_367": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_368": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_369": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_370": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_371": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_372": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_373": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_374": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_375": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_376": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_377": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_378": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_379": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_380": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_381": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_382": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_383": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_384": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_385": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_386": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_387": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_388": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_389": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_390": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_391": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_392": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_393": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_394": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_395": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_396": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_397": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_398": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_399": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_400": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_401": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_402": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_403": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_404": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_405": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_406": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_407": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_408": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_409": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_410": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_411": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_412": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_413": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_414": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_415": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_416": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_417": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_418": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_419": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_420": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_421": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_422": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_423": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_424": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_425": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_426": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_427": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_428": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_429": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_430": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_431": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_432": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_433": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_434": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_435": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_436": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_438": {
+    "pred": 3,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_439": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_440": {
+    "pred": 3,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_441": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_442": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_443": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_444": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_445": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_446": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_447": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_448": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_449": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_450": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_451": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_452": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_453": {
+    "pred": 3,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_454": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_455": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_456": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_457": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_458": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_459": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_460": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_461": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_462": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_463": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_464": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_465": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_466": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_467": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_468": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_469": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_470": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_471": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_472": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_473": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_474": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_475": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_476": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_477": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_478": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_479": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_480": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_481": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_482": {
+    "pred": 2,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_483": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_484": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_485": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_486": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_487": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_488": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_489": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_490": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_491": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_492": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_493": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_494": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_495": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_496": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_497": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_498": {
+    "pred": 3,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_499": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_52": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_59": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_61": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_67": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_69": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_73": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_77": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_79": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_80": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_82": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_83": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_87": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_90": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_94": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_95": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_96": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_99": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_105": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_106": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_110": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_112": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_114": {
+    "pred": 1,
+    "faithful": -1,
+    "judge_raw": "content_filtered"
+  },
+  "claim_116": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_118": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_120": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_123": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_124": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_125": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_127": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_128": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_130": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_131": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_132": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_133": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_135": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_136": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_139": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_140": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_141": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_142": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_143": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_146": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_148": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_149": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_150": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_151": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_153": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_154": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_156": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_157": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_159": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_161": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_162": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_163": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_165": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_166": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_168": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_171": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_173": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_174": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_175": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_178": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_179": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_180": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_184": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_185": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_187": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_191": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_192": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_193": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_195": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_198": {
+    "pred": 0,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_202": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_204": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_205": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_206": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_207": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_208": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_212": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_213": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_214": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_215": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_216": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_217": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_219": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_220": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_221": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_222": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_223": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_224": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_225": {
+    "pred": 2,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_226": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_230": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_231": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_232": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_233": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_234": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_237": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_238": {
+    "pred": 3,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_240": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_241": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_243": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_248": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_250": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_251": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_252": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_253": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_254": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_255": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_256": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_257": {
+    "pred": 0,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_258": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_260": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_264": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_265": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_266": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_268": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_274": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_275": {
+    "pred": 1,
+    "faithful": 0,
+    "judge_raw": "unfaithful"
+  },
+  "claim_283": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_284": {
+    "pred": 2,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_291": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  },
+  "claim_294": {
+    "pred": 1,
+    "faithful": 1,
+    "judge_raw": "faithful"
+  }
+}
