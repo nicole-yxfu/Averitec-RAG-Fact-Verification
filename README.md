@@ -22,7 +22,7 @@ Switching the **evidence source** (closed → open web) gives the single largest
 
 An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
-**Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · scikit-learn · NLTK
+**Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · scikit-learn · NLTK
 
 ## Full results
 
@@ -82,6 +82,45 @@ python src/rag_eval.py \
     --prediction-cache results/gold_baseline_official_dev_with_metadata_cache.json \
     --output-cache results/faithfulness_gold_plain_dev500.json
 ```
+
+## Live service (`POST /verify`)
+
+The evaluated open-web pipeline is also exposed as a small **FastAPI** service, so a claim can be verified over HTTP and get back a grounded verdict with its evidence, latency and cost. The service calls the *same* retrieval, prompt and LLM code as the experiments (`src/service.py` is a thin wrapper), so what it serves is the project's best non-oracle configuration, not a re-implementation.
+
+```bash
+uvicorn src.service:app --port 8000      # then open http://localhost:8000/docs
+```
+
+![Interactive API docs (Swagger UI)](docs/swagger_ui.jpg)
+
+```bash
+curl -s -X POST http://localhost:8000/verify \
+  -H "Content-Type: application/json" \
+  -d '{"claim": "The Eiffel Tower is taller than the Great Pyramid of Giza."}'
+```
+
+```json
+{
+  "verdict": "supported",
+  "verdict_label": "Supported",
+  "evidence": [
+    {
+      "url": "https://www.britannica.com/topic/Eiffel-Tower-Paris-France",
+      "title": "Eiffel Tower | History, Height, & Facts | Britannica",
+      "snippet": "...it was twice as high as the dome of St. Peter's in Rome or the Great Pyramid of Giza..."
+    }
+  ],
+  "n_evidence": 5,
+  "latency": { "retrieval_ms": 7173.6, "llm_ms": 1475.7, "total_ms": 8649.3 },
+  "usage": { "prompt_tokens": 598, "completion_tokens": 1, "cost_usd": 0.000241 }
+}
+```
+
+- **`POST /verify`** — claim → open-web retrieval → LLM → grounded verdict + evidence, **timed and costed per request**. Request is Pydantic-validated (`claim` 3–2000 chars, `top_k` 1–10).
+- **`GET /health`** — liveness, and which model/evidence source is wired.
+- **`GET /docs`** — interactive Swagger UI (shown above).
+
+Open-web search dominates latency (~7 s) because it is throttled to stay ban-safe, but every query is disk-cached, so a repeated claim returns in **< 1 ms** of retrieval. At `gpt-4.1-mini` list price a verification costs **~\$0.0002**. `tests/test_service.py` mocks retrieval and the LLM, so the service is tested with no network or credentials.
 
 ## Setup
 
@@ -156,8 +195,9 @@ python src/prep_gold_gap_cases.py
 Minimal unit tests cover the pure, high-traffic components every reported number depends on (LLM-output label normalization, atomic cache writes, few-shot schema validation):
 
 ```bash
-python tests/test_core.py     # no pytest required
-# or:  pytest tests/test_core.py
+python tests/test_core.py        # pipeline: label normalization, atomic writes, few-shot schema
+python tests/test_service.py     # service: validation, verdict mapping, cost arithmetic (fully mocked)
+# or:  pytest tests/
 ```
 
 ## Source layout (`src/`)
@@ -167,6 +207,7 @@ python tests/test_core.py     # no pytest required
 - `dense_rerank.py` — BM25 prefilter → mpnet bi-encoder rerank → top-5 (retrieval-strategy ablation).
 - `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder.
 - `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard}`, `--fewshot-file`.
+- `service.py` — FastAPI wrapper exposing the open-web pipeline as `POST /verify` (+ `/health`, `/docs`); reuses the retrieval/prompt/LLM functions verbatim.
 - `gold_baseline.py` — gold-evidence oracle upper bound.
 - `llm_baseline.py` — LLM zero-shot, no retrieval.
 - `query_generator.py` — query strategies A (direct) / B (keyword) / C (decompose).
