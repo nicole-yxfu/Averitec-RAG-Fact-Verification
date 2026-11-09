@@ -1,0 +1,30 @@
+# Runtime dependencies for the FastAPI service ONLY (src/service.py).
+#
+# Deliberately a subset of requirements.txt: it leaves out
+# sentence-transformers / torch / huggingface-hub, which are pulled in only by
+# dense_rerank.py — a retrieval-strategy ablation the service never imports.
+# Dropping them takes the container image from several GB to a few hundred MB.
+#
+# Use requirements.txt instead to reproduce the experiments.
+
+# Web framework
+fastapi==0.115.12
+uvicorn[standard]==0.34.0
+
+# Open-web retrieval
+ddgs==9.14.4
+
+# LLM (Azure OpenAI via LangChain + native SDK)
+langchain-openai==1.3.2
+langchain-core==1.4.7
+openai==2.41.1
+
+# Imported transitively by the pipeline modules the service reuses
+# (bm25_baseline builds an NLTK stopword set at import time)
+nltk==3.9.1
+rank-bm25==0.2.2
+scikit-learn==1.8.0
+numpy==2.2.6
+
+# Config
+python-dotenv==1.2.2

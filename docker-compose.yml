@@ -1,0 +1,26 @@
+# One-command local run:
+#
+#     docker compose up --build
+#     curl -X POST http://localhost:8000/verify \
+#          -H 'Content-Type: application/json' \
+#          -d '{"claim": "The Eiffel Tower is taller than the Great Pyramid of Giza."}'
+#
+# Requires a .env file in this directory holding the Azure OpenAI credentials
+# (copy .env.example). It is read at run time and is never baked into the image.
+
+services:
+  verifier:
+    build: .
+    image: averitec-verifier:latest
+    container_name: averitec-verifier
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      # Persist the per-query open-web cache so restarts keep a warm cache.
+      - ddg-cache:/app/cache/duckduckgo
+    restart: unless-stopped
+
+volumes:
+  ddg-cache:

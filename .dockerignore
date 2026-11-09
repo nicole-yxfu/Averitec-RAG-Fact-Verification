@@ -1,0 +1,27 @@
+# Keep the build context small and keep secrets out of the image.
+
+# Secrets — must never enter the image
+.env
+
+# VCS / tooling
+.git
+.gitignore
+.venv
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.log
+
+# Experiment inputs and outputs: ~20 MB of data plus caches, none of which the
+# service needs. It retrieves evidence live and keeps its own cache volume.
+data/
+results/
+bin/
+tests/
+docs/
+
+# Docs and the full experiment requirements (the image uses the slim subset)
+README.md
+requirements.txt

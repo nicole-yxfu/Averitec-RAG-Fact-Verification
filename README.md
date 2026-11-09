@@ -22,7 +22,7 @@ Switching the **evidence source** (closed → open web) gives the single largest
 
 An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
-**Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · scikit-learn · NLTK
+**Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · Docker · scikit-learn · NLTK
 
 ## Full results
 
@@ -120,7 +120,49 @@ curl -s -X POST http://localhost:8000/verify \
 - **`GET /health`** — liveness, and which model/evidence source is wired.
 - **`GET /docs`** — interactive Swagger UI (shown above).
 
-Open-web search dominates latency (~7 s) because it is throttled to stay ban-safe, but every query is disk-cached, so a repeated claim returns in **< 1 ms** of retrieval. At `gpt-4.1-mini` list price a verification costs **~\$0.0002**. `tests/test_service.py` mocks retrieval and the LLM, so the service is tested with no network or credentials.
+`tests/test_service.py` mocks retrieval and the LLM, so the service is tested with no network or credentials. Measured latency and cost are in **Measured performance** below.
+
+## Running in Docker
+
+```bash
+cp .env.example .env        # add your Azure OpenAI credentials
+docker compose up --build
+```
+
+```bash
+curl -s -X POST http://localhost:8000/verify \
+  -H 'Content-Type: application/json' \
+  -d '{"claim": "The Eiffel Tower is taller than the Great Pyramid of Giza."}'
+```
+
+Three deliberate choices in the image:
+
+- **A slim runtime dependency set.** It installs `requirements-service.txt`, not `requirements.txt`: `sentence-transformers`/`torch` are pulled in only by `dense_rerank.py`, a retrieval ablation the service never imports. Dropping them is the difference between a multi-GB image and a few hundred MB.
+- **NLTK corpora baked in.** `bm25_baseline.py` builds a stopword set *at import time*, so without them the service raises `LookupError` on startup — and the non-root user could not download them at run time.
+- **Secrets stay out.** Credentials are read from `.env` at run time; `.dockerignore` keeps `.env`, the 20 MB `data/` directory and all caches out of the build context.
+
+The container runs as a non-root user, declares a `/health` healthcheck, and keeps the per-query search cache in a named volume so restarts start warm.
+
+## Measured performance
+
+`src/benchmark.py` drives the running service over HTTP and reports a distribution rather than one lucky request. 20 dev claims, two passes — the second hits the warm search cache:
+
+| Pass | Retrieval p50 | Retrieval p95 | LLM p50 | LLM p95 | Total p50 | Total p95 |
+|---|---|---|---|---|---|---|
+| Cold | 6 643 ms | 7 628 ms | 1 142 ms | 1 842 ms | 8 168 ms | 9 131 ms |
+| Warm | 2 ms | 2 ms | 971 ms | 1 357 ms | **972 ms** | **1 358 ms** |
+
+Cost is unaffected by caching, since the LLM call still runs: **\$0.000240 per claim** — about **\$0.24 per 1 000 verifications** — at ~590 prompt tokens and a one-token completion. 40/40 requests succeeded.
+
+Two things this makes concrete:
+
+1. **Retrieval, not the model, is the cold-path bottleneck** — 81% of total latency. That is a deliberate trade: open-web search is throttled to stay ban-safe.
+2. **The cache is worth 8.4× end to end** (8 168 → 972 ms p50). Once warm the service is LLM-bound and sub-second at p50, which is what a deployment with repeat traffic would actually see.
+
+```bash
+uvicorn src.service:app --port 8000
+python src/benchmark.py --n 20 --repeat --out results/benchmark.json
+```
 
 ## Setup
 
@@ -208,6 +250,7 @@ python tests/test_service.py     # service: validation, verdict mapping, cost ar
 - `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder.
 - `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard}`, `--fewshot-file`.
 - `service.py` — FastAPI wrapper exposing the open-web pipeline as `POST /verify` (+ `/health`, `/docs`); reuses the retrieval/prompt/LLM functions verbatim.
+- `benchmark.py` — drives the running service over HTTP and reports p50/p95 latency per stage and cost per claim (stdlib only; cold vs warm cache).
 - `gold_baseline.py` — gold-evidence oracle upper bound.
 - `llm_baseline.py` — LLM zero-shot, no retrieval.
 - `query_generator.py` — query strategies A (direct) / B (keyword) / C (decompose).

@@ -1,0 +1,103 @@
+{
+  "url": "http://127.0.0.1:8000",
+  "n_requested": 20,
+  "top_k": 5,
+  "passes": [
+    {
+      "label": "cold",
+      "n": 20,
+      "n_errors": 0,
+      "errors": [],
+      "latency_ms": {
+        "retrieval_ms": {
+          "p50": 6642.8,
+          "p95": 7628.4,
+          "mean": 6786.1,
+          "min": 5851.6,
+          "max": 8060.2
+        },
+        "llm_ms": {
+          "p50": 1142.5,
+          "p95": 1842.0,
+          "mean": 1315.7,
+          "min": 777.7,
+          "max": 2807.3
+        },
+        "total_ms": {
+          "p50": 8167.5,
+          "p95": 9130.6,
+          "mean": 8101.8,
+          "min": 6963.7,
+          "max": 9192.2
+        },
+        "wall_ms": {
+          "p50": 8176.9,
+          "p95": 9135.8,
+          "mean": 8107.4,
+          "min": 6969.4,
+          "max": 9195.7
+        }
+      },
+      "cost_usd": {
+        "mean": 0.00024,
+        "total": 0.004792,
+        "per_1k_claims": 0.24
+      },
+      "mean_prompt_tokens": 589.5,
+      "verdicts": {
+        "conflicting evidence/cherrypicking": 1,
+        "not enough evidence": 6,
+        "refuted": 9,
+        "supported": 4
+      }
+    },
+    {
+      "label": "warm",
+      "n": 20,
+      "n_errors": 0,
+      "errors": [],
+      "latency_ms": {
+        "retrieval_ms": {
+          "p50": 1.5,
+          "p95": 1.7,
+          "mean": 1.4,
+          "min": 0.8,
+          "max": 1.8
+        },
+        "llm_ms": {
+          "p50": 970.8,
+          "p95": 1356.7,
+          "mean": 976.6,
+          "min": 516.4,
+          "max": 1576.8
+        },
+        "total_ms": {
+          "p50": 972.0,
+          "p95": 1358.4,
+          "mean": 978.0,
+          "min": 517.9,
+          "max": 1578.4
+        },
+        "wall_ms": {
+          "p50": 975.7,
+          "p95": 1361.5,
+          "mean": 981.7,
+          "min": 520.4,
+          "max": 1582.4
+        }
+      },
+      "cost_usd": {
+        "mean": 0.00024,
+        "total": 0.004793,
+        "per_1k_claims": 0.24
+      },
+      "mean_prompt_tokens": 589.5,
+      "verdicts": {
+        "conflicting evidence/cherrypicking": 1,
+        "not enough evidence": 7,
+        "refuted": 8,
+        "supported": 4
+      }
+    }
+  ]
+}
