@@ -14,12 +14,15 @@ bin/*.bin
 
 # ─── Large regeneratable caches (kept local, never committed) ────────
 # NOTE: .gitignore does NOT support inline comments — patterns must stand alone.
-# bm25_corpus_cache: ~32 MB, ~10 h to rebuild via warmup_dev_corpus.py
-# bm25_ranking_cache: per-claim BM25 rankings, regeneratable
+# bm25_corpus_cache: 25.7 GB for dev, ~10 h to rebuild via warmup_dev_corpus.py.
+#   Listed WITHOUT a trailing slash on purpose: it is usually a symlink to the
+#   cache on another volume, and a trailing-slash pattern matches directories
+#   only, so git would happily commit the symlink itself.
+# bm25_ranking_cache: per-claim BM25 rankings, regeneratable; symlinked too
 # duckduckgo_cache:   per-query DDG snippets, regeneratable (rate-limited)
 # *_retrieval_cache / *_top5 / *_pool30: large retrieval caches, re-run retrieval to rebuild
-results/bm25_corpus_cache/
-results/bm25_ranking_cache/
+results/bm25_corpus_cache
+results/bm25_ranking_cache
 results/duckduckgo_cache/
 results/duckduckgo_pool30_cache/
 results/*_retrieval_cache.json
