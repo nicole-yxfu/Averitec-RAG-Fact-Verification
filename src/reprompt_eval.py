@@ -32,7 +32,15 @@ Usage:
   python src/reprompt_eval.py \\
       --retrieval-cache results/bm25_baseline_internal_dev_sample150_with_metadata_top5_cache.json \\
       --output-cache results/bm25_fewshot8_sample150_cache.json \\
-      --fewshot-file data/fewshot_gold_8shot.json
+      --fewshot-file data/fewshot_clean8_pragref.json
+
+Use `fewshot_clean8_pragref.json` and not the earlier `fewshot_gold_8shot.json`,
+which this docstring used to name: all 8 of its examples are drawn from
+`internal_dev`, an evaluation split, so every reported few-shot number would
+have been inflated by demonstrations the model was then tested on. The clean
+file is picked by `fewshot_picker_clean.py`, which draws only from
+`internal_train` and excludes anything overlapping an evaluation split
+(verified: 0 overlap with dev500 and 0 with internal_dev).
 """
 import os
 import json

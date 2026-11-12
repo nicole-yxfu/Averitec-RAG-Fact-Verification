@@ -32,7 +32,7 @@ No deployed fact-checking pipeline answers every claim — the model is triage, 
 
 That is worth more than every retrieval change in this project combined, and it needed no new retrieval, no new model and no extra API spend — only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human).
 
-An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
+An **oracle-gap error analysis** (quantitative decomposition + a 20-case qualitative study, with 3 independent LLM annotators adjudicating the cases the first pass was unsure about) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
 **Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · Docker · scikit-learn · NLTK
 
@@ -46,7 +46,8 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 |  | Random baseline | 0.1929 | 0.201 | 0.384 | 0.069 | 0.118 | 500 |
 |  | Averaged Perceptron | 0.3546 | 0.357 | 0.758 | 0.218 | 0.085 | 500 |
 |  | LLM zero-shot (no retrieval) | 0.3365 | 0.551 | 0.578 | 0.174 | 0.043 | 500 |
-| Closed web | BM25 + plain prompt | 0.3644 | 0.558 | 0.596 | 0.150 | 0.154 | 500 |
+| Closed web | BM25 + standard prompt | 0.3241 | 0.564 | 0.561 | 0.061 | 0.111 | 500 |
+|  | BM25 + plain prompt | 0.3644 | 0.558 | 0.596 | 0.150 | 0.154 | 500 |
 |  | Dense rerank + plain prompt | 0.3572 | 0.570 | 0.645 | 0.178 | 0.036 | 500 |
 |  | BM25 + 8-shot ICL | 0.3754 | 0.541 | 0.632 | 0.102 | **0.226** | 500 |
 | Open web | DuckDuckGo + standard prompt | 0.4180 | 0.674 | 0.659 | 0.214 | 0.125 | 500 |
@@ -54,6 +55,8 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 | Oracle | Gold evidence | 0.5633 | 0.858 | 0.862 | 0.487 | 0.045 | 500 |
 
 Reading down the three evidence rungs (closed → open → oracle) is the main result; the two prompt rows under *Open web* isolate the prompt effect at a fixed source; *Dense rerank* and *8-shot ICL* are the retrieval- and prompt-side ablations. Even under gold evidence, the **Conflicting** class stays near zero (F1 0.045) — the motivation for the error analysis below.
+
+One row deserves singling out. **`BM25 + standard prompt` (0.3241) scores *below* the no-retrieval LLM (0.3365): adding evidence made the system worse.** Retrieval is not free — noisy passages crowd out what the model already knew, and under the verbose prompt the damage exceeds the help. The same retrieval under the plain prompt recovers to 0.3644. That is the cleanest statement of this project's second finding: a retrieval component can have negative value, and whether it does depends on a prompt you were not thinking about when you built it.
 
 ## Faithfulness (is the verdict grounded, or hallucinated?)
 
