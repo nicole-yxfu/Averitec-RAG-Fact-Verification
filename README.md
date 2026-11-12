@@ -20,6 +20,8 @@ Climbing an evidence-availability ladder on the official 500-claim dev set (Macr
 
 Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling. In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** reliably adds a secondary +0.03–0.04 across both evidence sources.
 
+The retrieval result replicates on the stronger evidence rung: hybrid retrieval (BM25 + dense fused by RRF) and cross-encoder re-ranking over a widened open-web pool land at **p = 1.0 and p = 0.86** against the deployed baseline — [see the null result and the control that nearly hid it](#does-better-ranking-help-a-pre-registered-null-result).
+
 An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
 **Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · Docker · scikit-learn · NLTK
@@ -81,6 +83,68 @@ python src/rag_eval.py \
     --retrieval-cache results/gold_evidence_dev500_retrieval_cache.json \
     --prediction-cache results/gold_baseline_official_dev_with_metadata_cache.json \
     --output-cache results/faithfulness_gold_plain_dev500.json
+```
+
+## Does better ranking help? A pre-registered null result
+
+The headline claims retrieval strategy matters least. That was shown on the *closed* Knowledge Store, where a weak source could plausibly have masked a good ranker. This section tests the claim where it is hardest to dismiss: on the **open web**, the stronger source and the one the live service actually uses.
+
+`src/hybrid_retrieval.py` widens the candidate pool from 5 to ~16 hits per claim and re-ranks it five ways — the engine's own order, Okapi BM25, dense cosine (mpnet), **Reciprocal Rank Fusion** of all three, and RRF followed by a **cross-encoder** (`ms-marco-MiniLM-L-12-v2`). Every variant reads the *same* cached pool, so a difference comes from ranking alone and not from different pages having been fetched on a different day.
+
+Pilot on 150 dev claims, identical plain prompt throughout, significance by exact McNemar on accuracy (content-filtered claims excluded; `n` varies with the union of refusals):
+
+| Ranking | Macro-F1 | Accuracy | NEE predicted | Conflicting predicted | vs. baseline |
+|---|---|---|---|---|---|
+| **Deployed baseline** (DDG top-5, narrow fetch) | 0.4171 | 0.6164 | 29 | 4 | — |
+| Wide pool, engine order | 0.3537 | 0.5548 | 34 | 2 | −0.063, p = 0.14 |
+| RRF (engine + BM25 + dense) | 0.4207 | 0.6164 | 20 | 10 | +0.004, **p = 1.0** |
+| RRF + cross-encoder | 0.4440 | 0.6233 | 17 | 9 | +0.027, p = 0.86 |
+
+**Hybrid retrieval buys nothing here.** RRF lands on *exactly* baseline accuracy (12 claims each way, p = 1.0); the cross-encoder adds a Macro-F1 point or three that does not survive the test. On this evidence rung too, retrieval strategy is the lever that does not move.
+
+Three things are worth more than the null itself:
+
+**The control you pick decides the answer.** Asking DuckDuckGo for 30 results makes its *own top 5 worse* than asking for 5 (Macro-F1 0.4171 → 0.3537, −0.062 accuracy). Scored against that wide-pool head — the control a "pool then re-rank" study reaches for by default — re-ranking looks like a solid **+0.065 to +0.090 Macro-F1**. Scored against the system actually deployed, it is ~0.00 to +0.027 and insignificant. The same runs, a 2–3× difference in the apparent gain, and only the second comparison answers "should I ship this?". The in-pool control is reported above as *Wide pool, engine order* rather than quietly dropped.
+
+**Re-ranking does change behaviour — just not accuracy.** Every re-ranked variant cuts over-prediction of *not enough evidence* (29 → 17) and roughly doubles *Conflicting* predictions (4 → 9). The movement is real and consistent; it lands in the two rare classes, which is why Macro-F1 shifts while accuracy does not.
+
+**A broken model is not a null result.** The first run had `rrf_ce` byte-identical to `rrf` across all 150 claims. The cause was not re-ranking being useless: `ms-marco-MiniLM-L-6-v2` emits NaN from its first encoder block in this environment, NaN compares `False` against everything, so `sorted()` returned its input and the re-ranker became the identity function — while running to completion and printing a plausible table. `assert_cross_encoder_works()` now rejects NaN, constant and inverted scorers at startup, and a per-call guard raises. Before reporting "no difference", prove the intervention changed its input.
+
+### Reducing unjustified "not enough evidence"
+
+The faithfulness analysis flagged NEE as the least-grounded class. Quantified on dev500: the open-web system answers *not enough evidence* on **116 claims where only 18 truly are** — 84% of its NEE verdicts are wrong. `--prompt-style nee_guard` adds one paragraph defining when the label is warranted (evidence *silent* on the claim, not merely incomplete).
+
+Full dev500, 491 claims after excluding content-filter refusals:
+
+| Prompt | Macro-F1 | Accuracy | NEE predicted | Refuted F1 |
+|---|---|---|---|---|
+| plain | 0.4499 | 0.6049 | 116 | 0.711 |
+| plain + NEE guard | 0.4611 | 0.6293 | 95 | 0.745 |
+
+**+0.024 accuracy at p = 0.050 — borderline, and not claimed as significant.** The mechanism is the interesting part: of the 25 claims pushed off NEE, **14 become correct**, and **17 of the 25 were gold *Refuted*** — the guard mostly recovers refutations the model was hedging on, which is where the Refuted F1 gain comes from. Cost, as predicted: NEE's own F1 slips 0.238 → 0.231.
+
+Two side effects worth recording. The longer prompt tripped Azure's content filter on 5 more claims (3 → 8 refusals); those are moderation decisions, not reasoning errors, so `compare_runs.py --exclude-filtered` drops the union and **both versions are reported** (without exclusion: +0.016 accuracy, p = 0.26). And the two NEE interventions **do not stack** — combining re-ranking with the guard drives NEE predictions down to 11, lifts accuracy +0.027, but returns Macro-F1 to baseline (−0.001) because true NEE recall collapses (F1 0.105). Two independently helpful suppressors over-correct together.
+
+**Nothing from this week was shipped into `src/service.py`.** No variant cleared significance against the deployed configuration, and the honest conclusion is to leave a working system alone.
+
+```bash
+# 1. candidate pool (network-bound, ~20 min for 150 claims; cached per query)
+python src/hybrid_retrieval.py --data-file data/dev.json --sample 150 \
+    --pool-file results/hybrid_dev150_pool30.json --pool-only
+
+# 2. all five rankings from that pool (no network)
+python src/hybrid_retrieval.py --data-file data/dev.json --sample 150 \
+    --pool-file results/hybrid_dev150_pool30.json \
+    --out-prefix results/hybrid_dev150
+
+# 3. score each under the same prompt, then compare with significance
+python src/reprompt_eval.py --data-file data/dev.json \
+    --retrieval-cache results/hybrid_dev150_rrf_ce_retrieval_cache.json \
+    --output-cache    results/hybrid_dev150_rrf_ce_eval_cache.json
+python src/compare_runs.py --restrict-to-common --exclude-filtered \
+    --caches results/ddg_direct_dev500_plain_eval_cache.json \
+             results/hybrid_dev150_rrf_ce_eval_cache.json \
+    --labels baseline rrf_ce
 ```
 
 ## Live service (`POST /verify`)
@@ -236,13 +300,16 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on (LLM-output label normalization, atomic cache writes, few-shot schema validation):
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 44 tests, no network and no model downloads:
 
 ```bash
 python tests/test_core.py        # pipeline: label normalization, atomic writes, few-shot schema
 python tests/test_service.py     # service: validation, verdict mapping, cost arithmetic (fully mocked)
+python tests/test_hybrid.py      # RRF maths, BM25 edge cases, re-ranker guards, exact McNemar
 # or:  pytest tests/
 ```
+
+`test_hybrid.py` asserts the McNemar p-values against hand-computed exact binomials, and asserts that a NaN, constant or inverted cross-encoder *raises* instead of silently degrading to the identity ranking — the failure that produced a convincing fake null result here.
 
 ## Source layout (`src/`)
 
@@ -250,7 +317,8 @@ python tests/test_service.py     # service: validation, verdict mapping, cost ar
 - `bm25_baseline.py` — BM25 Okapi retrieval over the Knowledge Store; 3-tier cache, atomic writes, `--retrieval-only` decoupling. The project's backbone.
 - `dense_rerank.py` — BM25 prefilter → mpnet bi-encoder rerank → top-5 (retrieval-strategy ablation).
 - `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder.
-- `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard}`, `--fewshot-file`.
+- `hybrid_retrieval.py` — wide open-web candidate pool, then five rankings over the *same* pool: engine order, BM25, dense, RRF fusion, RRF + cross-encoder. Pool fetch and ranking are separate stages, so every variant is recomputed without touching the network.
+- `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard,nee_guard}`, `--fewshot-file`.
 - `service.py` — FastAPI wrapper exposing the open-web pipeline as `POST /verify` (+ `/health`, `/docs`); reuses the retrieval/prompt/LLM functions verbatim.
 - `benchmark.py` — drives the running service over HTTP and reports p50/p95 latency per stage and cost per claim (stdlib only; cold vs warm cache).
 - `gold_baseline.py` — gold-evidence oracle upper bound.
@@ -263,6 +331,7 @@ python tests/test_service.py     # service: validation, verdict mapping, cost ar
 **Evaluation & analysis**
 - `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?), with 429 back-off and resumable caching.
 - `build_gold_evidence_cache.py` — materializes gold QA pairs into retrieval-cache shape so the oracle config can be scored for faithfulness with the same judge.
+- `compare_runs.py` — scores any set of eval caches side by side and runs an **exact McNemar** test against the first; `--restrict-to-common` (never compare across different claim sets) and `--exclude-filtered` (don't charge a variant for a content-filter refusal).
 - `make_results_table.py` — scores every prediction cache and regenerates the full results table above (no API calls)
 - `evaluate_retrieval.py` (URL Recall@5), `evaluate_text_overlap.py` (text-overlap recall + permutation null)
 - `analyze_gold_gap.py` — oracle gap decomposition (quantitative)

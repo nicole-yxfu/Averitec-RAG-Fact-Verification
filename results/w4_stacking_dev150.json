@@ -1,0 +1,91 @@
+{
+  "caches": {
+    "orig_top5": "results/ddg_direct_dev500_plain_eval_cache.json",
+    "rrf_ce": "results/hybrid_dev150_rrf_ce_eval_cache.json",
+    "rrf_ce+nee_guard": "results/hybrid_dev150_rrf_ce_neeguard_eval_cache.json"
+  },
+  "restricted_to_common": true,
+  "excluded_filtered": [
+    "claim_332",
+    "claim_437",
+    "claim_451",
+    "claim_76",
+    "claim_86"
+  ],
+  "scores": {
+    "orig_top5": {
+      "n": 148,
+      "macro_f1": 0.41599488199287116,
+      "accuracy": 0.6148648648648649,
+      "per_class_f1": {
+        "Supported": 0.704225352112676,
+        "Refuted": 0.7544910179640718,
+        "NEE": 0.10526315789473684,
+        "Conflicting": 0.1
+      },
+      "n_unparseable": 0,
+      "pred_dist": {
+        "Supported": 37,
+        "Refuted": 77,
+        "NEE": 30,
+        "Conflicting": 4
+      }
+    },
+    "rrf_ce": {
+      "n": 148,
+      "macro_f1": 0.4454629203132197,
+      "accuracy": 0.6283783783783784,
+      "per_class_f1": {
+        "Supported": 0.6153846153846154,
+        "Refuted": 0.7664670658682635,
+        "NEE": 0.24,
+        "Conflicting": 0.16
+      },
+      "n_unparseable": 1,
+      "pred_dist": {
+        "Supported": 44,
+        "Refuted": 77,
+        "NEE": 17,
+        "Conflicting": 9
+      }
+    },
+    "rrf_ce+nee_guard": {
+      "n": 148,
+      "macro_f1": 0.41532097288676234,
+      "accuracy": 0.6418918918918919,
+      "per_class_f1": {
+        "Supported": 0.6052631578947368,
+        "Refuted": 0.7840909090909091,
+        "NEE": 0.10526315789473684,
+        "Conflicting": 0.16666666666666666
+      },
+      "n_unparseable": 1,
+      "pred_dist": {
+        "Supported": 42,
+        "Refuted": 86,
+        "NEE": 11,
+        "Conflicting": 8
+      }
+    }
+  },
+  "mcnemar_vs_reference": {
+    "rrf_ce": {
+      "n_common": 148,
+      "both_right": 77,
+      "both_wrong": 41,
+      "only_a_right": 14,
+      "only_b_right": 16,
+      "n_discordant": 30,
+      "p_value": 0.8555355519056321
+    },
+    "rrf_ce+nee_guard": {
+      "n_common": 148,
+      "both_right": 79,
+      "both_wrong": 41,
+      "only_a_right": 12,
+      "only_b_right": 16,
+      "n_discordant": 28,
+      "p_value": 0.5715881884098053
+    }
+  }
+}

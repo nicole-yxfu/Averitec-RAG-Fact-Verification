@@ -1,0 +1,752 @@
+{
+  "claim_0": {
+    "claim": "In a letter to Steve Jobs, Sean Connery refused to appear in an apple commercial.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_1": {
+    "claim": "Trump Administration claimed songwriter Billie Eilish Is Destroying Our Country In Leaked Documents",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_2": {
+    "claim": "Due to Imran Khan's criticism of Macron's comments on Islam, French authorities cancelled the visas of 183 Pakistani citizens and deported 118 from the country.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_3": {
+    "claim": "UNESCO declared Nadar community as the most ancient race in the world.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_4": {
+    "claim": "Republican Matt Gaetz was part of a company that had to pay 75 million in hospice fraud. They stole from dying people.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_5": {
+    "claim": "The United States of America and its Western allies have been using their media outlets to publish articles based on fabricated information under allegations of non-compliance with the Chemical Weapons Convention.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_6": {
+    "claim": "More than 225,000 people dead, 225,000. The estimates are, if we’d have acted responsibly, there’d be 160,000 fewer dead than there are today, because of covid-19.",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_7": {
+    "claim": "Why should you pay more taxes than Donald Trump pays? And that’s a fact. $750. Remember what he said when that was raised a while ago, how he only pays … He said, ‘Because I’m smart. I know how to game the system.’",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_8": {
+    "claim": "You’re watching the cheaters and all those people that send in the phony ballots. … They want to have the count weeks after November 3.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_9": {
+    "claim": "You see the number today? 33.1 GDP. The biggest in the history of our country by almost triple, right? Almost triple. Now it’s very much bigger than any GDP we’ve ever had. You have to go back to the 1950s, and then it’s less than half. This is the greatest number, 33.1 percent.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_10": {
+    "claim": "Donald Trump, when he thinks of climate change, he says hoax. Well, guess what? Speaking of hoaxes, remember what he said about these increasing violent hurricanes and the frequency? He actually said, maybe we should detonate a nuclear bomb over the Atlantic. By the way, the same stable genius who said the biggest problem we had in the Revolutionary War is we didn’t have enough airports.",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_11": {
+    "claim": "The U.S. surgeon general and the Centers for Disease Control both previously said that ‘masks are not effective in preventing [the] general public from catching coronavirus.’",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_12": {
+    "claim": "New Zealand’s new Food Bill bans gardening",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_13": {
+    "claim": "Wearing face masks will stop the spread of covid 19",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_14": {
+    "claim": "Jammu and Kashmir (J&K) in Pakistan/India was removed from the United Nations (UN) list of “unresolved disputes”.",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_15": {
+    "claim": "Illegal drug, border crossings, and human smuggling activities have decreased in areas where barriers are deployed in the United States.",
+    "true_label": 2,
+    "raw_output": "supported"
+  },
+  "claim_16": {
+    "claim": "The plentiful evidence we have indicates that masks would not meaningfully help with aerosol transmission of COVID 19.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_17": {
+    "claim": "All USA Ballots Arriving After Election Day Will Be Thrown Out",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_18": {
+    "claim": "Even if your mail-in ballot is postmarked prior to the Election day but arrives after the Election day it will be thrown out.",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_19": {
+    "claim": "Video shows attack of French embassy in Sudan",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_20": {
+    "claim": "Viral video purportedly shows Pakistani opposition MPs chanted ‘Modi, Modi’ (India's PM)  inside the Pakistani Parliament",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_21": {
+    "claim": "Taylor Zundel claimed on Instagram that she and other early voters in Utah, were unable to cast ballots in the 2020 presidential elections, as they were told they had already voted.",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_22": {
+    "claim": "Trash Can Plastered With 'Ballot Box' Sign In Philadelphia Was Intended To Get People To Toss Their Ballots In The Trash.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_23": {
+    "claim": "Joe Biden wants to ban fracking",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_24": {
+    "claim": "Germany’s Foreign Minister Heiko Maas said that Thailand’s King Maha Vajiralongkorn didn’t do anything illegal while at his German residence.",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_25": {
+    "claim": "McDonald’s Azerbaijan's official account was promoting the military taking of Nagorno-Karabakh.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_26": {
+    "claim": "Ivermectin is a treatment for coronavirus.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_27": {
+    "claim": "Sleeping under a mosquito bed net treated (or not treated) with insecticide is ineffective and harmful to human health.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_28": {
+    "claim": "Pogba Has Quit The French National Team Over Macron's Remarks on Islam.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_29": {
+    "claim": "The Wire called Durga puja racist and the goddess Durga a sex worker",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_30": {
+    "claim": "Paul Pogba, who plays for Manchester United and the French national team, retired from international football in response to French President Macron’s comments on Islamist terrorism.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_31": {
+    "claim": "Amy Coney Barrett was confirmed as US Supreme Court Justice on October 26, 2020",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_32": {
+    "claim": "The New York post Endorsed Donald trumps bid for re-election.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_33": {
+    "claim": "America went from 75,000 flu deaths last year in 2019 to almost 0 in 2020",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_34": {
+    "claim": "The United States, New Zealand, U.K., Australia, and the EU have not included the NDF in their official list of terrorist groups.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_35": {
+    "claim": "COVID-19 pandemic pre-planned with the help from Bill Gates.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_36": {
+    "claim": "Speaker Robin Vos lost a Republican-held seat in the 2018 election for the first time.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_37": {
+    "claim": "Breitbart News reports that the daughter of Delaware Democratic Senator Chris Coons and seven other underage girls were featured on Hunter Biden's laptop.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_38": {
+    "claim": "Hunter Biden, son of US President Joe Biden has died.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_39": {
+    "claim": "5G causes COVID-19.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_40": {
+    "claim": "Rock musician Jon Bon Jovi performed for 12 people and 7 pumpkins at a campaign event for Democratic presidential nominee Joe Biden in Pennsylvania.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_41": {
+    "claim": "Wearing face masks can cause infections from bacteria such as staphylococcus.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_42": {
+    "claim": "An 'anti-Black Lives Matter' flag replaced the American flag behind President Trump during a Waukesha campaign rally.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_43": {
+    "claim": "Donald Trump said that $15 an hour is too much for essential workers",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_44": {
+    "claim": "Deliberately infecting children to COVID-19 at “pox parties” could be a good way to help create herd immunity against COVID-19 without a vaccine.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_45": {
+    "claim": "Cutting the umbilical cord straight away deliberately denies the baby natural immunity so that medical professionals have a reason to vaccinate and medicate them.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_46": {
+    "claim": "The umbilical cord should not be cut until 1 hour after birth or they baby will not have enough blood right after birth.",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_47": {
+    "claim": "Joe Biden said he wants to ban fracking in the US.",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_48": {
+    "claim": "99% of people recover from COVID-19.",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_49": {
+    "claim": "The US saw the best carbon emission numbers in 35 years under President Donald Trump's administration.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_50": {
+    "claim": "Twitter now putting warnings on tweets that are just unedited clips of Biden saying he would end fracking",
+    "true_label": 3,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_51": {
+    "claim": "People who do not vote for the Bharatiya Janata Party (BJP) in the 2020 elections will not get the COVID vaccine free of cost.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_52": {
+    "claim": "President Ferdinand Marcos and Dr. Jose Rizal established and founded the WORLD BANK and International Monetary Fund.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_53": {
+    "claim": "The FBI is in possession of the president of the US's son  Hunter Biden's laptop.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_54": {
+    "claim": "India’s imports from China increased by 27% in April-August 2020",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_55": {
+    "claim": "Generally the deaths from Covid-19 are still pretty flat because we've flattened the curve.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_56": {
+    "claim": "Previous flu vaccines may have made President Donald Trump susceptible to COVID-19",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_57": {
+    "claim": "While serving as Town Supervisor on Grand Island, Nebraska, US Nate McMurray voted to raise taxes on homeowners.",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_58": {
+    "claim": "Russia sent medical aid to the US, in the form of medical equipment to help coronavirus patients.",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_59": {
+    "claim": "There is a scam involving Santander customers being sent fake bank cards.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_60": {
+    "claim": "UK Employees unable to work in tier 3 areas will get a combination of Job Support Scheme and Universal Credit, which will mean they get 80% of their wages.",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_61": {
+    "claim": "The large image of the Joe Biden and Kamala Harris logo projected onto a Harley-Davidson location in Milwaukee US indicates the motorcycle manufacturer's endorsement of the US Democratic presidential nominee.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_62": {
+    "claim": "Scientific American magazine warned that 5G technology is not safe.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_63": {
+    "claim": "Officer who wore Trump 2020 mask to polls to face disciplinary action",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_64": {
+    "claim": "Eric Trump, Donald J. Trump Jr., and Ivanka Trump are banned from ever operating a charity again because they stole donations for children with cancer.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_65": {
+    "claim": "Someone who couldn't afford health care under Barack Obama's Affordable Care Act gets penalized $10,000",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_66": {
+    "claim": "Hunter Biden was chairman of the Nobel Peace Prize winning World Food Program.",
+    "true_label": 0,
+    "raw_output": "refuted"
+  },
+  "claim_67": {
+    "claim": "National Testing Agency (NTA) has made a major blunder in NEET Exam Result 2020. They stated that the all India topper had failed.",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_68": {
+    "claim": "Joe Biden said 'If Your 8-Year-Old Child Says They Want To Be Transgender, They Have A Right To Transition'.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_69": {
+    "claim": "White House coronavirus adviser Dr. Anthony Fauci wrote a 2008 paper that found most 1918-1919 Spanish Influenza pandemic deaths were because of bacterial pneumonia from wearing masks.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_70": {
+    "claim": "Dr Anthony Fauci wrote a paper regarding the Spanish Flu and stated that the majority of deaths in 1918-1919 was because of bacterial pneumonia from wearing masks.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_71": {
+    "claim": "India's imports from China increased by 27% during the period April-August 2020.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_72": {
+    "claim": "The daughter of Muahammadu Buhari (the President of Nigeria) is a board member of the Nigerian National Petroleum Corporation (NNPC).",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_73": {
+    "claim": "Chinese Diplomats Assault Taiwan Counterparts in Fiji",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_74": {
+    "claim": "The Iowa Farm Bureau, US says that it would no longer be endorsing US Republican Iowa Sen. Joni Ernst for her re-election",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_75": {
+    "claim": "Joe and Jill Biden's income has increased recently.",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_76": {
+    "claim": "Hunter Biden (son of US president Joe Biden)  had 25,000 pics of him torturing and raping children under 10 in China on his laptop.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_77": {
+    "claim": "A third of excess deaths in the United States between 1 March and  1 August 2020 during the COVID-19 pandemic could not be directly attributed to the coronavirus",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_78": {
+    "claim": "Prominent US Democrat party members including Hillary and Bill Clinton, were running a child sex-trafficking ring in the basement of a Washington, D.C., pizzeria.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_79": {
+    "claim": "Anthony Weiner’s laptop contained proof Hillary Clinton & her associates are involved in child trafficking & paedophilia",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_80": {
+    "claim": "“Red-tagging” is a term invented by the Communist Party of the Philippines, the New People's Army, and the National Democratic Front (CPP-NPA-NDF).",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_81": {
+    "claim": "NBC News Kristen Welker gave thousands of dollars to Obama, Clinton and Biden, is registered as a Democrat & her family spent Christmas with the Obamas at the White House.",
+    "true_label": 3,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_82": {
+    "claim": "In the US lockdowns are partly responsible for excess deaths not directly attributed to COVID-19 which were observed in 2020.",
+    "true_label": 2,
+    "raw_output": "refuted"
+  },
+  "claim_83": {
+    "claim": "Pennsylvania US rejects 372,000 mail-in ballots.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_84": {
+    "claim": "It's unclear how Joe Biden acquired his recent wealth since leaving office in 2017",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_85": {
+    "claim": "India's Congress party candidate Maskoor Usmani installed Jinnah's portrait at AMU.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_86": {
+    "claim": "Donald Trump Jr. said, “My father doesn’t need to rape women. It’s more likely a woman would rape him. That’s how popular he is.”",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_87": {
+    "claim": "Hyderabad Metropolitan Water Supply and Sewerage Board (HMWSSB) is delivering 1kg bleaching powder, chlorine tablets to people’s doorsteps",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_88": {
+    "claim": "A man who received four ballot applications votes four times in the 2020 election.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_89": {
+    "claim": "Most deaths in the 1918 influenza pandemic originated from bacterial pneumonia caused by face masks and that Dr Anthony Fauci, the US government’s top expert in the fight against Covid-19, knew about it.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_90": {
+    "claim": "BJP MP Kirron Kher Said \"Rape Is A Part Of Indian Culture And It Can't Be Stopped\"",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_91": {
+    "claim": "A message will be sent to your phone claiming to show that the Covid19 curve is flattening in India, But It will contain a malicious file",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_92": {
+    "claim": "US Sen Kamala Harris failed the bar exam  (qualifying examination for lawyers)on her first attempt",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_93": {
+    "claim": "US Judge Amy Coney Barrett graduated at the top of her law school class at Notre Dame Law School",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_94": {
+    "claim": "Saved by the Bell actor, Dustin Diamond died in a prison riot.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_95": {
+    "claim": "Controversial abortion methods are allowed under New Zealand's Abortion Legislation Act (2020).",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_96": {
+    "claim": "Commission on Human Rights (CHR) Chairman Chito Gascon called a “surprise military attack” by the Philippine Army,  conducted on members of the New People’s Army (NPA) a “violation of human rights.”",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_97": {
+    "claim": "IMAGE CLAIMS DONALD TRUMP CURRENTLY FACES A COURT CASE FOR ALLEGEDLY SEXUALLY ASSAULTING A 13-YEAR-OLD",
+    "true_label": 1,
+    "raw_output": "CONTENT_FILTERED"
+  },
+  "claim_98": {
+    "claim": "The iPhone 12 won’t come with earphones and a charging adapter.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_99": {
+    "claim": "New Zealand's Abortion Legislation Act (2020) does not make it a legal requirement that babies born alive after an abortion are given medical support.",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_100": {
+    "claim": "US president Joe Biden (candidate at the time of claim) supports the new green deal (The Green New Deal is a nonbinding resolution, introduced by Rep. Alexandria Ocasio-Cortez and Sen. Ed Markey last year, to tackle climate change.)",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_101": {
+    "claim": "The Tanishq jewellery store in Gandhidham,  Gujarat, India was attacked following a negative reaction to an advertisement.",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_102": {
+    "claim": "Kanye West was ahead of Biden and Trump in the Kentucky polls in October 2020",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_103": {
+    "claim": "Former President Donald Trump who lost the popular vote by 3 million has nominated a full third of The United Supreme Court, as of 13th October 2020.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_104": {
+    "claim": "Amy Coney Barrett's nomination to the Supreme Court would be confirmed in October 2020, by a Senate majority that represents 15 million fewer people than the minority party.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_105": {
+    "claim": "President Trump said Anthony Fauci said, “This is not a threat. This is not a problem. Don’t worry about it.” when talking about the pandemic",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_106": {
+    "claim": "Amy Coney Barrett, associate justice of the Supreme Court of the United States,  said during her Supreme Court confirmation hearing that she was not using notes because she has seven kids and is used to stupid questions.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_107": {
+    "claim": "Anthony Fauci the NIAID director is a democrat.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_108": {
+    "claim": "CNN announces on social media that President Donald Trump dies from COVID-19.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_109": {
+    "claim": "18-year-old man was recently killed by Trinamool Congress workers in West Bengal for supporting BJP",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_110": {
+    "claim": "Fact check: Harris' statement on Lincoln's Supreme Court nomination misses key details",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_111": {
+    "claim": "Daughters of President Muhammadu Buhari and Vice President Yemi Osinbajo brought about the dissolution of Special Anti-Robbery Squad (SARS).",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_112": {
+    "claim": "The Median White Household Wealth In The US Is 81 Times that of The Black Median Household Wealth",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_113": {
+    "claim": "Congress MP Rahul Gandhi has been listed as the seventh most educated leader by Forbes.",
+    "true_label": 0,
+    "raw_output": "refuted"
+  },
+  "claim_114": {
+    "claim": "Donald Trump is facing a court case for raping a teen in 1994",
+    "true_label": 1,
+    "raw_output": "CONTENT_FILTERED"
+  },
+  "claim_115": {
+    "claim": "More people who wear masks become sick with COVID-19 compared to non-mask wearers",
+    "true_label": 3,
+    "raw_output": "refuted"
+  },
+  "claim_116": {
+    "claim": "Joe Biden said “You know, we have to come together. That’s why I’m running. I’m running as a proud Democrat for the Senate. So vote! Vote!”",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_117": {
+    "claim": "NASA always receives blessings from the Pope and that God’s permission must be sought before a space mission.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_118": {
+    "claim": "Most Arab citizens support normalization with Israel.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_119": {
+    "claim": "The PHE has began to combine Covid-19 and influenza statistics to make the numbers look worse.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_120": {
+    "claim": "A law called The Flora and Fauna Act classified aboriginal people as animals until Australian voters overturned it in the 1960s.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_121": {
+    "claim": "Robert E. Lee, commander of the Confederate States Army during the American Civil War, was not a slave owner.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_122": {
+    "claim": "A BLM or antifa activist shot and killed a patriot at a protest in Denver, Colorado on October 10, 2020.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_123": {
+    "claim": "From 8th October the UK government will combine weekly flu and covid reports.",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_124": {
+    "claim": "PTFE Sprayed On Blue Masks Causes Symptoms Similar To COVID-19",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_125": {
+    "claim": "The gross domestic product  (GDP) figure in Nigeria for 2020 has decreased from the figure for 2019.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_126": {
+    "claim": "Ulysses S. Grant, commander of the Union Army during the American Civil War, was a slave owner.",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_127": {
+    "claim": "Dr. Anthony Fauci said of Trump’s pandemic response, “I can’t imagine that … anybody could be doing more.”",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_128": {
+    "claim": "Joe Biden proposed a US wide 2% property tax increase.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_129": {
+    "claim": "US Democratic presidential nominee Joe Biden was endorsed by Black Lives Matter and Antifa",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_130": {
+    "claim": "Kirron Kher, BJP’s Chandigarh MP, said “Rape is part of Indian culture and tradition. We cannot stop it!”",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_131": {
+    "claim": "We do not know where Covid-19 places among causes of death because the data is not published.",
+    "true_label": 1,
+    "raw_output": "not enough evidence"
+  },
+  "claim_132": {
+    "claim": "Swiss Squash player Ambre Allinckx’s refuses to play in India due to safety reasons",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_133": {
+    "claim": "Labour reversed the 4,400 health health worker cuts by the LNP.",
+    "true_label": 0,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_134": {
+    "claim": "WHO ( World Health Organization) approved water, salt and vinegar remedy for coronavirus",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_135": {
+    "claim": "No one lost their health care because of the Wellmark and Iowa Farm Bureau Health Plan Bill.",
+    "true_label": 2,
+    "raw_output": "not enough evidence"
+  },
+  "claim_136": {
+    "claim": "Forty percent of Iowa’s energy resources are from renewables.",
+    "true_label": 0,
+    "raw_output": "refuted"
+  },
+  "claim_137": {
+    "claim": "it is unknown whether a person under 20 can pass the disease to an older adult.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_138": {
+    "claim": "Fly swatters are now available on Joe Biden's online store.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_139": {
+    "claim": "A campaign ad video for John Cornyn says that his plan would guarantee insurers must sell plans to any patient with preexisting conditions and will be covered in his plan.",
+    "true_label": 1,
+    "raw_output": "supported"
+  },
+  "claim_140": {
+    "claim": "Charlotta Bass was the first Black woman to run for vice president in 1952",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_141": {
+    "claim": "China seek for court’s approval to kill the over 20,000 coronavirus patients to avoid further spread of the virus.",
+    "true_label": 1,
+    "raw_output": "refuted"
+  },
+  "claim_142": {
+    "claim": "The CDC has said over 98,000 people had non-COVID related deaths because of hospitals that were closed down for non-essential services",
+    "true_label": 2,
+    "raw_output": "not enough evidence"
+  },
+  "claim_143": {
+    "claim": "New Zealand spends less on pensions than most wealthy countries, spending 4.4 per cent of GDP",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_144": {
+    "claim": "Nigeria’s Ngozi Okonjo-Iweala has been appointed the new and first female Director-General of the World Trade Organisation (WTO).",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_145": {
+    "claim": "When Joe Biden was US vice-president they took a month to act on information that might have saved Kayla Mueller, a humanitarian worker held hostage and sexually abused by the Islamic State terrorist group",
+    "true_label": 0,
+    "raw_output": "not enough evidence"
+  },
+  "claim_146": {
+    "claim": "Right after a time where we're going through a pandemic that lost 22 million jobs at the height, we've already added back 11.6 million jobs.",
+    "true_label": 0,
+    "raw_output": "supported"
+  },
+  "claim_147": {
+    "claim": "Because of a so-called trade war with China, America lost 300,000 manufacturing jobs.",
+    "true_label": 0,
+    "raw_output": "conflicting evidence/cherrypicking"
+  },
+  "claim_148": {
+    "claim": "U.S. President Donald Trump has suspended all travel from China.",
+    "true_label": 3,
+    "raw_output": "supported"
+  },
+  "claim_149": {
+    "claim": "They [the Democrats] want to ... ban fracking.",
+    "true_label": 1,
+    "raw_output": "conflicting evidence/cherrypicking"
+  }
+}

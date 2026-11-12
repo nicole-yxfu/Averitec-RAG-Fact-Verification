@@ -1,0 +1,56 @@
+{
+  "caches": {
+    "plain": "results/ddg_direct_dev500_plain_eval_cache.json",
+    "nee_guard": "results/ddg_dev500_nee_guard_eval_cache.json"
+  },
+  "restricted_to_common": true,
+  "scores": {
+    "plain": {
+      "n": 500,
+      "macro_f1": 0.4495438556532067,
+      "accuracy": 0.604,
+      "per_class_f1": {
+        "Supported": 0.7121212121212122,
+        "Refuted": 0.7112810707456979,
+        "NEE": 0.23684210526315788,
+        "Conflicting": 0.13793103448275862
+      },
+      "n_unparseable": 3,
+      "pred_dist": {
+        "Supported": 142,
+        "Refuted": 218,
+        "NEE": 117,
+        "Conflicting": 20
+      }
+    },
+    "nee_guard": {
+      "n": 500,
+      "macro_f1": 0.4585254402577309,
+      "accuracy": 0.62,
+      "per_class_f1": {
+        "Supported": 0.6934306569343066,
+        "Refuted": 0.7344632768361582,
+        "NEE": 0.23076923076923078,
+        "Conflicting": 0.17543859649122806
+      },
+      "n_unparseable": 8,
+      "pred_dist": {
+        "Supported": 152,
+        "Refuted": 226,
+        "NEE": 95,
+        "Conflicting": 19
+      }
+    }
+  },
+  "mcnemar_vs_reference": {
+    "nee_guard": {
+      "n_common": 500,
+      "both_right": 287,
+      "both_wrong": 175,
+      "only_a_right": 15,
+      "only_b_right": 23,
+      "n_discordant": 38,
+      "p_value": 0.2558750795433298
+    }
+  }
+}

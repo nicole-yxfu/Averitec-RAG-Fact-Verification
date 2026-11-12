@@ -65,6 +65,22 @@ conflicting evidence/cherrypicking"""
 
 from bm25_baseline import SYSTEM_PROMPT as STANDARD_PROMPT
 
+# "nee_guard" = PLAIN_PROMPT plus one paragraph defining when 'not enough
+# evidence' is warranted. Motivated by a measured failure, not a hunch: on
+# dev500 the open-web system predicts NEE 117 times where only 35 claims
+# carry that gold label (3.3x over-prediction), and the faithfulness judge
+# scores NEE verdicts lowest of all four classes (0.522 open-web vs 0.861
+# Refuted) — i.e. the model reaches for NEE when evidence is merely
+# incomplete rather than genuinely silent, and cannot ground that choice.
+#
+# The added paragraph only sharpens the decision boundary; it adds no
+# information about the label distribution and names no class as more or
+# less likely, so it is not a prior smuggled in as an instruction. The
+# expected cost is NEE recall, and that trade-off is what gets measured.
+NEE_GUARD_PROMPT = PLAIN_PROMPT + """
+
+When deciding on 'not enough evidence', apply this standard: choose it only when the evidence is silent on the claim's substance, or addresses a different question entirely. If the evidence does speak to the claim but is incomplete, imprecise, indirect, or covers only part of it, commit to 'supported' or 'refuted' according to where that evidence points. Partial or indirect evidence is evidence, not an absence of it."""
+
 SYSTEM_PROMPT = PLAIN_PROMPT  # default; overridden by --prompt-style at runtime
 
 LLM_LABEL_MAP = {
@@ -274,14 +290,18 @@ if __name__ == '__main__':
                              "data/fewshot_template.json for the schema. "
                              "Omit for plain Zero-Shot (the Week 3 default).")
     parser.add_argument("--prompt-style", default="plain",
-                        choices=["plain", "standard"],
+                        choices=["plain", "standard", "nee_guard"],
                         help="System prompt: 'plain' (Week 3 terse prompt, "
-                             "default) or 'standard' (verbose prompt from "
-                             "bm25_baseline.py). Lets Finding 1 (Prompt > "
-                             "Retriever) be re-tested on any retrieval cache.")
+                             "default), 'standard' (verbose prompt from "
+                             "bm25_baseline.py), or 'nee_guard' (plain plus "
+                             "a definition of when 'not enough evidence' is "
+                             "warranted). Lets Finding 1 (Prompt > Retriever) "
+                             "be re-tested on any retrieval cache.")
     args = parser.parse_args()
 
-    chosen_prompt = STANDARD_PROMPT if args.prompt_style == "standard" else PLAIN_PROMPT
+    chosen_prompt = {"standard": STANDARD_PROMPT,
+                     "nee_guard": NEE_GUARD_PROMPT}.get(
+                         args.prompt_style, PLAIN_PROMPT)
     print(f"Prompt style: {args.prompt_style}")
 
     run_reprompt_eval(args.data_file, args.retrieval_cache, args.output_cache,

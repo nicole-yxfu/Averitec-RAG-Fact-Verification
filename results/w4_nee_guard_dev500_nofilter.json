@@ -1,0 +1,67 @@
+{
+  "caches": {
+    "plain": "results/ddg_direct_dev500_plain_eval_cache.json",
+    "nee_guard": "results/ddg_dev500_nee_guard_eval_cache.json"
+  },
+  "restricted_to_common": true,
+  "excluded_filtered": [
+    "claim_114",
+    "claim_287",
+    "claim_332",
+    "claim_362",
+    "claim_437",
+    "claim_441",
+    "claim_451",
+    "claim_465",
+    "claim_86"
+  ],
+  "scores": {
+    "plain": {
+      "n": 491,
+      "macro_f1": 0.44991531773030674,
+      "accuracy": 0.604887983706721,
+      "per_class_f1": {
+        "Supported": 0.7121212121212122,
+        "Refuted": 0.7111984282907662,
+        "NEE": 0.23841059602649006,
+        "Conflicting": 0.13793103448275862
+      },
+      "n_unparseable": 0,
+      "pred_dist": {
+        "Supported": 142,
+        "Refuted": 213,
+        "NEE": 116,
+        "Conflicting": 20
+      }
+    },
+    "nee_guard": {
+      "n": 491,
+      "macro_f1": 0.4610900433135666,
+      "accuracy": 0.6293279022403259,
+      "per_class_f1": {
+        "Supported": 0.6934306569343066,
+        "Refuted": 0.744721689059501,
+        "NEE": 0.23076923076923078,
+        "Conflicting": 0.17543859649122806
+      },
+      "n_unparseable": 0,
+      "pred_dist": {
+        "Supported": 152,
+        "Refuted": 225,
+        "NEE": 95,
+        "Conflicting": 19
+      }
+    }
+  },
+  "mcnemar_vs_reference": {
+    "nee_guard": {
+      "n_common": 491,
+      "both_right": 287,
+      "both_wrong": 172,
+      "only_a_right": 10,
+      "only_b_right": 22,
+      "n_discordant": 32,
+      "p_value": 0.050102459732443094
+    }
+  }
+}

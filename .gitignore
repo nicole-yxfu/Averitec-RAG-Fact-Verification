@@ -21,7 +21,9 @@ bin/*.bin
 results/bm25_corpus_cache/
 results/bm25_ranking_cache/
 results/duckduckgo_cache/
+results/duckduckgo_pool30_cache/
 results/*_retrieval_cache.json
+results/*_pool30.json
 results/bm25_baseline_*_top5*.json
 results/dense_v2_*_pool30_top5_cache.json
 
