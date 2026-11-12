@@ -22,6 +22,16 @@ Switching the **evidence source** (closed → open web) gives the single largest
 
 The retrieval result replicates on the stronger evidence rung: hybrid retrieval (BM25 + dense fused by RRF) and cross-encoder re-ranking over a widened open-web pool land at **p = 1.0 and p = 0.86** against the deployed baseline — [see the null result and the control that nearly hid it](#does-better-ranking-help-a-pre-registered-null-result).
 
+### The change that actually paid: letting it abstain
+
+No deployed fact-checking pipeline answers every claim — the model is triage, and a person handles the rest. Scored that way, the picture changes completely:
+
+![Risk-coverage curve](docs/risk_coverage.png)
+
+> Forced to answer all 500 dev claims, the system is **60.4%** accurate. Allowed to abstain, it answers **70% of claims at 78.9%** accuracy — cutting human review load by 70% — and the 30% it declines includes **every single *not enough evidence* verdict**, the class it is right about only 15% of the time.
+
+That is worth more than every retrieval change in this project combined, and it needed no new retrieval, no new model and no extra API spend — only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human).
+
 An **oracle-gap error analysis** (quantitative decomposition + 20-case qualitative study, cross-verified by 3 independent LLM annotators) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
 **Stack:** Python · BM25 (rank-bm25) · sentence-transformers (mpnet) · DuckDuckGo · Azure OpenAI (`gpt-4.1-mini`) · FastAPI · Docker · scikit-learn · NLTK
@@ -83,6 +93,46 @@ python src/rag_eval.py \
     --retrieval-cache results/gold_evidence_dev500_retrieval_cache.json \
     --prediction-cache results/gold_baseline_official_dev_with_metadata_cache.json \
     --output-cache results/faithfulness_gold_plain_dev500.json
+```
+
+## Selective prediction: how much work can it take off a human?
+
+Macro-F1 scores a system that *must* answer. Full Fact, Meta's third-party programme and every content-moderation stack use the model as **triage** instead: it handles what it is confident about and routes the rest to a person. The operative question is therefore not "how accurate is it?" but *at what coverage can it run unattended, and at what accuracy?*
+
+`src/selective_prediction.py` ranks claims by confidence and reports accuracy over the fraction answered. Three signals, all available at inference time on an unseen claim:
+
+| Signal | What it costs | Accuracy when it fires |
+|---|---|---|
+| Faithfulness judge says the verdict is grounded | 1 extra LLM call | 0.685 (365 claims) vs 0.358 when it says ungrounded |
+| A second prompt reaches the same verdict | 1 extra LLM call | 0.636 (451) vs 0.306 on disagreement |
+| The predicted class itself | free | **`refuted` 0.853** (218) · `supported` 0.662 · `conflicting` 0.200 · **`NEE` 0.154** |
+
+The third is the strongest and the most actionable: *"never auto-answer **not enough evidence**"* is a one-line shipping policy worth more than any ranking change tested here.
+
+| Coverage | Answered | Accuracy | Errors | Supported | Refuted | NEE | Conflicting |
+|---|---|---|---|---|---|---|---|
+| 100% | 500 | 0.6040 | 198 | 142 | 218 | 117 | 20 |
+| 90% | 450 | 0.6467 | 159 | 142 | 218 | 70 | 17 |
+| 80% | 400 | 0.7100 | 116 | 142 | 218 | 25 | 12 |
+| **70%** | **350** | **0.7886** | **74** | 132 | 218 | **0** | **0** |
+| 50% | 250 | 0.8280 | 43 | 35 | 215 | 0 | 0 |
+| 30% | 150 | 0.8533 | 22 | 0 | 150 | 0 | 0 |
+
+**AURC 0.214 against 0.396 for abstaining at random** — the confidence ordering removes roughly half the area under the error curve.
+
+**The leakage control.** Combining those signals needs a fitted model, and fitting it on the same 500 claims it is then scored on would mean the "never trust NEE" rule was learned from the very claims used to report its benefit. Every score above is therefore **cross-fitted**: 5-fold, each claim scored by a model fitted on the other folds only. A *fitted-nothing* rule (grounded + prompts agree, no labels touched at any point) is reported alongside and still reaches AURC 0.308 — weaker, but it confirms the signal is not an artifact of the fitting. This is still dev data the project has developed against, so the honest framing is **out-of-fold on dev**, not held-out test.
+
+**Where the curve stops helping.** Below ~30% coverage accuracy flattens and then falls. That is not noise to be smoothed away: the features take only a dozen distinct values, so once everything but `refuted` has been filtered out there is nothing left to rank *within* that class. More coverage reduction would need a finer-grained confidence signal, such as token log-probabilities.
+
+```bash
+python src/selective_prediction.py \
+    --predictions   results/ddg_direct_dev500_plain_eval_cache.json \
+    --faithfulness  results/faithfulness_ddg_plain_dev500.json \
+    --second-prompt results/ddg_dev500_nee_guard_eval_cache.json \
+    --out results/selective_prediction_dev500.json
+python src/plot_risk_coverage.py \
+    --report results/selective_prediction_dev500.json \
+    --out docs/risk_coverage.png
 ```
 
 ## Does better ranking help? A pre-registered null result
@@ -300,16 +350,17 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 44 tests, no network and no model downloads:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 59 tests, no network and no model downloads:
 
 ```bash
 python tests/test_core.py        # pipeline: label normalization, atomic writes, few-shot schema
 python tests/test_service.py     # service: validation, verdict mapping, cost arithmetic (fully mocked)
 python tests/test_hybrid.py      # RRF maths, BM25 edge cases, re-ranker guards, exact McNemar
+python tests/test_selective.py   # risk-coverage maths, AURC, tie handling, cross-fit leakage
 # or:  pytest tests/
 ```
 
-`test_hybrid.py` asserts the McNemar p-values against hand-computed exact binomials, and asserts that a NaN, constant or inverted cross-encoder *raises* instead of silently degrading to the identity ranking — the failure that produced a convincing fake null result here.
+`test_hybrid.py` asserts the McNemar p-values against hand-computed exact binomials, and asserts that a NaN, constant or inverted cross-encoder *raises* instead of silently degrading to the identity ranking — the failure that produced a convincing fake null result here. `test_selective.py` pins AURC against hand-computed values and checks that cross-fitting cannot memorise pure noise, since every failure mode there yields a *prettier* curve rather than a crash.
 
 ## Source layout (`src/`)
 
@@ -332,6 +383,8 @@ python tests/test_hybrid.py      # RRF maths, BM25 edge cases, re-ranker guards,
 - `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?), with 429 back-off and resumable caching.
 - `build_gold_evidence_cache.py` — materializes gold QA pairs into retrieval-cache shape so the oracle config can be scored for faithfulness with the same judge.
 - `compare_runs.py` — scores any set of eval caches side by side and runs an **exact McNemar** test against the first; `--restrict-to-common` (never compare across different claim sets) and `--exclude-filtered` (don't charge a variant for a content-filter refusal).
+- `selective_prediction.py` — risk-coverage / abstention analysis: ranks claims by cross-fitted confidence and reports accuracy at each coverage level, plus AURC against random abstention and a fitted-nothing rule baseline.
+- `plot_risk_coverage.py` — renders that report as the README figure.
 - `make_results_table.py` — scores every prediction cache and regenerates the full results table above (no API calls)
 - `evaluate_retrieval.py` (URL Recall@5), `evaluate_text_overlap.py` (text-overlap recall + permutation null)
 - `analyze_gold_gap.py` — oracle gap decomposition (quantitative)

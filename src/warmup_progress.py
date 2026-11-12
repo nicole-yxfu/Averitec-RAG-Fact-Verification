@@ -39,18 +39,21 @@ CACHE_DIR = os.path.join(
     "results", "bm25_corpus_cache",
 )
 TARGET = 500
+SPLIT = "dev"
+
+
+def _pattern():
+    return os.path.join(CACHE_DIR, f"*_{SPLIT}_*.json.gz")
 
 
 def count_dev_files():
-    return len(glob.glob(os.path.join(CACHE_DIR, "*_dev_*.json.gz")))
+    return len(glob.glob(_pattern()))
 
 
 def files_modified_within(seconds):
     now = time.time()
-    return [
-        p for p in glob.glob(os.path.join(CACHE_DIR, "*_dev_*.json.gz"))
-        if os.path.getmtime(p) > now - seconds
-    ]
+    return [p for p in glob.glob(_pattern())
+            if os.path.getmtime(p) > now - seconds]
 
 
 def rate_per_minute(window_min):
@@ -86,7 +89,7 @@ def snapshot(window_min):
     missing = max(0, TARGET - have)
     rate, r_recent, r_older = rate_per_minute(window_min)
 
-    print(f"[{time.strftime('%H:%M:%S')}] dev corpus cache progress")
+    print(f"[{time.strftime('%H:%M:%S')}] {SPLIT} corpus cache progress")
     print(f"  target          : {TARGET}")
     print(f"  have on disk    : {have}")
     print(f"  missing         : {missing}")
@@ -112,7 +115,15 @@ def main():
                    help="Refresh every 30 s until Ctrl+C")
     p.add_argument("--window", type=int, default=10,
                    help="Rate window in minutes (default 10)")
+    p.add_argument("--split", default="dev",
+                   help="Knowledge-Store split whose cache files to count "
+                        "(dev, train, ...). Matches *_<split>_*.json.gz.")
+    p.add_argument("--target", type=int, default=500,
+                   help="Claims in that split (dev = 500).")
     args = p.parse_args()
+
+    global SPLIT, TARGET
+    SPLIT, TARGET = args.split, args.target
 
     if not args.watch:
         snapshot(args.window)
