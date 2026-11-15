@@ -1,0 +1,242 @@
+{
+  "n_items": 50,
+  "n_scored": 49,
+  "n_unsure": 1,
+  "n_missing": 0,
+  "judge_says_faithful": {
+    "n": 37,
+    "agree": 32,
+    "rate": 0.8648648648648649,
+    "ci95": [
+      0.7202227252929444,
+      0.9408679273749238
+    ]
+  },
+  "judge_says_unfaithful": {
+    "n": 12,
+    "agree": 6,
+    "rate": 0.5,
+    "ci95": [
+      0.2537781703934222,
+      0.7462218296065778
+    ]
+  },
+  "sample_agreement": 0.7755102040816326,
+  "sample_kappa": 0.3754345307068368,
+  "population_weight_faithful": 0.7526,
+  "population_agreement": 0.7876288659793815,
+  "human_corrected_faithfulness_rate": 0.7876288659793815,
+  "judge_faithfulness_rate": 0.8350515463917526,
+  "disagreements": {
+    "judge_too_lenient": 5,
+    "judge_too_strict": 6
+  },
+  "by_verdict": {
+    "Conflicting evidence": {
+      "n": 3,
+      "agree": 3,
+      "judge_says_faithful": 3,
+      "human_says_faithful": 3
+    },
+    "Not enough evidence": {
+      "n": 14,
+      "agree": 12,
+      "judge_says_faithful": 12,
+      "human_says_faithful": 14
+    },
+    "Refuted": {
+      "n": 20,
+      "agree": 15,
+      "judge_says_faithful": 14,
+      "human_says_faithful": 15
+    },
+    "Supported": {
+      "n": 12,
+      "agree": 8,
+      "judge_says_faithful": 8,
+      "human_says_faithful": 6
+    }
+  },
+  "median_seconds_per_item": 30,
+  "disagreement_cases": [
+    {
+      "id": "claim_318",
+      "judge": 1,
+      "human": 0,
+      "stratum": 1,
+      "verdict": "Refuted",
+      "note": "",
+      "seconds": 567
+    },
+    {
+      "id": "claim_48",
+      "judge": 1,
+      "human": 0,
+      "stratum": 1,
+      "verdict": "Supported",
+      "note": "",
+      "seconds": 32
+    },
+    {
+      "id": "claim_393",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Refuted",
+      "note": "",
+      "seconds": 50
+    },
+    {
+      "id": "claim_208",
+      "judge": 1,
+      "human": 0,
+      "stratum": 1,
+      "verdict": "Supported",
+      "note": "",
+      "seconds": 22
+    },
+    {
+      "id": "claim_476",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Refuted",
+      "note": "",
+      "seconds": 31
+    },
+    {
+      "id": "claim_351",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Not enough evidence",
+      "note": "",
+      "seconds": 48
+    },
+    {
+      "id": "claim_324",
+      "judge": 1,
+      "human": 0,
+      "stratum": 1,
+      "verdict": "Supported",
+      "note": "",
+      "seconds": 13
+    },
+    {
+      "id": "claim_196",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Supported",
+      "note": "",
+      "seconds": 13
+    },
+    {
+      "id": "claim_359",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Refuted",
+      "note": "",
+      "seconds": 13
+    },
+    {
+      "id": "claim_340",
+      "judge": 1,
+      "human": 0,
+      "stratum": 1,
+      "verdict": "Refuted",
+      "note": "",
+      "seconds": 14
+    },
+    {
+      "id": "claim_156",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Not enough evidence",
+      "note": "",
+      "seconds": 15
+    }
+  ],
+  "missing": [],
+  "judge_cache": "results/faithfulness_ddg_plain_dev500_judge_v2.json",
+  "v1_vs_human": {
+    "n": 49,
+    "agree": 26,
+    "rate": 0.5306122448979592,
+    "kappa": 0.05054759898904815,
+    "by_verdict": {
+      "Conflicting evidence": {
+        "n": 3,
+        "agree": 1
+      },
+      "Not enough evidence": {
+        "n": 14,
+        "agree": 4
+      },
+      "Refuted": {
+        "n": 20,
+        "agree": 14
+      },
+      "Supported": {
+        "n": 12,
+        "agree": 7
+      }
+    }
+  },
+  "this_judge_vs_human": {
+    "n": 49,
+    "agree": 38,
+    "rate": 0.7755102040816326,
+    "kappa": 0.3754345307068368,
+    "by_verdict": {
+      "Conflicting evidence": {
+        "n": 3,
+        "agree": 3
+      },
+      "Not enough evidence": {
+        "n": 14,
+        "agree": 12
+      },
+      "Refuted": {
+        "n": 20,
+        "agree": 15
+      },
+      "Supported": {
+        "n": 12,
+        "agree": 8
+      }
+    }
+  },
+  "flips_on_all_claims": {
+    "Refuted": {
+      "n": 208,
+      "v1_faithful": 179,
+      "v2_faithful": 169,
+      "to_faithful": 3,
+      "to_unfaithful": 13
+    },
+    "Not enough evidence": {
+      "n": 115,
+      "v1_faithful": 60,
+      "v2_faithful": 103,
+      "to_faithful": 45,
+      "to_unfaithful": 2
+    },
+    "Conflicting evidence": {
+      "n": 20,
+      "v1_faithful": 12,
+      "v2_faithful": 15,
+      "to_faithful": 4,
+      "to_unfaithful": 1
+    },
+    "Supported": {
+      "n": 142,
+      "v1_faithful": 114,
+      "v2_faithful": 118,
+      "to_faithful": 5,
+      "to_unfaithful": 1
+    }
+  }
+}

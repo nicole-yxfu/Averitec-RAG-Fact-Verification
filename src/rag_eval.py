@@ -65,6 +65,39 @@ A verdict is faithful when:
 
 Answer with exactly one word: faithful  or  unfaithful"""
 
+# v2 (2026-11-15). A blind human check of 50 v1 judgements (judge_check/)
+# found v1 answering from its OWN knowledge of the claim: it called 10 of 14
+# "not enough evidence" verdicts unfaithful, and in 9 of those the five
+# snippets never mention the claim. 8 of the 10 claims have a Supported or
+# Refuted gold label, i.e. the judge knew the real answer and marked the
+# system down for not having it. v2 forbids outside knowledge explicitly and
+# spells out when "not enough evidence" is faithful — while keeping the other
+# direction: if the passages DO settle the claim, that verdict is unfaithful.
+# v1 stays the default so every published number keeps reproducing.
+JUDGE_SYSTEM_V2 = """You are a strict evaluator of fact-checking FAITHFULNESS. \
+You are given a claim, a set of retrieved evidence passages, and a system's \
+veracity verdict. Judge ONLY whether the verdict is justified by the evidence \
+provided.
+
+Do NOT use your own knowledge about the claim. Act as if you know nothing \
+beyond the passages. Whether the claim is true in the real world does not \
+matter: a verdict can be faithful to the evidence and still be wrong.
+
+A verdict is faithful when:
+- "supported": the passages clearly support the claim.
+- "refuted": the passages clearly contradict the claim.
+- "not enough evidence": the passages do not settle the claim. This includes \
+passages that are irrelevant, about a different event, date, person or place, \
+or that never address the specific point the claim makes. In that case the \
+verdict is faithful even if you happen to know the answer. If the passages \
+DO clearly settle the claim, this verdict is unfaithful.
+- "conflicting evidence/cherrypicking": the passages both support and \
+contradict the claim.
+
+Answer with exactly one word: faithful  or  unfaithful"""
+
+JUDGE_PROMPTS = {"v1": JUDGE_SYSTEM, "v2": JUDGE_SYSTEM_V2}
+
 
 def normalize_verdict(raw: str) -> int:
     t = str(raw).strip().lower().strip('."\'* \n')
@@ -115,7 +148,11 @@ def main():
     ap.add_argument("--output-cache", required=True, help="where judge decisions are cached")
     ap.add_argument("--sample", type=int, default=-1, help="judge only first N claims (-1 = all)")
     ap.add_argument("--backend", default="langchain", choices=["langchain", "native"])
+    ap.add_argument("--judge-version", default="v1", choices=sorted(JUDGE_PROMPTS),
+                    help="v1 = the published judge; v2 = forbids outside knowledge "
+                         "(see JUDGE_SYSTEM_V2). Use a separate --output-cache per version.")
     args = ap.parse_args()
+    judge_system = JUDGE_PROMPTS[args.judge_version]
 
     retrieval = json.load(open(args.retrieval_cache, encoding="utf-8"))
     predictions = json.load(open(args.prediction_cache, encoding="utf-8"))
@@ -150,7 +187,7 @@ def main():
         faithful, note, done = None, None, False
         for attempt in range(6):
             try:
-                raw, _p, _c = call_fn(client, JUDGE_SYSTEM, user_input)
+                raw, _p, _c = call_fn(client, judge_system, user_input)
                 faithful, note, done = parse_judge(raw), raw.strip()[:40], True
                 break
             except Exception as e:

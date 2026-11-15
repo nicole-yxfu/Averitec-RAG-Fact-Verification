@@ -89,10 +89,32 @@ Faithfulness across the full evidence ladder (all 500 official dev claims, judge
 
 <sub>Judged on 487 / 485 / 488 claims respectively; 9–12 per config are dropped where Azure's content filter blocks the judge call. Faithfulness is the share of verdicts the judge rules justified *by the evidence shown* (not by real-world truth).</sub>
 
-Two findings this adds on top of accuracy:
+Two findings this adds on top of accuracy — one survived a human check, one did not:
 
-1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. Better evidence doesn't just make the system *more often right*, it makes its verdicts *better grounded*: the single most effective accuracy lever (swapping the evidence source) is also the most effective faithfulness lever. The closed-web system is unfaithful on ~36% of its verdicts — asserting support or refutation the Knowledge Store does not actually contain — and moving to the open web closes a third of that gap (+0.12 faithfulness).
-2. **"Not enough evidence" is the least-grounded verdict at every rung** (0.48 → 0.52 → 0.66). It improves with better evidence, but stays lowest *even under gold evidence* — a third of gold-NEE verdicts are still unjustified — so the NEE weakness is partly a reasoning limit, not purely a retrieval one. Notably this is a *different* weak spot from the one accuracy analysis finds: the oracle gap is dominated by the **Conflicting** class (54.6% of it, see below), whereas the grounding deficit concentrates on **NEE**. Measuring faithfulness therefore surfaces a failure mode Macro-F1 alone does not expose.
+1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. *Provisional:* all three columns were scored by the original judge, which the check below found to be biased against one verdict class, and the classes are not equally common on every rung. Re-scoring the closed-web and gold columns with the corrected judge would settle it.
+2. ~~"Not enough evidence" is the least-grounded verdict at every rung.~~ **Withdrawn.** This was mostly the judge's own error, not the system's: on the open web, the corrected judge rates 90% of NEE verdicts as grounded, not 52%. See below.
+
+### How far can the judge be trusted? A blind human check
+
+An LLM judge is a model, and its numbers are only as good as its agreement with a person. So 50 open-web verdicts were labelled by hand with the judge's own rule, **blind to the judge's answer and to the gold label**: 25 the judge had called faithful and 25 it had called unfaithful, each shown with exactly the five snippets the judge saw (`judge_check/`).
+
+| | Original judge (v1) | Corrected judge (v2) |
+|---|---|---|
+| Agrees with the person, on the 50 | 26 / 49, κ = 0.05 | 38 / 49, κ = 0.38 |
+| … on *not enough evidence* verdicts | **4 / 14** | **12 / 14** |
+| … on *supported* / *refuted* | 21 / 32 | 23 / 32 |
+| Estimated agreement on all 485 verdicts | 66% | 79% |
+| Faithfulness rate it reports | 75% | 84% |
+
+<sub>One item marked "can't tell". Estimates re-weight the 50/50 sample to the judge's real 365 / 120 split. The person's own labels imply a faithfulness rate of about 79%.</sub>
+
+**What went wrong.** The disagreement sat almost entirely in one class: the person judged all 14 *not enough evidence* verdicts justified, the judge only 4. On re-reading the 10 disputed cases, **9 had five snippets that never mention the claim at all** — 2024 debate coverage for a claim about 2020, police statistics for the wrong year, a currency-forgery tip for a different method. And 8 of those 10 claims have a *supported* or *refuted* gold label. The judge was answering from **its own knowledge of the claim**, against an instruction that told it not to: it knew the real answer, so it marked the system down for not giving it.
+
+**The fix** (`--judge-version v2` in `src/rag_eval.py`) says it outright: use no outside knowledge, and if the passages never address the claim's specific point, *not enough evidence* is faithful — while keeping the other direction (if the passages *do* settle the claim, that verdict is unfaithful). Over all 485 open-web verdicts it moved exactly where it should: 45 NEE verdicts to faithful and only 2 the other way, against 6 changes among 142 *supported* verdicts. It also became slightly stricter on *refuted* (13 → unfaithful, 3 → faithful); on the checked sample that direction still agreed with the person (14 → 15 of 20).
+
+**Read these with three caveats.** (1) The v2 prompt was written *after* reading these 50 disagreements, so its agreement on the same 50 is in-sample and optimistic; a fresh sample would be the honest test. (2) κ = 0.38 is "fair", not reliable — the judge went from chance-level to usable, not to trustworthy, and it now *over*-reports faithfulness by about 5 points. (3) One annotator, who formed their own verdict before comparing (slightly stricter than the rule on genuinely ambiguous evidence) and answered the last ~15 items much faster than the first.
+
+**What this changes elsewhere.** The abstention layer used the judge's verdict as one of its signals, so it was re-run three ways: with the v1 judge AURC 0.214, with v2 0.216, with **no judge at all 0.223** — all far from random abstention's 0.396, and 78.9–79.1% accuracy at 70% coverage either way. The headline abstention result does not rest on the flawed judge. And the NEE weakness the accuracy analysis finds (below) is real, but it is mostly a **retrieval** failure: the system usually says "not enough evidence" because the search found nothing relevant, which is the honest answer to bad evidence.
 
 Reproduce (the gold column first materializes gold QA pairs into retrieval-cache shape, then runs the same judge):
 
@@ -111,6 +133,16 @@ python src/rag_eval.py \
     --retrieval-cache results/gold_evidence_dev500_retrieval_cache.json \
     --prediction-cache results/gold_baseline_official_dev_with_metadata_cache.json \
     --output-cache results/faithfulness_gold_plain_dev500.json
+
+# The human check of the judge, and the corrected judge
+python src/rag_eval.py --judge-version v2 \
+    --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
+    --prediction-cache results/ddg_direct_dev500_plain_eval_cache.json \
+    --output-cache results/faithfulness_ddg_plain_dev500_judge_v2.json
+python src/score_judge_check.py --answers judge_check/answers_human.json             # v1
+python src/score_judge_check.py --answers judge_check/answers_human.json \
+    --judge-cache results/faithfulness_ddg_plain_dev500_judge_v2.json \
+    --out results/judge_check_report_v2.json                                         # v2
 ```
 
 ## Selective prediction: how much work can it take off a human?
@@ -180,7 +212,7 @@ Three things are worth more than the null itself:
 
 ### Reducing unjustified "not enough evidence"
 
-The faithfulness analysis flagged NEE as the least-grounded class. Quantified on dev500: the open-web system answers *not enough evidence* on **116 claims where only 18 truly are** — 84% of its NEE verdicts are wrong. `--prompt-style nee_guard` adds one paragraph defining when the label is warranted (evidence *silent* on the claim, not merely incomplete).
+*Not enough evidence* is the system's least accurate verdict. Quantified on dev500: the open-web system answers *not enough evidence* on **116 claims where only 18 truly are** — 84% of its NEE verdicts are wrong. `--prompt-style nee_guard` adds one paragraph defining when the label is warranted (evidence *silent* on the claim, not merely incomplete).
 
 Full dev500, 491 claims after excluding content-filter refusals:
 
@@ -396,7 +428,7 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 100 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 104 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
 
 ```bash
 python tests/test_core.py        # label normalization, atomic writes, few-shot schema, cache integrity

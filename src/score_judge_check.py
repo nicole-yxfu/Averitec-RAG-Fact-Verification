@@ -81,7 +81,11 @@ def score(answers: dict, meta: dict) -> dict:
             continue
         h = 1 if a == "faithful" else 0
         pairs.append((k["judge_faithful"], h))
+        # The stratum is fixed by how the items were SAMPLED (the v1 judge's
+        # label), even when a different judge is being scored.
+        stratum = k.get("v1_judge_faithful", k["judge_faithful"])
         rows.append({"id": cid, "judge": k["judge_faithful"], "human": h,
+                     "stratum": stratum,
                      "verdict": k["verdict"],
                      "note": (answers.get(cid) or {}).get("note", ""),
                      "seconds": (answers.get(cid) or {}).get("seconds")})
@@ -105,12 +109,19 @@ def score(answers: dict, meta: dict) -> dict:
         "sample_kappa": cohen_kappa(pairs),
         "population_weight_faithful": round(w_f, 4),
     }
-    if on_f["rate"] is not None and on_u["rate"] is not None:
-        out["population_agreement"] = w_f * on_f["rate"] + (1 - w_f) * on_u["rate"]
-        # P(human says faithful) in the population, via the judge's split:
-        human_rate = w_f * on_f["rate"] + (1 - w_f) * (1 - on_u["rate"])
-        out["judge_faithfulness_rate"] = w_f
-        out["human_corrected_faithfulness_rate"] = human_rate
+    strata = {s_: [r for r in rows if r["stratum"] == s_] for s_ in (1, 0)}
+    if strata[1] and strata[0]:
+        weight = {1: w_f, 0: 1 - w_f}
+        mean = lambda xs: sum(xs) / len(xs)  # noqa: E731
+        # Stratified estimators: within each sampling stratum, average; then
+        # weight by that stratum's share of the population. With the v1 judge
+        # these reduce to w_f*a_f + w_u*a_u; with another judge they stay valid.
+        out["population_agreement"] = sum(
+            weight[s_] * mean([int(r["judge"] == r["human"]) for r in strata[s_]])
+            for s_ in (1, 0))
+        out["human_corrected_faithfulness_rate"] = sum(
+            weight[s_] * mean([r["human"] for r in strata[s_]]) for s_ in (1, 0))
+        out["judge_faithfulness_rate"] = w_f     # overwritten for other judges
         lenient = sum(1 for r in rows if r["judge"] == 1 and r["human"] == 0)
         strict = sum(1 for r in rows if r["judge"] == 0 and r["human"] == 1)
         out["disagreements"] = {"judge_too_lenient": lenient, "judge_too_strict": strict}
@@ -132,6 +143,62 @@ def score(answers: dict, meta: dict) -> dict:
     return out
 
 
+def override_judge(meta: dict, judge_cache: dict) -> dict:
+    """
+    Swap the judge labels in key.json for another judge's (e.g. the v2
+    prompt), keeping the sample and the population weights fixed.
+
+    The population split is NOT re-estimated from the new judge: the 50
+    items were sampled by the v1 judge's labels, so the strata and their
+    weights belong to v1. Re-weighting by v2's split would silently mix
+    two samplings.
+    """
+    import copy
+    out = copy.deepcopy(meta)
+    for cid, k in out["key"].items():
+        v = judge_cache.get(cid, {}).get("faithful")
+        if v not in (0, 1):
+            raise ValueError(f"{cid}: no usable label in the override judge cache")
+        k["v1_judge_faithful"] = k["judge_faithful"]
+        k["judge_faithful"] = v
+    return out
+
+
+def agreement_with_human(answers: dict, meta: dict, field: str) -> dict:
+    """Plain agreement of one judge with the person, overall and per verdict."""
+    rows = []
+    for cid, k in meta["key"].items():
+        a = (answers.get(cid) or {}).get("answer")
+        if a in ("faithful", "unfaithful"):
+            rows.append((k["verdict"], k[field], 1 if a == "faithful" else 0))
+    per = {}
+    for v in sorted({r[0] for r in rows}):
+        sub = [r for r in rows if r[0] == v]
+        per[v] = {"n": len(sub), "agree": sum(1 for _, j, h in sub if j == h)}
+    agree = sum(1 for _, j, h in rows if j == h)
+    return {"n": len(rows), "agree": agree, "rate": agree / len(rows) if rows else None,
+            "kappa": cohen_kappa([(j, h) for _, j, h in rows]), "by_verdict": per}
+
+
+def flip_table(v1: dict, v2: dict) -> dict:
+    """How two judges differ on every claim both scored, per system verdict."""
+    names = ["Supported", "Refuted", "Not enough evidence", "Conflicting evidence"]
+    out = {}
+    for cid in sorted(set(v1) & set(v2)):
+        a, b = v1[cid].get("faithful"), v2[cid].get("faithful")
+        if a not in (0, 1) or b not in (0, 1):
+            continue
+        name = names[int(v1[cid]["pred"])]
+        d = out.setdefault(name, {"n": 0, "v1_faithful": 0, "v2_faithful": 0,
+                                  "to_faithful": 0, "to_unfaithful": 0})
+        d["n"] += 1
+        d["v1_faithful"] += a
+        d["v2_faithful"] += b
+        d["to_faithful"] += int(a == 0 and b == 1)
+        d["to_unfaithful"] += int(a == 1 and b == 0)
+    return out
+
+
 def pct(x):
     return "n/a" if x is None else f"{x:.0%}"
 
@@ -141,13 +208,31 @@ def main() -> None:
     ap.add_argument("--answers", required=True)
     ap.add_argument("--key", default=os.path.join(REPO, "judge_check", "key.json"))
     ap.add_argument("--out", default=os.path.join(REPO, "results", "judge_check_report.json"))
+    ap.add_argument("--judge-cache", default=None,
+                    help="Score a different judge (e.g. the v2 prompt's rag_eval cache) "
+                         "against the same human labels.")
+    ap.add_argument("--v1-cache", default=os.path.join(REPO, "results", "faithfulness_ddg_plain_dev500.json"),
+                    help="With --judge-cache: the v1 cache, for the full-dev500 flip table.")
     args = ap.parse_args()
 
     with open(os.path.expanduser(args.answers), encoding="utf-8") as f:
         answers = json.load(f)["answers"]
     with open(args.key, encoding="utf-8") as f:
         meta = json.load(f)
+    if args.judge_cache:
+        with open(args.judge_cache, encoding="utf-8") as f:
+            other = json.load(f)
+        meta = override_judge(meta, other)
     r = score(answers, meta)
+    if args.judge_cache:
+        judged = [v["faithful"] for v in other.values() if v.get("faithful") in (0, 1)]
+        r["judge_faithfulness_rate"] = sum(judged) / len(judged)
+    if args.judge_cache:
+        r["judge_cache"] = os.path.relpath(args.judge_cache, REPO)
+        r["v1_vs_human"] = agreement_with_human(answers, meta, "v1_judge_faithful")
+        r["this_judge_vs_human"] = agreement_with_human(answers, meta, "judge_faithful")
+        with open(args.v1_cache, encoding="utf-8") as f:
+            r["flips_on_all_claims"] = flip_table(json.load(f), other)
 
     print(f"Scored {r['n_scored']} of {r['n_items']} "
           f"({r['n_unsure']} can't-tell, {r['n_missing']} unanswered)\n")
@@ -170,6 +255,20 @@ def main() -> None:
     for v, d in r["by_verdict"].items():
         print(f"    {v:<22} {d['agree']:>2}/{d['n']:<3}   {d['judge_says_faithful']:>2}/{d['n']:<17}"
               f"   {d['human_says_faithful']:>2}/{d['n']}")
+    if args.judge_cache:
+        a, b = r["v1_vs_human"], r["this_judge_vs_human"]
+        print(f"\n  On the 50 checked items (IN-SAMPLE: the new prompt was written after "
+              f"reading these disagreements):")
+        print(f"    v1 agrees with the person {a['agree']}/{a['n']}   kappa {a['kappa']:.2f}")
+        print(f"    new judge agrees          {b['agree']}/{b['n']}   kappa {b['kappa']:.2f}")
+        for v in a["by_verdict"]:
+            print(f"      {v:<22} v1 {a['by_verdict'][v]['agree']}/{a['by_verdict'][v]['n']}"
+                  f"  ->  new {b['by_verdict'][v]['agree']}/{b['by_verdict'][v]['n']}")
+        print("\n  On ALL dev500 verdicts (no human labels; how far the new prompt moved each class):")
+        print("    verdict                  n    v1 faithful   new faithful   ->faithful  ->unfaithful")
+        for v, d in r["flips_on_all_claims"].items():
+            print(f"    {v:<22} {d['n']:>4}   {d['v1_faithful'] / d['n']:>9.0%}   {d['v2_faithful'] / d['n']:>11.0%}"
+                  f"   {d['to_faithful']:>9}   {d['to_unfaithful']:>11}")
     if r["median_seconds_per_item"]:
         print(f"  Median time per item: {r['median_seconds_per_item']} s")
 

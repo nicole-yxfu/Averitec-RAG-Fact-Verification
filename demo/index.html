@@ -251,15 +251,16 @@ footer.wrap { padding-top: 24px; padding-bottom: 48px; font-size: 13px; color: v
         <ul class="why">
           ${v ? `<li><span class="ic ic-info">i</span><span>When this system says <b>${esc(e.verdict)}</b>, it is right <b>${pct(v.accuracy)}</b> of the time (${v.n} of ${D.n_claims} claims).</span></li>` : ""}
           ${yesno(e.grounded,
-            "A second LLM, acting as a judge, found the verdict <b>follows from the evidence</b>.",
-            "A second LLM, acting as a judge, found the verdict <b>does not follow from the evidence</b>.",
+            "A second LLM, acting as a judge, rated the verdict as <b>following from the evidence</b>.",
+            "A second LLM, acting as a judge, rated the verdict as <b>not following from the evidence</b>." +
+              (e.verdict === "Not enough evidence" ? " <span class=\"fine\" style=\"display:inline;margin:0\">(A hand check found this judge unreliable on exactly this verdict: it tends to use its own knowledge instead of the snippets.)</span>" : ""),
             "The grounding judge's answer is unavailable for this claim.")}
           ${yesno(e.agree,
             "A differently worded prompt gave <b>the same verdict</b>.",
             "A differently worded prompt gave <b>a different verdict</b>.",
             "No second-prompt result for this claim.")}
         </ul>
-        <p class="fine">The score is a small logistic model over these signals, trained with 5-fold cross-fitting so no claim is scored by a model that saw it. The least confident 30% of claims go to a human.</p>
+        <p class="fine">The score is a small logistic model over these signals, trained with 5-fold cross-fitting so no claim is scored by a model that saw it. The least confident 30% of claims go to a human. Dropping the judge signal entirely leaves the result almost unchanged (78.9% → 79.1% accuracy on the answered claims).</p>
       </section>
 
       <section class="card step">
