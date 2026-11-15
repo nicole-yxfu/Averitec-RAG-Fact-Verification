@@ -396,7 +396,7 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 94 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 100 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
 
 ```bash
 python tests/test_core.py        # label normalization, atomic writes, few-shot schema, cache integrity
@@ -406,6 +406,7 @@ python tests/test_selective.py   # risk-coverage maths, AURC, tie handling, cros
 python tests/test_runs.py        # run contract, verdict scoring, CI gate, and the
                                  # published numbers re-derived from runs/
 python tests/test_demo.py        # the demo page's numbers match the published report
+python tests/test_judge_check.py # faithfulness-judge check: blindness, re-weighting maths
 # or:  pytest tests/
 ```
 
@@ -432,6 +433,11 @@ python tests/test_demo.py        # the demo page's numbers match the published r
 
 **Demo**
 - `build_demo.py` — builds `demo/examples.js`, the data behind the static demo page `demo/index.html`: 11 claims, each with its search results, verdict, confidence score, review decision and the human fact-checkers' verdict. Everything is precomputed from committed artifacts; the script refuses to write if its numbers differ from the published report. Preview with `python -m http.server --directory demo`.
+
+**Faithfulness-judge check**
+- `build_judge_check.py` — samples 50 verdicts (25 the judge called faithful, 25 unfaithful) into `judge_check/`, blind to both the judge's answer and the gold label.
+- `judge_check/label.html` — a small labelling page applying the judge's own criterion; saves progress locally and exports the answers.
+- `score_judge_check.py` — agreement per direction with Wilson intervals, re-weighted to the real 75/25 split, plus a human-corrected faithfulness rate.
 
 **Evaluation contract**
 - `runs.py` — the run-directory format and content-hashed `passage_id`.

@@ -1,0 +1,311 @@
+{
+ "source_faithfulness": "results/faithfulness_ddg_plain_dev500.json",
+ "seed": 0,
+ "per_stratum": 25,
+ "population": {
+  "faithful": 365,
+  "unfaithful": 120
+ },
+ "key": {
+  "claim_318": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_202": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 0
+  },
+  "claim_27": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_408": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_4": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_149": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 1
+  },
+  "claim_330": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 0
+  },
+  "claim_293": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 0
+  },
+  "claim_66": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 0
+  },
+  "claim_94": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_213": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Supported",
+   "gold": 0
+  },
+  "claim_365": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_240": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_272": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_285": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Conflicting evidence",
+   "gold": 1
+  },
+  "claim_328": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 2
+  },
+  "claim_48": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 1
+  },
+  "claim_494": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_276": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_463": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 0
+  },
+  "claim_397": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_491": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Supported",
+   "gold": 1
+  },
+  "claim_393": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_208": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 2
+  },
+  "claim_476": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_171": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_49": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Conflicting evidence",
+   "gold": 1
+  },
+  "claim_176": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_136": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Supported",
+   "gold": 0
+  },
+  "claim_426": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_351": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_399": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_260": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Conflicting evidence",
+   "gold": 1
+  },
+  "claim_324": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 3
+  },
+  "claim_205": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Supported",
+   "gold": 0
+  },
+  "claim_196": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Supported",
+   "gold": 1
+  },
+  "claim_241": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Not enough evidence",
+   "gold": 2
+  },
+  "claim_32": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 0
+  },
+  "claim_190": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_359": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_340": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_347": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 0
+  },
+  "claim_412": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_64": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Refuted",
+   "gold": 1
+  },
+  "claim_99": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Supported",
+   "gold": 1
+  },
+  "claim_50": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 3
+  },
+  "claim_273": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Conflicting evidence",
+   "gold": 1
+  },
+  "claim_256": {
+   "judge_faithful": 1,
+   "judge_raw": "faithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_261": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 1
+  },
+  "claim_156": {
+   "judge_faithful": 0,
+   "judge_raw": "unfaithful",
+   "verdict": "Not enough evidence",
+   "gold": 0
+  }
+ }
+}
