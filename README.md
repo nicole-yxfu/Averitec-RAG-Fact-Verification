@@ -100,19 +100,22 @@ An LLM judge is a model, and its numbers are only as good as its agreement with 
 
 | | Original judge (v1) | Corrected judge (v2) |
 |---|---|---|
-| Agrees with the person, on the 50 | 26 / 49, κ = 0.05 | 38 / 49, κ = 0.38 |
+| Agrees with the person, on the 50 | 27 / 48, κ = 0.12 | 39 / 48, κ = 0.45 |
 | … on *not enough evidence* verdicts | **4 / 14** | **12 / 14** |
-| … on *supported* / *refuted* | 21 / 32 | 23 / 32 |
-| Estimated agreement on all 485 verdicts | 66% | 79% |
+| … on *supported* / *refuted* | 22 / 30 | 24 / 30 |
+| Estimated agreement on all 485 verdicts | ~72% | ~84% |
 | Faithfulness rate it reports | 75% | 84% |
+| Faithfulness rate the person's labels imply | ~84% | ~84% |
 
-<sub>One item marked "can't tell". Estimates re-weight the 50/50 sample to the judge's real 365 / 120 split. The person's own labels imply a faithfulness rate of about 79%.</sub>
+<sub>Two items marked "can't tell". Estimates re-weight the 50/50 sample to the judge's real 365 / 120 split. Labels are after one adjudication round (below); the first-pass labels give the same picture with lower numbers (66% → 79% agreement, κ 0.05 → 0.38).</sub>
 
-**What went wrong.** The disagreement sat almost entirely in one class: the person judged all 14 *not enough evidence* verdicts justified, the judge only 4. On re-reading the 10 disputed cases, **9 had five snippets that never mention the claim at all** — 2024 debate coverage for a claim about 2020, police statistics for the wrong year, a currency-forgery tip for a different method. And 8 of those 10 claims have a *supported* or *refuted* gold label. The judge was answering from **its own knowledge of the claim**, against an instruction that told it not to: it knew the real answer, so it marked the system down for not giving it.
+**What went wrong.** The disagreement sat almost entirely in one class: the person judged all 14 *not enough evidence* verdicts justified, the judge only 4. On re-reading the 10 disputed cases, **9 had five snippets that never mention the claim at all** — 2024 debate coverage for a claim about 2020, police statistics for the wrong year, a currency-forgery tip for a different method. And 8 of those 10 claims have a *supported* or *refuted* gold label. The judge was answering from **its own knowledge of the claim**, against an instruction that told it not to: it knew the real answer, so it marked the system down for not giving it. This finding does not depend on trusting the annotator — whether a snippet mentions the claim can be checked by anyone.
 
-**The fix** (`--judge-version v2` in `src/rag_eval.py`) says it outright: use no outside knowledge, and if the passages never address the claim's specific point, *not enough evidence* is faithful — while keeping the other direction (if the passages *do* settle the claim, that verdict is unfaithful). Over all 485 open-web verdicts it moved exactly where it should: 45 NEE verdicts to faithful and only 2 the other way, against 6 changes among 142 *supported* verdicts. It also became slightly stricter on *refuted* (13 → unfaithful, 3 → faithful); on the checked sample that direction still agreed with the person (14 → 15 of 20).
+**The fix** (`--judge-version v2` in `src/rag_eval.py`) says it outright: use no outside knowledge, and if the passages never address the claim's specific point, *not enough evidence* is faithful — while keeping the other direction (if the passages *do* settle the claim, that verdict is unfaithful). Over all 485 open-web verdicts it moved exactly where it should: 45 NEE verdicts to faithful and only 2 the other way, against 6 changes among 142 *supported* verdicts. It also became slightly stricter on *refuted* (13 → unfaithful, 3 → faithful); on the checked sample that class still agreed with the person (16 → 17 of 19). The original judge **under-reported** faithfulness by about 9 points; the corrected one matches the person's estimate.
 
-**Read these with three caveats.** (1) The v2 prompt was written *after* reading these 50 disagreements, so its agreement on the same 50 is in-sample and optimistic; a fresh sample would be the honest test. (2) κ = 0.38 is "fair", not reliable — the judge went from chance-level to usable, not to trustworthy, and it now *over*-reports faithfulness by about 5 points. (3) One annotator, who formed their own verdict before comparing (slightly stricter than the rule on genuinely ambiguous evidence) and answered the last ~15 items much faster than the first.
+**Adjudication.** A second reader applied the same rule to all 50 items and agreed with the first pass on 43. The annotator re-examined the 7 disagreements and made every final call, changing 6: one slip, one case decided from outside knowledge (a satire headline the snippets never flag as satire), and four genuinely ambiguous ones. The second reader was an LLM and had seen the first-pass answers, so it served only to catch slips, not as an independent annotator. Both label sets are committed (`answers_human.json`, `answers_human_adjudicated.json`).
+
+**Read these with three caveats.** (1) The v2 prompt was written *after* reading these disagreements, so its agreement on the same 50 is in-sample and optimistic; a fresh sample would be the honest test. (2) κ = 0.45 is "moderate": the judge went from near chance to usable, not to trustworthy, and with 48 items every number above moves by several points if a few labels change — read them as approximate. (3) One human annotator.
 
 **What this changes elsewhere.** The abstention layer used the judge's verdict as one of its signals, so it was re-run three ways: with the v1 judge AURC 0.214, with v2 0.216, with **no judge at all 0.223** — all far from random abstention's 0.396, and 78.9–79.1% accuracy at 70% coverage either way. The headline abstention result does not rest on the flawed judge. And the NEE weakness the accuracy analysis finds (below) is real, but it is mostly a **retrieval** failure: the system usually says "not enough evidence" because the search found nothing relevant, which is the honest answer to bad evidence.
 
@@ -139,8 +142,8 @@ python src/rag_eval.py --judge-version v2 \
     --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
     --prediction-cache results/ddg_direct_dev500_plain_eval_cache.json \
     --output-cache results/faithfulness_ddg_plain_dev500_judge_v2.json
-python src/score_judge_check.py --answers judge_check/answers_human.json             # v1
-python src/score_judge_check.py --answers judge_check/answers_human.json \
+python src/score_judge_check.py --answers judge_check/answers_human_adjudicated.json   # v1
+python src/score_judge_check.py --answers judge_check/answers_human_adjudicated.json \
     --judge-cache results/faithfulness_ddg_plain_dev500_judge_v2.json \
     --out results/judge_check_report_v2.json                                         # v2
 ```

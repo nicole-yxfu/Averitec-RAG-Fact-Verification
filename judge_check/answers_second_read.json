@@ -1,0 +1,156 @@
+{
+ "version": 1,
+ "reader": "Claude (LLM), same rule as label.html, evidence only; NOT fully blind to the first-pass human answers",
+ "answers": {
+  "claim_318": {
+   "answer": "unfaithful"
+  },
+  "claim_202": {
+   "answer": "faithful"
+  },
+  "claim_27": {
+   "answer": "faithful"
+  },
+  "claim_408": {
+   "answer": "unfaithful"
+  },
+  "claim_4": {
+   "answer": "unfaithful"
+  },
+  "claim_149": {
+   "answer": "faithful"
+  },
+  "claim_330": {
+   "answer": "faithful"
+  },
+  "claim_293": {
+   "answer": "faithful"
+  },
+  "claim_66": {
+   "answer": "faithful"
+  },
+  "claim_94": {
+   "answer": "faithful"
+  },
+  "claim_213": {
+   "answer": "faithful"
+  },
+  "claim_365": {
+   "answer": "faithful"
+  },
+  "claim_240": {
+   "answer": "faithful"
+  },
+  "claim_272": {
+   "answer": "faithful"
+  },
+  "claim_285": {
+   "answer": "faithful"
+  },
+  "claim_328": {
+   "answer": "faithful"
+  },
+  "claim_48": {
+   "answer": "unfaithful"
+  },
+  "claim_494": {
+   "answer": "faithful"
+  },
+  "claim_276": {
+   "answer": "faithful"
+  },
+  "claim_463": {
+   "answer": "faithful"
+  },
+  "claim_397": {
+   "answer": "faithful"
+  },
+  "claim_491": {
+   "answer": "unfaithful"
+  },
+  "claim_393": {
+   "answer": "unfaithful"
+  },
+  "claim_208": {
+   "answer": "faithful"
+  },
+  "claim_476": {
+   "answer": "faithful"
+  },
+  "claim_171": {
+   "answer": "faithful"
+  },
+  "claim_49": {
+   "answer": "faithful"
+  },
+  "claim_176": {
+   "answer": "faithful"
+  },
+  "claim_136": {
+   "answer": "faithful"
+  },
+  "claim_426": {
+   "answer": "faithful"
+  },
+  "claim_351": {
+   "answer": "faithful"
+  },
+  "claim_399": {
+   "answer": "faithful"
+  },
+  "claim_260": {
+   "answer": "faithful"
+  },
+  "claim_324": {
+   "answer": "unfaithful"
+  },
+  "claim_205": {
+   "answer": "unfaithful"
+  },
+  "claim_196": {
+   "answer": "faithful"
+  },
+  "claim_241": {
+   "answer": "faithful"
+  },
+  "claim_32": {
+   "answer": "faithful"
+  },
+  "claim_190": {
+   "answer": "faithful"
+  },
+  "claim_359": {
+   "answer": "unfaithful"
+  },
+  "claim_340": {
+   "answer": "faithful"
+  },
+  "claim_347": {
+   "answer": "faithful"
+  },
+  "claim_412": {
+   "answer": "faithful"
+  },
+  "claim_64": {
+   "answer": "faithful"
+  },
+  "claim_99": {
+   "answer": "faithful"
+  },
+  "claim_50": {
+   "answer": "faithful"
+  },
+  "claim_273": {
+   "answer": "faithful"
+  },
+  "claim_256": {
+   "answer": "faithful"
+  },
+  "claim_261": {
+   "answer": "faithful"
+  },
+  "claim_156": {
+   "answer": "faithful"
+  }
+ }
+}

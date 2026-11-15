@@ -1,0 +1,262 @@
+{
+ "version": 1,
+ "exported": "2026-11-15T15:22:26.994Z",
+ "answers": {
+  "claim_318": {
+   "answer": "unfaithful",
+   "seconds": 567
+  },
+  "claim_202": {
+   "answer": "faithful",
+   "seconds": 51
+  },
+  "claim_27": {
+   "answer": "faithful",
+   "seconds": 9
+  },
+  "claim_408": {
+   "answer": "unfaithful",
+   "seconds": 222
+  },
+  "claim_4": {
+   "answer": "unfaithful",
+   "seconds": 123
+  },
+  "claim_149": {
+   "answer": "faithful",
+   "seconds": 34
+  },
+  "claim_330": {
+   "answer": "unfaithful",
+   "seconds": 263,
+   "first_pass": "unfaithful"
+  },
+  "claim_293": {
+   "answer": "faithful",
+   "seconds": 50
+  },
+  "claim_66": {
+   "answer": "faithful",
+   "seconds": 42
+  },
+  "claim_94": {
+   "answer": "faithful",
+   "seconds": 36
+  },
+  "claim_213": {
+   "answer": "faithful",
+   "seconds": 52
+  },
+  "claim_365": {
+   "answer": "faithful",
+   "seconds": 50
+  },
+  "claim_240": {
+   "answer": "faithful",
+   "seconds": 51
+  },
+  "claim_272": {
+   "answer": "faithful",
+   "seconds": 27
+  },
+  "claim_285": {
+   "answer": "faithful",
+   "seconds": 117
+  },
+  "claim_328": {
+   "answer": "faithful",
+   "seconds": 30
+  },
+  "claim_48": {
+   "answer": "unfaithful",
+   "seconds": 32
+  },
+  "claim_494": {
+   "answer": "faithful",
+   "seconds": 34
+  },
+  "claim_276": {
+   "answer": "faithful",
+   "seconds": 20
+  },
+  "claim_463": {
+   "answer": "faithful",
+   "seconds": 45
+  },
+  "claim_397": {
+   "answer": "faithful",
+   "seconds": 27
+  },
+  "claim_491": {
+   "answer": "unfaithful",
+   "seconds": 52
+  },
+  "claim_393": {
+   "answer": "unfaithful",
+   "seconds": 50,
+   "first_pass": "faithful"
+  },
+  "claim_208": {
+   "answer": "unsure",
+   "seconds": 22,
+   "first_pass": "unfaithful"
+  },
+  "claim_476": {
+   "answer": "faithful",
+   "seconds": 31
+  },
+  "claim_171": {
+   "answer": "faithful",
+   "seconds": 27
+  },
+  "claim_49": {
+   "answer": "faithful",
+   "seconds": 42
+  },
+  "claim_176": {
+   "answer": "faithful",
+   "seconds": 118
+  },
+  "claim_136": {
+   "answer": "faithful",
+   "seconds": 20,
+   "first_pass": "unfaithful"
+  },
+  "claim_426": {
+   "answer": "faithful",
+   "seconds": 26
+  },
+  "claim_351": {
+   "answer": "faithful",
+   "seconds": 48
+  },
+  "claim_399": {
+   "answer": "faithful",
+   "seconds": 21
+  },
+  "claim_260": {
+   "answer": "faithful",
+   "seconds": 55
+  },
+  "claim_324": {
+   "answer": "unfaithful",
+   "seconds": 13
+  },
+  "claim_205": {
+   "answer": "unfaithful",
+   "seconds": 54
+  },
+  "claim_196": {
+   "answer": "faithful",
+   "seconds": 13
+  },
+  "claim_241": {
+   "answer": "faithful",
+   "seconds": 14
+  },
+  "claim_32": {
+   "answer": "faithful",
+   "seconds": 12
+  },
+  "claim_190": {
+   "answer": "faithful",
+   "seconds": 12
+  },
+  "claim_359": {
+   "answer": "unsure",
+   "seconds": 13,
+   "first_pass": "faithful"
+  },
+  "claim_340": {
+   "answer": "faithful",
+   "seconds": 14,
+   "first_pass": "unfaithful"
+  },
+  "claim_347": {
+   "answer": "faithful",
+   "seconds": 14
+  },
+  "claim_412": {
+   "answer": "faithful",
+   "seconds": 11
+  },
+  "claim_64": {
+   "answer": "faithful",
+   "seconds": 12
+  },
+  "claim_99": {
+   "answer": "faithful",
+   "seconds": 18
+  },
+  "claim_50": {
+   "answer": "faithful",
+   "seconds": 13
+  },
+  "claim_273": {
+   "answer": "faithful",
+   "seconds": 65,
+   "first_pass": "unsure"
+  },
+  "claim_256": {
+   "answer": "faithful",
+   "seconds": 18
+  },
+  "claim_261": {
+   "answer": "faithful",
+   "seconds": 12
+  },
+  "claim_156": {
+   "answer": "faithful",
+   "seconds": 15
+  }
+ },
+ "adjudicated": "2026-11-15",
+ "adjudication": {
+  "procedure": "A second reader applied the same rule to all 50 items; the annotator re-examined the 7 items where the two disagreed and made every final decision.",
+  "second_reader": "Claude (an LLM). It had seen the first-pass answers earlier in the session, so it was not fully blind; used only to flag possible slips.",
+  "items": [
+   {
+    "claim_id": "claim_340",
+    "first_pass": "unfaithful",
+    "final": "faithful",
+    "changed": true
+   },
+   {
+    "claim_id": "claim_359",
+    "first_pass": "faithful",
+    "final": "unsure",
+    "changed": true
+   },
+   {
+    "claim_id": "claim_393",
+    "first_pass": "faithful",
+    "final": "unfaithful",
+    "changed": true
+   },
+   {
+    "claim_id": "claim_330",
+    "first_pass": "unfaithful",
+    "final": "unfaithful",
+    "changed": false
+   },
+   {
+    "claim_id": "claim_136",
+    "first_pass": "unfaithful",
+    "final": "faithful",
+    "changed": true
+   },
+   {
+    "claim_id": "claim_208",
+    "first_pass": "unfaithful",
+    "final": "unsure",
+    "changed": true
+   },
+   {
+    "claim_id": "claim_273",
+    "first_pass": "unsure",
+    "final": "faithful",
+    "changed": true
+   }
+  ]
+ }
+}

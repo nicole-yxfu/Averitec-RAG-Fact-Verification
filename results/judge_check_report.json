@@ -1,15 +1,15 @@
 {
   "n_items": 50,
-  "n_scored": 49,
-  "n_unsure": 1,
+  "n_scored": 48,
+  "n_unsure": 2,
   "n_missing": 0,
   "judge_says_faithful": {
-    "n": 25,
-    "agree": 20,
-    "rate": 0.8,
+    "n": 24,
+    "agree": 21,
+    "rate": 0.875,
     "ci95": [
-      0.6086866446346177,
-      0.9113954589934752
+      0.6899571185214243,
+      0.9565574496068442
     ]
   },
   "judge_says_unfaithful": {
@@ -21,22 +21,22 @@
       0.4489982531210644
     ]
   },
-  "sample_agreement": 0.5306122448979592,
-  "sample_kappa": 0.05054759898904815,
+  "sample_agreement": 0.5625,
+  "sample_kappa": 0.125,
   "population_weight_faithful": 0.7526,
-  "population_agreement": 0.663917525773196,
-  "human_corrected_faithfulness_rate": 0.7876288659793815,
+  "population_agreement": 0.720360824742268,
+  "human_corrected_faithfulness_rate": 0.8440721649484536,
   "judge_faithfulness_rate": 0.7525773195876289,
   "disagreements": {
-    "judge_too_lenient": 5,
+    "judge_too_lenient": 3,
     "judge_too_strict": 18
   },
   "by_verdict": {
     "Conflicting evidence": {
-      "n": 3,
+      "n": 4,
       "agree": 1,
       "judge_says_faithful": 1,
-      "human_says_faithful": 3
+      "human_says_faithful": 4
     },
     "Not enough evidence": {
       "n": 14,
@@ -45,19 +45,19 @@
       "human_says_faithful": 14
     },
     "Refuted": {
-      "n": 20,
-      "agree": 14,
+      "n": 19,
+      "agree": 16,
       "judge_says_faithful": 13,
-      "human_says_faithful": 15
+      "human_says_faithful": 14
     },
     "Supported": {
-      "n": 12,
-      "agree": 7,
-      "judge_says_faithful": 7,
-      "human_says_faithful": 6
+      "n": 11,
+      "agree": 6,
+      "judge_says_faithful": 6,
+      "human_says_faithful": 7
     }
   },
-  "median_seconds_per_item": 30,
+  "median_seconds_per_item": 32,
   "disagreement_cases": [
     {
       "id": "claim_318",
@@ -132,24 +132,6 @@
       "seconds": 45
     },
     {
-      "id": "claim_393",
-      "judge": 0,
-      "human": 1,
-      "stratum": 0,
-      "verdict": "Refuted",
-      "note": "",
-      "seconds": 50
-    },
-    {
-      "id": "claim_208",
-      "judge": 1,
-      "human": 0,
-      "stratum": 1,
-      "verdict": "Supported",
-      "note": "",
-      "seconds": 22
-    },
-    {
       "id": "claim_476",
       "judge": 0,
       "human": 1,
@@ -166,6 +148,15 @@
       "verdict": "Conflicting evidence",
       "note": "",
       "seconds": 42
+    },
+    {
+      "id": "claim_136",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Supported",
+      "note": "",
+      "seconds": 20
     },
     {
       "id": "claim_351",
@@ -222,24 +213,6 @@
       "seconds": 12
     },
     {
-      "id": "claim_359",
-      "judge": 0,
-      "human": 1,
-      "stratum": 0,
-      "verdict": "Refuted",
-      "note": "",
-      "seconds": 13
-    },
-    {
-      "id": "claim_340",
-      "judge": 1,
-      "human": 0,
-      "stratum": 1,
-      "verdict": "Refuted",
-      "note": "",
-      "seconds": 14
-    },
-    {
       "id": "claim_50",
       "judge": 0,
       "human": 1,
@@ -247,6 +220,15 @@
       "verdict": "Not enough evidence",
       "note": "",
       "seconds": 13
+    },
+    {
+      "id": "claim_273",
+      "judge": 0,
+      "human": 1,
+      "stratum": 0,
+      "verdict": "Conflicting evidence",
+      "note": "",
+      "seconds": 65
     },
     {
       "id": "claim_261",
