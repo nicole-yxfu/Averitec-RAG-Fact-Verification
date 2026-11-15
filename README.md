@@ -396,7 +396,7 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 90 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 94 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
 
 ```bash
 python tests/test_core.py        # label normalization, atomic writes, few-shot schema, cache integrity
@@ -405,6 +405,7 @@ python tests/test_hybrid.py      # RRF maths, BM25 edge cases, re-ranker guards,
 python tests/test_selective.py   # risk-coverage maths, AURC, tie handling, cross-fit leakage
 python tests/test_runs.py        # run contract, verdict scoring, CI gate, and the
                                  # published numbers re-derived from runs/
+python tests/test_demo.py        # the demo page's numbers match the published report
 # or:  pytest tests/
 ```
 
@@ -428,6 +429,9 @@ python tests/test_runs.py        # run contract, verdict scoring, CI gate, and t
 
 **Traditional baseline (no-evidence anchor)**
 - `perceptron.py`, `train_perceptron.py`, `features.py`, `dataset.py`, `dummy_baselines.py`
+
+**Demo**
+- `build_demo.py` — builds `demo/examples.js`, the data behind the static demo page `demo/index.html`: 11 claims, each with its search results, verdict, confidence score, review decision and the human fact-checkers' verdict. Everything is precomputed from committed artifacts; the script refuses to write if its numbers differ from the published report. Preview with `python -m http.server --directory demo`.
 
 **Evaluation contract**
 - `runs.py` — the run-directory format and content-hashed `passage_id`.

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fact-Check Triage Demo</title>
+<meta name="description" content="A retrieval-augmented fact-checker that knows when to hand a claim to a human. Precomputed results on AVeriTeC.">
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --surface-2: #f0f0ec; --border: #e2e1dc;
+  --text: #1d1d1b; --muted: #6b6a64; --faint: #9a9890;
+  --accent: #3355cc; --accent-soft: #e8edfb;
+  --sup: #1f7a4d; --sup-bg: #e3f3ea; --ref: #b3261e; --ref-bg: #fbe7e5;
+  --nee: #5f6368; --nee-bg: #ececea; --con: #9a5b00; --con-bg: #fdf0d9;
+  --go: #1f7a4d; --go-bg: #e3f3ea; --hold: #9a5b00; --hold-bg: #fdf0d9;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1d1d1b; --surface-2: #262624; --border: #33332f;
+    --text: #ecebe6; --muted: #a8a69e; --faint: #77756e;
+    --accent: #8ea6ff; --accent-soft: #232b45;
+    --sup: #6fd19e; --sup-bg: #17301f; --ref: #ff8a80; --ref-bg: #3a1b18;
+    --nee: #b9bbbf; --nee-bg: #2b2b29; --con: #f4b860; --con-bg: #36290f;
+    --go: #6fd19e; --go-bg: #17301f; --hold: #f4b860; --hold-bg: #36290f;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1d1d1b; --surface-2: #262624; --border: #33332f;
+  --text: #ecebe6; --muted: #a8a69e; --faint: #77756e;
+  --accent: #8ea6ff; --accent-soft: #232b45;
+  --sup: #6fd19e; --sup-bg: #17301f; --ref: #ff8a80; --ref-bg: #3a1b18;
+  --nee: #b9bbbf; --nee-bg: #2b2b29; --con: #f4b860; --con-bg: #36290f;
+  --go: #6fd19e; --go-bg: #17301f; --hold: #f4b860; --hold-bg: #36290f;
+  --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+header.wrap { padding-top: 40px; padding-bottom: 24px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 8px 0 12px; letter-spacing: -.01em; }
+.lede { color: var(--muted); max-width: 720px; margin: 0; font-size: 16px; }
+.toplinks { margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+
+.layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; align-items: start; padding-bottom: 32px; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+.picker, #panel { min-width: 0; }
+
+/* claim picker */
+.picker { position: sticky; top: 16px; }
+.picker h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+.list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.list button {
+  all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer;
+  padding: 10px 12px; border-radius: 10px; border: 1px solid transparent;
+  color: var(--text); font-size: 14px; line-height: 1.35;
+}
+.list button:hover { background: var(--surface-2); }
+.list button[aria-current="true"] { background: var(--surface); border-color: var(--border); box-shadow: var(--shadow); }
+.list button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.list .n { color: var(--faint); font-variant-numeric: tabular-nums; margin-right: 6px; }
+@media (max-width: 860px) {
+  .picker { position: static; }
+  .list { flex-direction: row; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+  .list li { flex: 0 0 240px; scroll-snap-align: start; }
+  .list button { background: var(--surface); border-color: var(--border); height: 100%; }
+}
+
+/* main panel */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
+.claim { padding: 22px 24px; }
+.claim .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.claim blockquote { margin: 8px 0 10px; font-size: clamp(18px, 2.4vw, 22px); line-height: 1.35; font-weight: 600; }
+.claim .meta { font-size: 13px; color: var(--muted); }
+
+.step { margin-top: 16px; padding: 18px 24px 20px; }
+.step-h { display: flex; align-items: baseline; gap: 10px; margin: 0 0 12px; }
+.step-h .num { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700; display: inline-grid; place-items: center; transform: translateY(4px); }
+.step-h h3 { margin: 0; font-size: 16px; }
+.step-h .sub { color: var(--muted); font-size: 13px; }
+
+.ev { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ev li { display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); }
+.ev .i { color: var(--faint); font-variant-numeric: tabular-nums; font-size: 13px; padding-top: 1px; }
+.ev .t { font-weight: 600; font-size: 14px; text-decoration: none; color: var(--text); overflow-wrap: anywhere; }
+.ev .t:hover { text-decoration: underline; }
+.ev .d { font-size: 12px; color: var(--muted); margin-left: 6px; white-space: nowrap; }
+.ev .s { font-size: 13.5px; color: var(--muted); margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 15px; }
+.b-Supported { color: var(--sup); background: var(--sup-bg); }
+.b-Refuted { color: var(--ref); background: var(--ref-bg); }
+.b-Not-enough-evidence { color: var(--nee); background: var(--nee-bg); }
+.b-Conflicting-evidence { color: var(--con); background: var(--con-bg); }
+.verdict-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.verdict-row .note { font-size: 13px; color: var(--muted); }
+
+.decision { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+.d-go { color: var(--go); background: var(--go-bg); }
+.d-hold { color: var(--hold); background: var(--hold-bg); }
+.meter { position: relative; height: 10px; border-radius: 999px; background: var(--surface-2); margin: 18px 0 6px; }
+.meter .fill { position: absolute; inset: 0 auto 0 0; border-radius: 999px; transition: width .35s ease; }
+.meter .cut { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--text); opacity: .55; }
+.meter-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--faint); }
+.conf-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.conf-line .pct { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.conf-line .pct small { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 6px; }
+.why { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.why li { display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 6px; font-size: 14px; }
+.why .ic { font-weight: 700; text-align: center; }
+.ic-yes { color: var(--go); } .ic-no { color: var(--ref); } .ic-info { color: var(--muted); }
+.fine { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; }
+
+.reveal-btn { all: unset; cursor: pointer; box-sizing: border-box; padding: 10px 16px; border-radius: 10px; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px; }
+.reveal-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.truth[hidden] { display: none; }
+.truth .gold-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.truth p { margin: 12px 0 0; }
+.just { font-size: 14px; color: var(--muted); border-left: 3px solid var(--border); padding-left: 12px; }
+.outcome { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; }
+.o-correct, .o-caught { background: var(--go-bg); color: var(--go); }
+.o-miss { background: var(--ref-bg); color: var(--ref); }
+.o-cautious { background: var(--hold-bg); color: var(--hold); }
+
+.nav { display: flex; justify-content: space-between; margin-top: 16px; gap: 12px; }
+.nav button { all: unset; cursor: pointer; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); font-size: 14px; }
+.nav button:hover { background: var(--surface-2); }
+.nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* summary */
+.summary { padding-top: 28px; padding-bottom: 8px; border-top: 1px solid var(--border); }
+.summary h2 { font-size: 20px; margin: 0 0 6px; }
+.summary .lede { font-size: 15px; }
+.bars { display: grid; gap: 14px; margin: 20px 0; max-width: 640px; }
+.bar-row { display: grid; grid-template-columns: 210px minmax(0,1fr) 56px; gap: 12px; align-items: center; font-size: 14px; }
+@media (max-width: 560px) { .bar-row { grid-template-columns: 1fr 56px; } .bar-row .track { grid-column: 1 / -1; grid-row: 2; } }
+.track { height: 12px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.track span { display: block; height: 100%; border-radius: 999px; }
+.bar-row .v { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.notes { font-size: 13px; color: var(--muted); max-width: 760px; }
+.notes li { margin: 4px 0; }
+footer.wrap { padding-top: 24px; padding-bottom: 48px; font-size: 13px; color: var(--faint); }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="eyebrow">Retrieval-augmented fact-checking · AVeriTeC</div>
+  <h1>A fact-checker that knows when to ask a human</h1>
+  <p class="lede">For each claim, the system searches the web, asks an LLM for a verdict, then decides whether to trust that verdict or send the claim to a person for review. Pick a claim, follow the four steps, then reveal what professional fact-checkers concluded.</p>
+  <div class="toplinks">
+    <a href="https://github.com/nicole-yxfu/Averitec-RAG-Fact-Verification" target="_blank" rel="noopener">Code &amp; full evaluation on GitHub →</a>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <nav class="picker" aria-label="Example claims">
+    <h2>Example claims</h2>
+    <ol class="list" id="list"></ol>
+  </nav>
+  <section id="panel" aria-live="polite"></section>
+</main>
+
+<section class="wrap summary" id="summary"></section>
+<footer class="wrap" id="footer"></footer>
+
+<script src="examples.js"></script>
+<script>
+(function () {
+  const D = window.DEMO;
+  const ex = D.examples;
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const cls = label => "b-" + label.replace(/\s+/g, "-");
+  const pct = x => Math.round(x * 100) + "%";
+  const pct1 = x => (x * 100).toFixed(1) + "%";
+
+  const OUTCOME = {
+    correct: "✓ Answered automatically — and right.",
+    miss: "✗ Answered confidently — and wrong. Abstaining can't catch every error; this is one it missed.",
+    caught: "✓ Sent to a human — and the automatic verdict would have been wrong. A good catch.",
+    cautious: "Sent to a human — although the verdict was right. That is the price of being cautious."
+  };
+
+  const list = document.getElementById("list");
+  ex.forEach((e, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<button type="button" data-i="${i}"><span class="n">${i + 1}</span>${esc(e.claim)}</button>`;
+    list.appendChild(li);
+  });
+  list.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-i]");
+    if (b) show(+b.dataset.i, true);
+  });
+
+  function show(i, focus) {
+    const e = ex[i];
+    location.replace("#" + e.id);
+    list.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", j === i ? "true" : "false"));
+    const v = D.accuracy_by_verdict[e.verdict];
+    const fillColor = e.answered ? "var(--go)" : "var(--hold)";
+    const yesno = (val, yes, no, unknown) =>
+      val === null ? `<li><span class="ic ic-info">–</span><span>${unknown}</span></li>`
+      : val ? `<li><span class="ic ic-yes">✓</span><span>${yes}</span></li>`
+      : `<li><span class="ic ic-no">✗</span><span>${no}</span></li>`;
+
+    document.getElementById("panel").innerHTML = `
+      <article class="card claim">
+        <div class="label">Claim ${i + 1} of ${ex.length}</div>
+        <blockquote>“${esc(e.claim)}”</blockquote>
+        <div class="meta">Claim date: ${esc(e.date)}</div>
+      </article>
+
+      <section class="card step">
+        <div class="step-h"><span class="num">1</span><div><h3>Search the web</h3><div class="sub">Top 5 DuckDuckGo results for the claim text</div></div></div>
+        <ol class="ev">${e.evidence.map((p, j) => `
+          <li><span class="i">${j + 1}</span><div>
+            <a class="t" href="${esc(p.url)}" target="_blank" rel="noopener nofollow">${esc(p.title || p.domain)}</a><span class="d">${esc(p.domain)}</span>
+            <div class="s">${esc(p.snippet)}</div>
+          </div></li>`).join("")}
+        </ol>
+      </section>
+
+      <section class="card step">
+        <div class="step-h"><span class="num">2</span><div><h3>Ask the LLM for a verdict</h3><div class="sub">gpt-4.1-mini reads the claim and the five snippets</div></div></div>
+        <div class="verdict-row">
+          <span class="badge ${cls(e.verdict)}">${esc(e.verdict)}</span>
+          <span class="note">one of Supported · Refuted · Not enough evidence · Conflicting evidence</span>
+        </div>
+      </section>
+
+      <section class="card step">
+        <div class="step-h"><span class="num">3</span><div><h3>Decide: trust it, or ask a human?</h3><div class="sub">A confidence score built from three signals the system already has</div></div></div>
+        <div class="conf-line">
+          <div class="pct">${pct(e.confidence)}<small>estimated chance the verdict is right</small></div>
+          <span class="decision ${e.answered ? "d-go" : "d-hold"}">${e.answered ? "Answer automatically" : "Send to human review"}</span>
+        </div>
+        <div class="meter" role="img" aria-label="Confidence ${pct(e.confidence)}; review threshold ${pct(D.threshold)}">
+          <div class="fill" style="width:${(e.confidence * 100).toFixed(1)}%;background:${fillColor}"></div>
+          <div class="cut" style="left:${(D.threshold * 100).toFixed(1)}%"></div>
+        </div>
+        <div class="meter-scale"><span>0%</span><span>review below ${pct(D.threshold)}</span><span>100%</span></div>
+        <ul class="why">
+          ${v ? `<li><span class="ic ic-info">i</span><span>When this system says <b>${esc(e.verdict)}</b>, it is right <b>${pct(v.accuracy)}</b> of the time (${v.n} of ${D.n_claims} claims).</span></li>` : ""}
+          ${yesno(e.grounded,
+            "A second LLM, acting as a judge, found the verdict <b>follows from the evidence</b>.",
+            "A second LLM, acting as a judge, found the verdict <b>does not follow from the evidence</b>.",
+            "The grounding judge's answer is unavailable for this claim.")}
+          ${yesno(e.agree,
+            "A differently worded prompt gave <b>the same verdict</b>.",
+            "A differently worded prompt gave <b>a different verdict</b>.",
+            "No second-prompt result for this claim.")}
+        </ul>
+        <p class="fine">The score is a small logistic model over these signals, trained with 5-fold cross-fitting so no claim is scored by a model that saw it. The least confident 30% of claims go to a human.</p>
+      </section>
+
+      <section class="card step">
+        <div class="step-h"><span class="num">4</span><div><h3>Compare with the professional fact-checkers</h3><div class="sub">The AVeriTeC dataset's human verdict and justification</div></div></div>
+        <button class="reveal-btn" type="button" id="reveal">Reveal the human verdict</button>
+        <div class="truth" id="truth" hidden>
+          <div class="gold-row"><span class="badge ${cls(e.gold)}">${esc(e.gold)}</span><span class="note" style="font-size:13px;color:var(--muted)">human fact-checkers</span></div>
+          ${e.justification ? `<p class="just">${esc(e.justification)}</p>` : ""}
+          <div class="outcome o-${e.outcome}">${OUTCOME[e.outcome]}</div>
+        </div>
+      </section>
+
+      <div class="nav">
+        <button type="button" id="prev">← Previous</button>
+        <button type="button" id="next">Next claim →</button>
+      </div>`;
+
+    document.getElementById("reveal").addEventListener("click", ev => {
+      document.getElementById("truth").hidden = false;
+      ev.currentTarget.remove();
+    });
+    document.getElementById("prev").addEventListener("click", () => show((i - 1 + ex.length) % ex.length, true));
+    document.getElementById("next").addEventListener("click", () => show((i + 1) % ex.length, true));
+    current = i;
+    if (focus) document.getElementById("panel").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  let current = 0;
+  document.addEventListener("keydown", ev => {
+    if (ev.target.closest("input, textarea")) return;
+    if (ev.key === "ArrowRight") show((current + 1) % ex.length, false);
+    if (ev.key === "ArrowLeft") show((current - 1 + ex.length) % ex.length, false);
+  });
+
+  document.getElementById("summary").innerHTML = `
+    <h2>Across all ${D.n_claims} claims</h2>
+    <p class="lede">Forced to answer everything, the system is right ${pct1(D.accuracy_all)} of the time. Letting it hand its least confident 30% to a person lifts accuracy on the rest to ${pct1(D.accuracy_answered)} — with no new model, no new retrieval and no extra API cost.</p>
+    <div class="bars">
+      <div class="bar-row"><span>Answer every claim</span><div class="track"><span style="width:${D.accuracy_all * 100}%;background:var(--faint)"></span></div><span class="v">${pct1(D.accuracy_all)}</span></div>
+      <div class="bar-row"><span>Answer the confident ${pct(D.coverage)}</span><div class="track"><span style="width:${D.accuracy_answered * 100}%;background:var(--go)"></span></div><span class="v">${pct1(D.accuracy_answered)}</span></div>
+    </div>
+    <ul class="notes">
+      <li><b>Precomputed.</b> Every verdict, score and search result on this page comes from the project's evaluation run on the AVeriTeC dev set. Nothing is generated live.</li>
+      <li><b>The examples are chosen for readability, not success.</b> They include confident mistakes and a correct verdict that was sent to review anyway.</li>
+      <li><b>The search ran recently, not on the claim date.</b> Some results were published after the claim, which makes this easier than real-time fact-checking.</li>
+      <li>Claims, human verdicts and justifications: the AVeriTeC dataset (Schlichtkrull et al., 2023).</li>
+    </ul>`;
+  document.getElementById("footer").innerHTML =
+    `Built as part of a portfolio project on RAG evaluation. <a href="https://github.com/nicole-yxfu/Averitec-RAG-Fact-Verification" target="_blank" rel="noopener">Source and methodology</a>.`;
+
+  const start = Math.max(0, ex.findIndex(e => "#" + e.id === location.hash));
+  show(start, false);
+})();
+</script>
+</body>
+</html>

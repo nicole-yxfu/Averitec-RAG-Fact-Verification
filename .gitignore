@@ -44,3 +44,6 @@ venv/
 
 # Full-text BM25 top-10 for dev500 (~7 MB), rebuilt by src/rehydrate_bm25_topk.py
 results/bm25_dev500_fulltext_top10.jsonl
+
+# Local Claude Code preview config
+.claude/
