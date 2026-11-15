@@ -1,0 +1,26 @@
+run_id: bm25_dev500_plain
+note: Closed Knowledge Store BM25 top-5, plain prompt, re-prompted from the result
+  cache. The published 0.3644. The LLM saw all five passages as 300-char previews;
+  passages.jsonl stores those previews until re-exported with --fulltext.
+retriever: bm25_ks
+evidence_source: knowledge_store
+prompt: plain
+split: official_dev
+top_k: 5
+chunk_size: 200
+llm: gpt-4.1-mini
+temperature: 0
+evidence_view: preview300
+passages_stored: preview300
+used_passage_ids_exact: true
+source:
+  exported_by: src/export_run.py
+  eval_cache: results/bm25_official_dev_plain_prompt_cache.json
+  eval_cache_sha256: 5f61eadb0471bda8
+  retrieval_cache: results/bm25_baseline_official_dev_with_metadata_top5_cache.json
+  retrieval_cache_sha256: 4ab13475b7ed2dec
+schema_version: 1
+code:
+  commit: d4b1293db8d5ecee1f8d3b00c18912c3f4e881e2
+  branch: main
+  dirty: true

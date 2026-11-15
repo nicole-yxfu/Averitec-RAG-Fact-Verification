@@ -1,0 +1,20 @@
+# CI gate configuration — read by src/ci_gate.py.
+#
+# baseline:   the configuration src/service.py actually deploys.
+# candidates: run directories proposed to replace it. A pull request that
+#             wants to change the deployed configuration adds its run here;
+#             the gate must pass before the dev150/dev500 McNemar comparison
+#             is worth running.
+baseline: runs/ddg_dev500_plain
+
+candidates:
+  # W4 NEE-guard prompt. Evaluated on dev500 and deliberately NOT deployed:
+  #   all 500 claims:                 Macro-F1 0.4495 -> 0.4585, p = 0.26
+  #   491 excl. filter refusals:      Macro-F1 0.4499 -> 0.4611, p = 0.050
+  # Borderline at best, and the content filter refused 8 claims instead of 3.
+  - runs/ddg_dev500_nee_guard
+
+limits:
+  max_accuracy_drop: 0.15
+  max_unparseable: 1
+  max_single_label_share: 0.80

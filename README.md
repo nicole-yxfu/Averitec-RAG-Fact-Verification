@@ -18,7 +18,7 @@ Climbing an evidence-availability ladder on the official 500-claim dev set (Macr
 | **DuckDuckGo open-web + plain prompt** | **0.4495** | **+0.085, McNemar p = 2.5e-7** |
 | Gold evidence (oracle) | 0.5633 | upper bound |
 
-Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling. In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** reliably adds a secondary +0.03–0.04 across both evidence sources.
+Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling. In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** adds a secondary **+0.031** on the open web, where both prompts saw identical evidence. (An earlier version of this README also claimed +0.040 on the closed web; that comparison turned out to change the evidence as well as the prompt. [See the correction.](#a-correction-the-closed-web-prompt-rows-saw-different-evidence))
 
 The retrieval result replicates on the stronger evidence rung: hybrid retrieval (BM25 + dense fused by RRF) and cross-encoder re-ranking over a widened open-web pool land at **p = 1.0 and p = 0.86** against the deployed baseline — [see the null result and the control that nearly hid it](#does-better-ranking-help-a-pre-registered-null-result).
 
@@ -46,9 +46,9 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 |  | Random baseline | 0.1929 | 0.201 | 0.384 | 0.069 | 0.118 | 500 |
 |  | Averaged Perceptron | 0.3546 | 0.357 | 0.758 | 0.218 | 0.085 | 500 |
 |  | LLM zero-shot (no retrieval) | 0.3365 | 0.551 | 0.578 | 0.174 | 0.043 | 500 |
-| Closed web | BM25 + standard prompt | 0.3241 | 0.564 | 0.561 | 0.061 | 0.111 | 500 |
+| Closed web | BM25 + standard prompt † | 0.3241 | 0.564 | 0.561 | 0.061 | 0.111 | 500 |
 |  | BM25 + plain prompt | 0.3644 | 0.558 | 0.596 | 0.150 | 0.154 | 500 |
-|  | Dense rerank + plain prompt | 0.3572 | 0.570 | 0.645 | 0.178 | 0.036 | 500 |
+|  | Dense rerank + plain prompt ‡ | 0.3572 | 0.570 | 0.645 | 0.178 | 0.036 | 500 |
 |  | BM25 + 8-shot ICL | 0.3754 | 0.541 | 0.632 | 0.102 | **0.226** | 500 |
 | Open web | DuckDuckGo + standard prompt | 0.4180 | 0.674 | 0.659 | 0.214 | 0.125 | 500 |
 |  | **DuckDuckGo + plain prompt** | **0.4495** | 0.712 | 0.711 | 0.237 | 0.138 | 500 |
@@ -56,7 +56,22 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 
 Reading down the three evidence rungs (closed → open → oracle) is the main result; the two prompt rows under *Open web* isolate the prompt effect at a fixed source; *Dense rerank* and *8-shot ICL* are the retrieval- and prompt-side ablations. Even under gold evidence, the **Conflicting** class stays near zero (F1 0.045) — the motivation for the error analysis below.
 
-One row deserves singling out. **`BM25 + standard prompt` (0.3241) scores *below* the no-retrieval LLM (0.3365): adding evidence made the system worse.** Retrieval is not free — noisy passages crowd out what the model already knew, and under the verbose prompt the damage exceeds the help. The same retrieval under the plain prompt recovers to 0.3644. That is the cleanest statement of this project's second finding: a retrieval component can have negative value, and whether it does depends on a prompt you were not thinking about when you built it.
+† and ‡ mark rows with a known defect, explained next. Every other closed-web row showed the LLM the same thing: five BM25 passages, each cut to its **first 300 characters**.
+
+### A correction: the closed-web prompt rows saw different evidence
+
+An earlier version of this README singled out `BM25 + standard prompt` (0.3241) as scoring *below* the no-retrieval LLM (0.3365). It read that as "adding evidence made the system worse, and the plain prompt (0.3644) rescues the same retrieval". **That comparison is confounded, and the claim is withdrawn.**
+
+The two rows share a ranking but not the text the model saw:
+
+| Row | How it was produced | What the LLM was shown |
+|---|---|---|
+| standard prompt (0.3241) | `bm25_baseline.py`, live | **Full ~1,100–1,400-char chunks**. `build_user_input` *stops* at the first passage that would cross 3,000 characters, which here is almost always after the **second**. |
+| plain prompt (0.3644) | `reprompt_eval.py`, re-prompted from the result cache | **All five passages as 300-char previews**. The cache stored `p[:300]` to save space, and re-prompting reads the cache. |
+
+So "BM25 top-5" meant two full passages in one row and five 300-character slices in the other. On the 16 claims recomputed so far, all 16 saw exactly 2 passages under the standard run. Across all 495 claims with evidence, that run's prompt sizes (median 712 tokens, p10–p90 639–785) sit inside the range of those 16 (631–762). The 0.040 gap mixes a prompt change with a change in how much evidence was shown, and the two cannot be separated from these runs. The clean prompt comparison is the open-web pair, where both prompts saw the same five snippets: **+0.031**. A 2×2 (prompt × evidence view) re-run on the closed corpus would settle it.
+
+‡ **Dense rerank used stale candidate pools for 17 of 500 claims.** The ranking cache was keyed by corpus *name*, not corpus *content*. When the dev corpus caches were rebuilt in June, 270 depth-10 and 17 depth-30 ranking caches computed against the previous build kept being served as hits, and the dense run re-ranked those 17 stale pools (claim_0 … claim_32). The published BM25 rankings are not affected: recomputed from the current corpus, they match exactly. Ranking-cache entries now carry a content stamp of the corpus they were computed on, and a mismatch is a miss (`corpus_stamp()` in `bm25_baseline.py`, regression-tested). The dense number has not been re-run, so read 0.3572 as provisional: 17 of its 500 predictions (3.4%) rest on a stale pool.
 
 ## Faithfulness (is the verdict grounded, or hallucinated?)
 
@@ -309,6 +324,34 @@ All AVeriTeC splits used by the reported experiments are committed under `data/`
 
 Only the AVeriTeC **Knowledge Store** (used for closed-web BM25) is not committed due to size — download it via `src/download_ks.py` (kept local).
 
+## Evaluation contract: run directories and a CI gate
+
+The pipeline **writes artifacts and never scores itself**. One script, `eval_verdict.py`, owns the metric and reads those artifacts, so a metric fix re-scores every past run without touching the LLM.
+
+```
+runs/<run_id>/
+  config.yaml        every knob, plus git commit and dirty flag
+  retrieved.jsonl    claim_id, rank, passage_id, score
+  passages.jsonl     passage_id -> url, title, text (deduplicated)
+  predictions.jsonl  claim_id, gold_label, raw_output, used_passage_ids
+  system.jsonl       claim_id, tokens, latency, status
+  metrics.json       written only by eval_verdict.py
+```
+
+**`passage_id` is a content hash of (url, text)**, not a rank or row number, so the same passage carries the same id in every run that retrieved it. That makes runs comparable passage by passage.
+
+The five committed runs re-derive the published numbers exactly (pinned by `tests/test_runs.py`):
+
+```bash
+python src/eval_verdict.py --run runs/bm25_dev500_plain       # 0.3644  95% CI [0.319, 0.408]
+python src/eval_verdict.py --run runs/ddg_dev500_plain        # 0.4495  95% CI [0.406, 0.495]
+python src/eval_verdict.py --run runs/gold_dev500_oracle      # 0.5633  95% CI [0.524, 0.607]
+```
+
+The bootstrap intervals are worth a look: the closed- and open-web intervals don't overlap, which is the evidence-source finding seen from a second angle. `bm25_dev500_plain` and `bm25_dev500_standard` have byte-identical `retrieved.jsonl` files. That makes the shared *ranking* checkable, and it is also what surfaced the correction above: the same ranking was shown to the model as different text.
+
+**CI gate** (`src/ci_gate.py`, `.github/workflows/ci.yml`): every candidate in `ci/gate.yaml` must pass breakage checks on a fixed 30-claim set, with no API calls. The checks cover unparseable replies, collapse onto one label, a gross accuracy drop, missing claims, and an "identical to baseline" warning, which is how the NaN cross-encoder looked. Thirty claims cannot detect a one-point regression, and the gate doesn't pretend to. It decides whether a candidate deserves a McNemar test on dev500.
+
 ## How to reproduce the headline numbers
 
 All results are cached in `results/*.json`; the commands below regenerate them. The pipeline is **decoupled**: retrieval writes a cache, then `reprompt_eval.py` runs the LLM on it — so a prompt ablation never re-retrieves.
@@ -322,7 +365,7 @@ python src/eval_week1_official_500.py
 python src/llm_baseline.py --split official_dev --sample -1
 
 # 3. Closed-web: BM25 over the Knowledge Store (retrieval, then LLM)
-python src/warmup_dev_corpus.py           # ~10 h, one-time corpus warm-up
+WARMUP_WORKERS=2 python src/warmup_dev_corpus.py   # ~10 h, resumable; needs the KS mounted
 python src/bm25_baseline.py --split official_dev --sample -1 --retrieval-only
 python src/reprompt_eval.py \
     --data-file data/dev.json \
@@ -353,15 +396,19 @@ python src/prep_gold_gap_cases.py
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 59 tests, no network and no model downloads:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 90 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
 
 ```bash
-python tests/test_core.py        # pipeline: label normalization, atomic writes, few-shot schema
+python tests/test_core.py        # label normalization, atomic writes, few-shot schema, cache integrity
 python tests/test_service.py     # service: validation, verdict mapping, cost arithmetic (fully mocked)
 python tests/test_hybrid.py      # RRF maths, BM25 edge cases, re-ranker guards, exact McNemar
 python tests/test_selective.py   # risk-coverage maths, AURC, tie handling, cross-fit leakage
+python tests/test_runs.py        # run contract, verdict scoring, CI gate, and the
+                                 # published numbers re-derived from runs/
 # or:  pytest tests/
 ```
+
+`test_core.py` replays two cache failures that happened here. One is a ranking cache served against a rebuilt corpus. The other is an unreadable corpus cache that, with the KS drive unmounted, was "rebuilt" into an empty file and overwrote the real one, which destroyed 479 of 500 dev corpora. Both now raise or miss instead.
 
 `test_hybrid.py` asserts the McNemar p-values against hand-computed exact binomials, and asserts that a NaN, constant or inverted cross-encoder *raises* instead of silently degrading to the identity ranking — the failure that produced a convincing fake null result here. `test_selective.py` pins AURC against hand-computed values and checks that cross-fitting cannot memorise pure noise, since every failure mode there yields a *prettier* curve rather than a crash.
 
@@ -381,6 +428,13 @@ python tests/test_selective.py   # risk-coverage maths, AURC, tie handling, cros
 
 **Traditional baseline (no-evidence anchor)**
 - `perceptron.py`, `train_perceptron.py`, `features.py`, `dataset.py`, `dummy_baselines.py`
+
+**Evaluation contract**
+- `runs.py` — the run-directory format and content-hashed `passage_id`.
+- `eval_verdict.py` — the only code that computes the verdict metric; writes `metrics.json`.
+- `export_run.py` — converts an existing result cache into a run directory (`--fulltext` / `--evidence-view` record what the LLM was actually shown).
+- `ci_gate.py` — breakage checks for candidate configurations on a fixed 30-claim set.
+- `rehydrate_bm25_topk.py` — recovers full BM25 passage text behind the 300-char cached previews, verifies it against the published ranking, and counts how many passages each evidence view delivered.
 
 **Evaluation & analysis**
 - `rag_eval.py` — RAGAS-style faithfulness/groundedness metric via LLM-as-judge (is the verdict justified by the retrieved evidence?), with 429 back-off and resumable caching.

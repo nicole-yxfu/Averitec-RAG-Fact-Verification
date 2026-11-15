@@ -1,0 +1,41 @@
+name: ci
+
+# Runs on every push and pull request. No API keys, no network retrieval,
+# no Knowledge Store: everything here runs from committed artifacts, so it
+# is deterministic and takes about a minute.
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-service.txt
+
+      # requirements-service.txt is the slim set (no torch). The dense and
+      # cross-encoder code imports sentence-transformers lazily, so the
+      # tests never need it.
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-service.txt scipy PyYAML==6.0.3 httpx
+          python -c "import nltk; nltk.download('stopwords', quiet=True); nltk.download('punkt', quiet=True)"
+
+      - name: Unit tests
+        run: |
+          for t in tests/test_*.py; do
+            echo "=== $t"
+            python "$t" || exit 1
+          done
+
+      # Published numbers must re-derive exactly from runs/, and every
+      # candidate configuration in ci/gate.yaml must clear the breakage
+      # checks on the fixed 30-claim set before it is worth a McNemar test.
+      - name: CI evaluation gate
+        run: python src/ci_gate.py

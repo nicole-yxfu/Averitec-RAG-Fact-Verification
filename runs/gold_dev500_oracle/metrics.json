@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "verdict": {
+    "accuracy": 0.778,
+    "confusion_matrix": {
+      "cols": "pred",
+      "counts": [
+        [
+          106,
+          5,
+          10,
+          1
+        ],
+        [
+          8,
+          253,
+          39,
+          3
+        ],
+        [
+          1,
+          3,
+          29,
+          1
+        ],
+        [
+          10,
+          21,
+          6,
+          1
+        ]
+      ],
+      "order": [
+        "Supported",
+        "Refuted",
+        "NEE",
+        "Conflicting"
+      ],
+      "rows": "gold"
+    },
+    "filtered_claim_ids": [
+      "claim_332",
+      "claim_437",
+      "claim_76"
+    ],
+    "gold_dist": {
+      "Conflicting": 38,
+      "NEE": 35,
+      "Refuted": 305,
+      "Supported": 122
+    },
+    "macro_f1": 0.563289830011129,
+    "macro_f1_ci95": {
+      "hi": 0.6072513197259277,
+      "lo": 0.5235395352445446,
+      "mean": 0.5618018167110622,
+      "n_boot": 1000,
+      "sd": 0.02160639794444237,
+      "seed": 0
+    },
+    "n": 500,
+    "n_content_filtered": 3,
+    "n_dropped_no_gold": 0,
+    "n_unparseable": 3,
+    "per_class_f1": {
+      "Conflicting": 0.045454545454545456,
+      "NEE": 0.48739495798319327,
+      "Refuted": 0.8620102214650767,
+      "Supported": 0.8582995951417004
+    },
+    "pred_dist": {
+      "Conflicting": 6,
+      "NEE": 84,
+      "Refuted": 282,
+      "Supported": 125
+    }
+  }
+}

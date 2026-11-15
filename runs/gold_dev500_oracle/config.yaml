@@ -1,0 +1,20 @@
+run_id: gold_dev500_oracle
+note: Gold QA evidence oracle with gold_baseline.py's own system prompt. The published
+  0.5633 upper bound.
+retriever: gold_oracle
+evidence_source: gold
+prompt: gold_baseline_system
+split: official_dev
+llm: gpt-4.1-mini
+temperature: 0
+source:
+  exported_by: src/export_run.py
+  eval_cache: results/gold_baseline_official_dev_with_metadata_cache.json
+  eval_cache_sha256: bc2dc0370ff422a7
+  retrieval_cache: results/gold_evidence_dev500_retrieval_cache.json
+  retrieval_cache_sha256: a8402b81896d5384
+schema_version: 1
+code:
+  commit: d4b1293db8d5ecee1f8d3b00c18912c3f4e881e2
+  branch: main
+  dirty: true

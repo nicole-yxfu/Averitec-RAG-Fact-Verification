@@ -15,7 +15,14 @@ caches in parallel. After it completes, dense_rerank.py --retrieval-only
 hits the corpus cache for every claim and finishes in minutes (mpnet
 re-rank only, no tokenisation).
 
-Reads from local SSD (~/local_ks_cache/dev/), not the external drive.
+KS root: $WARMUP_KS_ROOT, else the Seagate drive if mounted, else
+~/local_ks_cache. Already-built corpora are skipped, so the run is
+resumable: stop it, unplug, and re-run later.
+
+    WARMUP_WORKERS=2 python src/warmup_dev_corpus.py
+
+Use 2 workers on an 8 GB machine. The 2026-11-13 cache loss happened under
+memory pressure from 3 workers each holding a multi-GB corpus.
 """
 import os
 import sys
@@ -36,8 +43,21 @@ from bm25_baseline import (
 def main():
     data_file = os.path.join(PROJECT_DIR, "data", "dev.json")
     source_idx_file = data_file  # official_dev maps to itself
-    ks_root = os.path.expanduser("~/local_ks_cache")
+    # KS root: WARMUP_KS_ROOT if set, else the external drive if mounted,
+    # else the old local SSD copy. The local copy was deleted to free space,
+    # so in practice this is the Seagate drive.
+    drive = ("/Volumes/Seagate Backup Plus Drive/"
+             "AVeriTeC_knowledge_store/data_store/knowledge_store")
+    ks_root = (os.environ.get("WARMUP_KS_ROOT")
+               or (drive if os.path.isdir(drive)
+                   else os.path.expanduser("~/local_ks_cache")))
     split_ks_name = "dev"
+    if not os.path.isdir(os.path.join(ks_root, split_ks_name)):
+        # Refuse up front rather than run 500 claims that each find no KS
+        # file. (Since 2026-11-13 a missing KS file no longer overwrites a
+        # cache, but a run that silently does nothing is still a failure.)
+        sys.exit(f"KS directory not found: {os.path.join(ks_root, split_ks_name)}\n"
+                 f"Mount the Knowledge Store drive or set WARMUP_KS_ROOT.")
     corpus_cache_dir = os.path.join(PROJECT_DIR, "results", "bm25_corpus_cache")
     # Override via CLI / env. 8 workers OOM'd on dev (some claims have 800+
     # docs, peak hundreds of MB per worker × 8 ≈ spike beyond 16GB RAM).
@@ -70,6 +90,7 @@ def main():
         max_workers=workers,
     )
     print(f"\nDone. hits={stats.get('hits',0)}  misses={stats.get('misses',0)}  "
+          f"ks_missing={stats.get('ks_missing',0)}  "
           f"errors={stats.get('errors',0)}  elapsed={stats.get('elapsed',0):.1f}s")
 
 

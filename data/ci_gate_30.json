@@ -1,0 +1,163 @@
+{
+  "description": "Fixed 30-claim CI gate set. Do not edit by hand; rebuild with `python src/ci_gate.py --build-set`.",
+  "source_run": "runs/ddg_dev500_plain",
+  "seed": 0,
+  "quota": {
+    "Refuted": 12,
+    "Supported": 8,
+    "Not Enough Evidence": 5,
+    "Conflicting Evidence/Cherrypicking": 5
+  },
+  "claims": [
+    {
+      "claim_id": "claim_110",
+      "gold_label": "Supported",
+      "claim": "Fact check: Harris' statement on Lincoln's Supreme Court nomination misses key details"
+    },
+    {
+      "claim_id": "claim_123",
+      "gold_label": "Supported",
+      "claim": "From 8th October the UK government will combine weekly flu and covid reports."
+    },
+    {
+      "claim_id": "claim_136",
+      "gold_label": "Supported",
+      "claim": "Forty percent of Iowa’s energy resources are from renewables."
+    },
+    {
+      "claim_id": "claim_199",
+      "gold_label": "Supported",
+      "claim": "For a cumulative 29 of Nigeria's 60 years of existence as a nation, Nigeria has been under military rule."
+    },
+    {
+      "claim_id": "claim_205",
+      "gold_label": "Supported",
+      "claim": "Nigeria’s urban population at independence was approximately 7 million."
+    },
+    {
+      "claim_id": "claim_286",
+      "gold_label": "Supported",
+      "claim": "U.S. Supreme Court Justice Ruth Bader Ginsburg is the first woman in American history to lie in state at the U.S. Capitol."
+    },
+    {
+      "claim_id": "claim_320",
+      "gold_label": "Supported",
+      "claim": "The White House blocked a plan to send facemasks to every household in April 2020."
+    },
+    {
+      "claim_id": "claim_430",
+      "gold_label": "Supported",
+      "claim": "US President Trump opened a complaint platform to report censorship on Facebook, Twitter and YouTube."
+    },
+    {
+      "claim_id": "claim_0",
+      "gold_label": "Refuted",
+      "claim": "In a letter to Steve Jobs, Sean Connery refused to appear in an apple commercial."
+    },
+    {
+      "claim_id": "claim_243",
+      "gold_label": "Refuted",
+      "claim": "Eating millets will protect you from Coronavirus."
+    },
+    {
+      "claim_id": "claim_287",
+      "gold_label": "Refuted",
+      "claim": "Judge Amy Barret said \"gays have a right to be discriminated against because they are against Gods wishes and won't be allowed Heaven\""
+    },
+    {
+      "claim_id": "claim_349",
+      "gold_label": "Refuted",
+      "claim": "Former FBI Director James Comey and former CIA Director John Brennan have been charged with multiple counts of treason."
+    },
+    {
+      "claim_id": "claim_359",
+      "gold_label": "Refuted",
+      "claim": "Netflix tweets that its content is \"mostly pedophilia-free\" in response to criticism over its streaming of \"Cuties\""
+    },
+    {
+      "claim_id": "claim_364",
+      "gold_label": "Refuted",
+      "claim": "Netflix CEO Reed Hastings was arrested by the FBI after being caught with 13,000 files of child pornography."
+    },
+    {
+      "claim_id": "claim_385",
+      "gold_label": "Refuted",
+      "claim": "$400,000 ... is more money than I’ve ever made” in a year"
+    },
+    {
+      "claim_id": "claim_405",
+      "gold_label": "Refuted",
+      "claim": "Tweet shows Maharashtra Navnirman Sena (MNS) president Raj Thackeray showing their support of Bollywood actress Kangana Ranaut."
+    },
+    {
+      "claim_id": "claim_419",
+      "gold_label": "Refuted",
+      "claim": "The U.S. Centers for Disease Control and Prevention fraudulently add deaths from poisoning, trauma, and unintentional injury to their tally of COVID-19 deaths."
+    },
+    {
+      "claim_id": "claim_460",
+      "gold_label": "Refuted",
+      "claim": "Since 2002, South Africa’s police force has grown by 50%."
+    },
+    {
+      "claim_id": "claim_481",
+      "gold_label": "Refuted",
+      "claim": "Donald Trump said: \"When asked if he supports cutting police funding, Joe Biden replied, ‘Yes, absolutely.’\""
+    },
+    {
+      "claim_id": "claim_61",
+      "gold_label": "Refuted",
+      "claim": "The large image of the Joe Biden and Kamala Harris logo projected onto a Harley-Davidson location in Milwaukee US indicates the motorcycle manufacturer's endorsement of the US Democratic presidential nominee."
+    },
+    {
+      "claim_id": "claim_135",
+      "gold_label": "Not Enough Evidence",
+      "claim": "No one lost their health care because of the Wellmark and Iowa Farm Bureau Health Plan Bill."
+    },
+    {
+      "claim_id": "claim_225",
+      "gold_label": "Not Enough Evidence",
+      "claim": "There was a 40% drop in oil prices in Nigeria in 2020."
+    },
+    {
+      "claim_id": "claim_229",
+      "gold_label": "Not Enough Evidence",
+      "claim": "There was a 40% drop in the price of oil, Nigeria's main export."
+    },
+    {
+      "claim_id": "claim_76",
+      "gold_label": "Not Enough Evidence",
+      "claim": "Hunter Biden (son of US president Joe Biden)  had 25,000 pics of him torturing and raping children under 10 in China on his laptop."
+    },
+    {
+      "claim_id": "claim_9",
+      "gold_label": "Not Enough Evidence",
+      "claim": "You see the number today? 33.1 GDP. The biggest in the history of our country by almost triple, right? Almost triple. Now it’s very much bigger than any GDP we’ve ever had. You have to go back to the 1950s, and then it’s less than half. This is the greatest number, 33.1 percent."
+    },
+    {
+      "claim_id": "claim_269",
+      "gold_label": "Conflicting Evidence/Cherrypicking",
+      "claim": "Sunil Gavaskar said that \"Virat Kohli has only trained against Anushka [Sharma]'s balls during the lockdown\""
+    },
+    {
+      "claim_id": "claim_33",
+      "gold_label": "Conflicting Evidence/Cherrypicking",
+      "claim": "America went from 75,000 flu deaths last year in 2019 to almost 0 in 2020"
+    },
+    {
+      "claim_id": "claim_423",
+      "gold_label": "Conflicting Evidence/Cherrypicking",
+      "claim": "Sen. Martha McSally “supported a plan to turn Medicare into a voucher program and ‘shift costs’ onto seniors” and “even supported raising the retirement age."
+    },
+    {
+      "claim_id": "claim_47",
+      "gold_label": "Conflicting Evidence/Cherrypicking",
+      "claim": "Joe Biden said he wants to ban fracking in the US."
+    },
+    {
+      "claim_id": "claim_60",
+      "gold_label": "Conflicting Evidence/Cherrypicking",
+      "claim": "UK Employees unable to work in tier 3 areas will get a combination of Job Support Scheme and Universal Credit, which will mean they get 80% of their wages."
+    }
+  ]
+}

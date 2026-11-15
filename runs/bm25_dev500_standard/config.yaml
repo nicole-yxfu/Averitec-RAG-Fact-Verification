@@ -1,0 +1,27 @@
+run_id: bm25_dev500_standard
+note: Same ranking as bm25_dev500_plain, standard prompt, run live by bm25_baseline.py.
+  The published 0.3241. The LLM saw FULL chunks cut off at 3000 chars (about two passages),
+  not the five previews stored here; used_passage_ids lists all five until re-exported
+  with --fulltext --evidence-view full_capped3000.
+retriever: bm25_ks
+evidence_source: knowledge_store
+prompt: standard
+split: official_dev
+top_k: 5
+chunk_size: 200
+llm: gpt-4.1-mini
+temperature: 0
+evidence_view: full_capped3000
+passages_stored: preview300
+used_passage_ids_exact: false
+source:
+  exported_by: src/export_run.py
+  eval_cache: results/bm25_baseline_official_dev_with_metadata_top5_cache.json
+  eval_cache_sha256: 4ab13475b7ed2dec
+  retrieval_cache: results/bm25_baseline_official_dev_with_metadata_top5_cache.json
+  retrieval_cache_sha256: 4ab13475b7ed2dec
+schema_version: 1
+code:
+  commit: d4b1293db8d5ecee1f8d3b00c18912c3f4e881e2
+  branch: main
+  dirty: true

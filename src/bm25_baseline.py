@@ -501,6 +501,22 @@ def get_or_build_tokenized_corpus(
     if cache_path:
         cached = _read_json_gz(cache_path)
 
+        # An existing cache file that cannot be read is an ENVIRONMENT
+        # problem (memory pressure, permissions, a storage provider), never
+        # a reason to rebuild over it. Writes are atomic (tmp + rename), so a
+        # half-written file cannot be the cause.
+        #
+        # This guard exists because the silent version destroyed data: on
+        # 2026-11-13 a 3-worker job on an 8 GB machine hit read failures,
+        # _read_json_gz returned None, the code "rebuilt" from the unmounted
+        # KS drive (0 documents), and atomically replaced 479 of the 500 dev
+        # corpus caches — 25 GB, ~10 h of warm-up — with empty payloads.
+        if cached is None and os.path.exists(cache_path):
+            raise RuntimeError(
+                f"corpus cache exists but could not be read: {cache_path}. "
+                f"Refusing to rebuild over it. Re-run with fewer workers, or "
+                f"move the file aside if it is genuinely corrupt.")
+
         cached_fp = cached.get("ks_fingerprint") if cached else None
         if (cached and cached.get("cache_name") == cache_name
                 and _fingerprints_match(cached_fp, current_fingerprint)):
@@ -518,7 +534,12 @@ def get_or_build_tokenized_corpus(
     n_docs = len(documents)
     counters["corpus_cache_misses"] += 1
 
-    if cache_path:
+    # Only cache an EMPTY corpus when the KS file really exists and really
+    # is empty. A missing KS file (drive unmounted, raw KS deleted to free
+    # space) says nothing about the corpus, and caching that "nothing" is
+    # how a missing drive turns into permanent data loss.
+    ks_present = current_fingerprint[0] is not None
+    if cache_path and (documents or ks_present):
         payload = {
             "cache_name": cache_name,
             "version": RETRIEVAL_CACHE_VERSION,
@@ -573,6 +594,13 @@ def _corpus_worker(task: tuple) -> tuple[int, str, int]:
     current_fingerprint = _file_fingerprint(ks_file)
 
     cached = _read_json_gz(cache_path)
+    # Same two guards as get_or_build_tokenized_corpus(); this is the path a
+    # rebuild runs through, and an external NTFS drive that disconnects
+    # mid-run must not be able to empty the caches a second time.
+    if cached is None and os.path.exists(cache_path):
+        raise RuntimeError(
+            f"corpus cache exists but could not be read: {cache_path}. "
+            f"Refusing to rebuild over it.")
     cached_fp = cached.get("ks_fingerprint") if cached else None
     if (cached and cached.get("cache_name") == cache_name
             and _fingerprints_match(cached_fp, current_fingerprint)):
@@ -581,6 +609,10 @@ def _corpus_worker(task: tuple) -> tuple[int, str, int]:
         tokenized_corpus = cached.get("tokenized_corpus", [])
         if len(corpus_raw) == len(tokenized_corpus):
             return claim_idx, "hit", cached.get("n_docs", 0)
+
+    if current_fingerprint[0] is None:
+        # KS file absent: nothing to build from. Leave whatever is on disk.
+        return claim_idx, "ks_missing", 0
 
     documents = load_ks_file(ks_file)
     corpus, tokenized_corpus = _build_tokenized_corpus(documents, chunk_size)
@@ -641,7 +673,7 @@ def warm_up_corpus_cache_parallel(
           "would — tokenizer/chunking unchanged)")
     print(f"{'─' * 60}")
 
-    hits = misses = errors = 0
+    hits = misses = errors = ks_missing = 0
     done = 0
     total = len(tasks)
     start = time.perf_counter()
@@ -653,6 +685,10 @@ def warm_up_corpus_cache_parallel(
                 _claim_idx, status, _n_docs = future.result()
                 if status == "hit":
                     hits += 1
+                elif status == "ks_missing":
+                    # Not built and nothing written: the KS file is absent
+                    # (drive unmounted or disconnected mid-run).
+                    ks_missing += 1
                 else:
                     misses += 1
             except Exception as e:
@@ -666,15 +702,55 @@ def warm_up_corpus_cache_parallel(
                 rate = done / elapsed if elapsed > 0 else 0.0
                 print(f"  … {done}/{total} corpora ready "
                       f"({hits} already cached, {misses} newly built, "
+                      f"{ks_missing} KS-missing, "
                       f"{errors} errors, {elapsed:.1f}s elapsed, "
                       f"{rate:.2f} claims/s)")
 
     elapsed = time.perf_counter() - start
     print(f"Warm-up complete: {hits} already cached, {misses} newly built, "
+          f"{ks_missing} KS-missing (nothing written), "
           f"{errors} errors, {elapsed:.1f}s total\n")
+    if ks_missing:
+        print(f"  [warning] {ks_missing} claims had no KS file on disk. Is the "
+              f"Knowledge Store drive mounted? Re-run once it is; finished "
+              f"claims are skipped.")
 
     return {"hits": hits, "misses": misses, "errors": errors,
-            "elapsed": elapsed}
+            "ks_missing": ks_missing, "elapsed": elapsed}
+
+
+def corpus_stamp(corpus: list[tuple[str, str]], n_samples: int = 64) -> str:
+    """
+    Cheap content fingerprint of a chunked corpus, stored in every ranking
+    cache entry and checked on every read.
+
+    WHY: the ranking cache is named after the CORPUS NAME (split, claim,
+    chunk size, tokenizer version), not the corpus CONTENT. In June 2026 the
+    dev corpus caches were rebuilt (06-23/24) after 270 depth-10 and 17
+    depth-30 ranking caches had already been written (06-20) against the
+    previous build. Same names, same document counts — so the old rankings
+    kept being served as hits, with plausible scores, for a corpus they were
+    not computed on. The dense re-ranking dev500 run (06-24) re-ranked those
+    stale depth-30 pools for 17 claims.
+
+    Hashing every chunk would mean hashing ~50 MB per claim on each lookup.
+    Sampling 64 evenly spaced chunks plus the total count is enough: any
+    change to chunk boundaries shifts every later chunk, and a change to the
+    document set changes the count or the sampled text. It is derived from
+    content, so it survives copying the cache (an mtime would not).
+    """
+    h = hashlib.sha1()
+    n = len(corpus)
+    h.update(str(n).encode())
+    if n:
+        step = max(1, n // n_samples)
+        for i in range(0, n, step):
+            url, chunk = corpus[i]
+            h.update(b"\x00" + url.encode("utf-8") + b"\x01"
+                     + chunk.encode("utf-8"))
+        url, chunk = corpus[-1]
+        h.update(b"\x02" + url.encode("utf-8") + b"\x01" + chunk.encode("utf-8"))
+    return h.hexdigest()[:16]
 
 
 def rank_bm25_from_tokenized(query_text: str,
@@ -731,11 +807,16 @@ def retrieve_bm25_cached(
     rank_name = _ranking_cache_name(corpus_name, query_text, depth)
     rank_path = (_safe_cache_path(ranking_cache_dir, rank_name)
                  if ranking_cache_dir else None)
+    stamp = corpus_stamp(corpus)
 
     start = time.perf_counter()
     if rank_path:
         cached = _read_json_gz(rank_path)
-        if cached and cached.get("cache_name") == rank_name:
+        # An entry without a stamp predates this check and cannot be
+        # verified against the corpus, so it is recomputed (and rewritten
+        # with a stamp) rather than trusted. See corpus_stamp().
+        if (cached and cached.get("cache_name") == rank_name
+                and cached.get("corpus_stamp") == stamp):
             ranked_raw = cached.get("ranked_passages", [])
             if len(ranked_raw) >= top_k:
                 counters["ranking_cache_hits"] += 1
@@ -757,6 +838,7 @@ def retrieve_bm25_cached(
             "cache_name": rank_name,
             "version": RETRIEVAL_CACHE_VERSION,
             "corpus_cache_name": corpus_name,
+            "corpus_stamp": stamp,
             "query_hash": _hash_text(query_text),
             "depth": depth,
             "ranked_passages": [(float(score), url, passage)

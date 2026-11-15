@@ -1,0 +1,21 @@
+run_id: ddg_dev500_nee_guard
+note: Open-web DDG top-5 with the W4 NEE-guard prompt. Evaluated, not deployed (p
+  = 0.050).
+retriever: ddg_direct
+evidence_source: open_web
+prompt: nee_guard
+split: official_dev
+top_k: 5
+llm: gpt-4.1-mini
+temperature: 0
+source:
+  exported_by: src/export_run.py
+  eval_cache: results/ddg_dev500_nee_guard_eval_cache.json
+  eval_cache_sha256: 694b21f343463178
+  retrieval_cache: results/ddg_direct_dev500_retrieval_cache.json
+  retrieval_cache_sha256: f602752b98e86f0e
+schema_version: 1
+code:
+  commit: d4b1293db8d5ecee1f8d3b00c18912c3f4e881e2
+  branch: main
+  dirty: true

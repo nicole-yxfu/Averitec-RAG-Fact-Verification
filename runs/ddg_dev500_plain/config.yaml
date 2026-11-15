@@ -1,0 +1,20 @@
+run_id: ddg_dev500_plain
+note: Open-web DuckDuckGo top-5, direct query, plain prompt. The published 0.4495.
+retriever: ddg_direct
+evidence_source: open_web
+prompt: plain
+split: official_dev
+top_k: 5
+llm: gpt-4.1-mini
+temperature: 0
+source:
+  exported_by: src/export_run.py
+  eval_cache: results/ddg_direct_dev500_plain_eval_cache.json
+  eval_cache_sha256: f1ca4b0a1897020c
+  retrieval_cache: results/ddg_direct_dev500_retrieval_cache.json
+  retrieval_cache_sha256: f602752b98e86f0e
+schema_version: 1
+code:
+  commit: d4b1293db8d5ecee1f8d3b00c18912c3f4e881e2
+  branch: main
+  dirty: true
