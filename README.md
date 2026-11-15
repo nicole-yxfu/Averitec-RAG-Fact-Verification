@@ -2,6 +2,8 @@
 
 **A controlled study on AVeriTeC showing that *where* evidence comes from matters far more than *how* it is retrieved.**
 
+**[▶ Try the interactive demo](https://nicole-yxfu.github.io/Averitec-RAG-Fact-Verification/)** — pick a claim, see what the system found on the web, its verdict, and whether it decided to hand the claim to a human.
+
 Fact-checking with retrieval-augmented LLMs has three tunable components — the **evidence source**, the **prompt**, and the **retrieval strategy** — and most research pours effort into the last one (dense retrievers, query reformulation, decomposition). This project asks: *which one actually moves the needle?* By decoupling the pipeline and caching every stage, each experiment changes exactly one component, cleanly isolating its effect on 4-class veracity prediction (Supported / Refuted / Not Enough Evidence / Conflicting).
 
 ### Headline result
