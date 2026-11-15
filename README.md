@@ -1,8 +1,22 @@
 # What Actually Drives Retrieval-Augmented Fact Verification?
 
-**A controlled study on AVeriTeC showing that *where* evidence comes from matters far more than *how* it is retrieved.**
+**A controlled study on AVeriTeC showing that *where* evidence comes from matters far more than *how* it is retrieved — and that the most useful change was teaching the system when to hand a claim to a human.**
 
-**[▶ Try the interactive demo](https://nicole-yxfu.github.io/Averitec-RAG-Fact-Verification/)** — pick a claim, see what the system found on the web, its verdict, and whether it decided to hand the claim to a human.
+**[▶ Try the interactive demo](https://nicole-yxfu.github.io/Averitec-RAG-Fact-Verification/)** · [Can the LLM judge be trusted?](#how-far-can-the-judge-be-trusted-a-blind-human-check) · [How results are evaluated](#evaluation-contract-run-directories-and-a-ci-gate)
+
+![How the fact-checker works and how it is evaluated](docs/architecture.svg)
+
+### At a glance
+
+| Question | Answer |
+|---|---|
+| What moves accuracy most? | **The evidence source.** Searching the open web instead of a closed corpus: Macro-F1 0.364 → 0.450 (exact McNemar p = 2.5 × 10⁻⁷). |
+| Does better ranking help? | **No.** Hybrid retrieval plus cross-encoder re-ranking against the deployed baseline: p = 0.86. The usual "widen the pool, then re-rank" control inflates the apparent gain 2–3×. [Details](#does-better-ranking-help-a-pre-registered-null-result) |
+| What actually paid? | **Letting it abstain.** Answering only the 70% of claims it is most confident about lifts accuracy from 60.4% to 78.9%, with no new model and no extra API cost. [Details](#selective-prediction-how-much-work-can-it-take-off-a-human) |
+| Can the LLM judge be trusted? | **Not blindly.** A blind human check found it answering from its own knowledge on "not enough evidence" verdicts (agreed 4 / 14); a corrected prompt reached 12 / 14 (in-sample). [Details](#how-far-can-the-judge-be-trusted-a-blind-human-check) |
+| Is it engineered, not just a notebook? | FastAPI + Docker service (warm p50 ≈ 1 s, \$0.00024 per claim), run artifacts the pipeline cannot score itself, CI on every push, 104 tests. Earlier claims that turned out to be confounded or wrong are [corrected in place](#a-correction-the-closed-web-prompt-rows-saw-different-evidence), not deleted. |
+
+### The question
 
 Fact-checking with retrieval-augmented LLMs has three tunable components — the **evidence source**, the **prompt**, and the **retrieval strategy** — and most research pours effort into the last one (dense retrievers, query reformulation, decomposition). This project asks: *which one actually moves the needle?* By decoupling the pipeline and caching every stage, each experiment changes exactly one component, cleanly isolating its effect on 4-class veracity prediction (Supported / Refuted / Not Enough Evidence / Conflicting).
 

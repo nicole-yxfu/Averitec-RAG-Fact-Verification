@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="t d">
+  <title id="t">How the fact-checker works and how it is evaluated</title>
+  <desc id="d">Per claim: search the web, ask an LLM for a verdict, score confidence from three signals, then answer automatically or send the claim to a human. Below: every run is saved as artifacts, scored with confidence intervals and significance tests, gated in CI, and the LLM judge itself is checked against blind human labels.</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .card { fill: #f6f7f9; stroke: #d9dce1; }
+    .sys { fill: #eef2fd; stroke: #b9c6f2; }
+    .go { fill: #e6f4ec; stroke: #a7d7bb; }
+    .hold { fill: #fdf2df; stroke: #ecc98a; }
+    .h { font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1d1d1b; }
+    .s { font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #55534d; }
+    .i { font: italic 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #55534d; }
+    .lane { font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #8a877f; letter-spacing: .08em; }
+    .gt { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1f6f45; }
+    .ht { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #8a5300; }
+    .arrow { stroke: #7d8aa8; stroke-width: 1.6; fill: none; }
+    .dash { stroke: #a3a09a; stroke-width: 1.3; fill: none; stroke-dasharray: 4 4; }
+    .head { fill: #7d8aa8; }
+    .rule { stroke: #e4e2dc; stroke-width: 1; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .card { fill: #161b22; stroke: #30363d; }
+      .sys { fill: #172036; stroke: #34467a; }
+      .go { fill: #11291c; stroke: #2d6a45; }
+      .hold { fill: #2e2410; stroke: #7a5a1c; }
+      .h { fill: #e6edf3; } .s, .i { fill: #9ea7b3; } .lane { fill: #7d8590; }
+      .gt { fill: #6fd19e; } .ht { fill: #f4b860; }
+      .arrow { stroke: #6e7d9e; } .head { fill: #6e7d9e; } .dash { stroke: #555c66; } .rule { stroke: #30363d; }
+    }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="head" d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="960" height="420" rx="12"/>
+
+  <!-- ── lane 1: per claim ─────────────────────────────────────────── -->
+  <text class="lane" x="24" y="30">PER CLAIM · WHAT THE SYSTEM DOES</text>
+
+  <rect class="card" x="24" y="44" width="150" height="112" rx="10"/>
+  <text class="h" x="38" y="70">Claim</text>
+  <text class="i" x="38" y="94">“In a letter to Steve</text>
+  <text class="i" x="38" y="110">Jobs, Sean Connery</text>
+  <text class="i" x="38" y="126">refused to appear in</text>
+  <text class="i" x="38" y="142">an Apple commercial.”</text>
+
+  <path class="arrow" d="M176,100 L204,100" marker-end="url(#a)"/>
+
+  <rect class="sys" x="206" y="44" width="182" height="112" rx="10"/>
+  <text class="h" x="220" y="70">① Search</text>
+  <text class="s" x="220" y="92">Open-web search:</text>
+  <text class="s" x="220" y="108">DuckDuckGo, top 5</text>
+  <text class="s" x="220" y="130">vs. a closed corpus (BM25)</text>
+  <text class="s" x="220" y="146">and the gold evidence</text>
+
+  <path class="arrow" d="M390,100 L418,100" marker-end="url(#a)"/>
+
+  <rect class="sys" x="420" y="44" width="170" height="112" rx="10"/>
+  <text class="h" x="434" y="70">② LLM verdict</text>
+  <text class="s" x="434" y="92">gpt-4.1-mini reads the</text>
+  <text class="s" x="434" y="108">claim + 5 snippets</text>
+  <text class="s" x="434" y="130">Supported · Refuted ·</text>
+  <text class="s" x="434" y="146">Not enough · Conflicting</text>
+
+  <path class="arrow" d="M592,100 L620,100" marker-end="url(#a)"/>
+
+  <rect class="sys" x="622" y="44" width="160" height="112" rx="10"/>
+  <text class="h" x="636" y="70">③ Confidence</text>
+  <text class="s" x="636" y="92">· verdict it gave</text>
+  <text class="s" x="636" y="110">· 2nd prompt agrees?</text>
+  <text class="s" x="636" y="128">· LLM grounding judge</text>
+  <text class="s" x="636" y="146">→ cross-fitted score</text>
+
+  <path class="arrow" d="M784,84 L806,70" marker-end="url(#a)"/>
+  <path class="arrow" d="M784,116 L806,130" marker-end="url(#a)"/>
+
+  <rect class="go" x="808" y="44" width="128" height="52" rx="10"/>
+  <text class="gt" x="820" y="66">Answer</text>
+  <text class="s" x="820" y="84">70% · 78.9% right</text>
+
+  <rect class="hold" x="808" y="104" width="128" height="52" rx="10"/>
+  <text class="ht" x="820" y="126">Human review</text>
+  <text class="s" x="820" y="144">the other 30%</text>
+
+  <line class="rule" x1="24" y1="186" x2="936" y2="186"/>
+
+  <!-- ── lane 2: evaluation ───────────────────────────────────────── -->
+  <text class="lane" x="24" y="214">HOW IT IS EVALUATED</text>
+
+  <rect class="card" x="24" y="228" width="208" height="104" rx="10"/>
+  <text class="h" x="38" y="254">Run artifacts</text>
+  <text class="s" x="38" y="276">runs/&lt;id&gt;/: config, ranked</text>
+  <text class="s" x="38" y="292">passages, raw verdicts</text>
+  <text class="s" x="38" y="314">The pipeline never</text>
+  <text class="s" x="38" y="330">scores itself</text>
+
+  <path class="arrow" d="M234,280 L254,280" marker-end="url(#a)"/>
+
+  <rect class="card" x="256" y="228" width="208" height="104" rx="10"/>
+  <text class="h" x="270" y="254">Scoring</text>
+  <text class="s" x="270" y="276">Macro-F1 with bootstrap</text>
+  <text class="s" x="270" y="292">95% intervals</text>
+  <text class="s" x="270" y="314">Exact McNemar test for</text>
+  <text class="s" x="270" y="330">every comparison</text>
+
+  <path class="arrow" d="M466,280 L486,280" marker-end="url(#a)"/>
+
+  <rect class="card" x="488" y="228" width="208" height="104" rx="10"/>
+  <text class="h" x="502" y="254">CI on every push</text>
+  <text class="s" x="502" y="276">104 unit tests</text>
+  <text class="s" x="502" y="298">30-claim breakage gate:</text>
+  <text class="s" x="502" y="314">format, label collapse,</text>
+  <text class="s" x="502" y="330">accuracy, silent no-ops</text>
+
+  <rect class="card" x="720" y="228" width="216" height="104" rx="10"/>
+  <text class="h" x="734" y="254">Checking the judge</text>
+  <text class="s" x="734" y="276">50 verdicts labelled blind</text>
+  <text class="s" x="734" y="292">by hand → judge used its</text>
+  <text class="s" x="734" y="308">own knowledge; fixed:</text>
+  <text class="s" x="734" y="326">agreement ~72% → ~84%</text>
+
+  <!-- dashed links from the system to its evaluation -->
+  <path class="dash" d="M702,158 L702,198 L828,198 L828,226"/>
+
+  <!-- ── serving strip ──────────────────────────────────────────── -->
+  <rect class="card" x="24" y="352" width="912" height="44" rx="10"/>
+  <text class="h" x="38" y="379">Serving</text>
+  <text class="s" x="110" y="379">FastAPI  POST /verify  ·  Docker (non-root, 873 MB)  ·  warm p50 ≈ 1 s  ·  $0.00024 per claim  ·  live static demo on GitHub Pages</text>
+</svg>
