@@ -114,6 +114,17 @@ def score(answers: dict, meta: dict) -> dict:
         lenient = sum(1 for r in rows if r["judge"] == 1 and r["human"] == 0)
         strict = sum(1 for r in rows if r["judge"] == 0 and r["human"] == 1)
         out["disagreements"] = {"judge_too_lenient": lenient, "judge_too_strict": strict}
+    # Per system verdict: where the disagreement actually lives.
+    by_verdict = {}
+    for v in sorted({r["verdict"] for r in rows}):
+        sub = [r for r in rows if r["verdict"] == v]
+        by_verdict[v] = {
+            "n": len(sub),
+            "agree": sum(1 for r in sub if r["judge"] == r["human"]),
+            "judge_says_faithful": sum(r["judge"] for r in sub),
+            "human_says_faithful": sum(r["human"] for r in sub),
+        }
+    out["by_verdict"] = by_verdict
     secs = [r["seconds"] for r in rows if r["seconds"]]
     out["median_seconds_per_item"] = sorted(secs)[len(secs) // 2] if secs else None
     out["disagreement_cases"] = [r for r in rows if r["judge"] != r["human"]]
@@ -155,6 +166,10 @@ def main() -> None:
     k = r["sample_kappa"]
     print(f"  Cohen's kappa on the (balanced) sample: "
           f"{'n/a' if k is None else f'{k:.2f}'}")
+    print("\n  By system verdict:   agree   judge says faithful   person says faithful")
+    for v, d in r["by_verdict"].items():
+        print(f"    {v:<22} {d['agree']:>2}/{d['n']:<3}   {d['judge_says_faithful']:>2}/{d['n']:<17}"
+              f"   {d['human_says_faithful']:>2}/{d['n']}")
     if r["median_seconds_per_item"]:
         print(f"  Median time per item: {r['median_seconds_per_item']} s")
 
