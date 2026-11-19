@@ -10,8 +10,9 @@ The service does NOT reimplement the pipeline — it calls the exact retrieval,
 prompt-building, LLM and label-normalisation functions used in the offline
 experiments (`open_web_baseline`, `reprompt_eval`, `bm25_baseline`). So the
 deployed behaviour is faithful to the evaluated *open-web* system, the
-project's best non-oracle configuration (Macro-F1 0.4495 on the official dev
-set). One claim in -> retrieve open-web evidence -> prompt the LLM -> return a
+highest-scoring non-oracle configuration (Macro-F1 0.4495 on the official dev
+set). Most of that score comes from retrieving published fact-checks, which
+the search does not filter out (see the leakage correction in the README). One claim in -> retrieve open-web evidence -> prompt the LLM -> return a
 grounded verdict, timed and costed per request.
 
 Run locally:
@@ -208,8 +209,8 @@ app = FastAPI(
     title="AVeriTeC Open-Web Fact Verifier",
     description="Retrieval-augmented fact verification: a claim in, a grounded "
                 "verdict out, with per-request latency and cost. Wraps the "
-                "project's best non-oracle configuration (open-web evidence, "
-                "Macro-F1 0.4495).",
+                "project's open-web configuration (Macro-F1 0.4495 on the dev "
+                "set, mostly from retrieving published fact-checks).",
     version="1.0.0",
     lifespan=lifespan,
 )

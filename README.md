@@ -146,7 +146,7 @@ Faithfulness across the full evidence ladder (all 500 official dev claims, judge
 
 Two findings this adds on top of accuracy — one survived a human check, one did not:
 
-1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. *Provisional:* all three columns were scored by the original judge, which the check below found to be biased against one verdict class, and the classes are not equally common on every rung. Re-scoring the closed-web and gold columns with the corrected judge would settle it. The open-web column is also scored on partly leaked evidence ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)): a retrieved fact-check makes a verdict easy to ground.
+1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. *Provisional:* all three columns were scored by the original judge, which the check below found to be biased against one verdict class, and the classes are not equally common on every rung. Re-scoring the closed-web and gold columns with the corrected judge would settle it. The open-web column is also scored on partly leaked evidence ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)): a retrieved fact-check makes a verdict easy to ground. With fact-check pages removed, the same judge rates 0.633 of open-web verdicts faithful (309 / 488), level with the closed-web column, so the open-web step of this ladder does not survive either.
 2. ~~"Not enough evidence" is the least-grounded verdict at every rung.~~ **Withdrawn.** This was mostly the judge's own error, not the system's: on the open web, the corrected judge rates 90% of NEE verdicts as grounded, not 52%. See below.
 
 ### How far can the judge be trusted? A blind human check
@@ -273,7 +273,7 @@ python src/plot_risk_coverage.py \
 
 ## Does better ranking help? A pre-registered null result
 
-The headline claims retrieval strategy matters least. That was shown on the *closed* Knowledge Store, where a weak source could plausibly have masked a good ranker. This section tests the claim where it is hardest to dismiss: on the **open web**, the stronger source and the one the live service actually uses.
+The headline claims retrieval strategy matters least. That was shown on the *closed* Knowledge Store, where a weak source could plausibly have masked a good ranker. This section tests the claim where it is hardest to dismiss: on the **open web**, the higher-scoring source and the one the live service actually uses. (Its higher score is mostly leaked fact-checks, see the correction above; every ranking variant here reads the same pool, so the comparison between them is still fair.)
 
 `src/hybrid_retrieval.py` widens the candidate pool from 5 to ~16 hits per claim and re-ranks it five ways — the engine's own order, Okapi BM25, dense cosine (mpnet), **Reciprocal Rank Fusion** of all three, and RRF followed by a **cross-encoder** (`ms-marco-MiniLM-L-12-v2`). Every variant reads the *same* cached pool, so a difference comes from ranking alone and not from different pages having been fetched on a different day.
 
@@ -335,7 +335,7 @@ python src/compare_runs.py --restrict-to-common --exclude-filtered \
 
 ## Live service (`POST /verify`)
 
-The evaluated open-web pipeline is also exposed as a small **FastAPI** service, so a claim can be verified over HTTP and get back a grounded verdict with its evidence, latency and cost. The service calls the *same* retrieval, prompt and LLM code as the experiments (`src/service.py` is a thin wrapper), so what it serves is the project's best non-oracle configuration, not a re-implementation.
+The evaluated open-web pipeline is also exposed as a small **FastAPI** service, so a claim can be verified over HTTP and get back a grounded verdict with its evidence, latency and cost. The service calls the *same* retrieval, prompt and LLM code as the experiments (`src/service.py` is a thin wrapper), so what it serves is the evaluated open-web configuration, not a re-implementation. That configuration scored highest among the non-oracle runs (0.4495), but mostly by retrieving published fact-checks ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)). For a live service that is a legitimate shortcut when a claim has already been checked; it does not help with claims nobody has checked yet.
 
 ```bash
 uvicorn src.service:app --port 8000      # then open http://localhost:8000/docs
