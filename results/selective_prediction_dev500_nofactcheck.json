@@ -1,0 +1,267 @@
+{
+  "predictions": "results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json",
+  "faithfulness": "results/faithfulness_ddg_nofactcheck_dev500.json",
+  "second_prompt": "results/ddg_direct_dev500_nofactcheck_nee_guard_eval_cache.json",
+  "folds": 5,
+  "seed": 0,
+  "summaries": [
+    {
+      "name": "Cross-fitted confidence (5-fold, out-of-fold)",
+      "n": 500,
+      "overall_accuracy": 0.434,
+      "aurc": 0.3301,
+      "aurc_random": 0.566,
+      "points": [
+        {
+          "coverage": 1.0,
+          "n_answered": 500,
+          "accuracy": 0.434,
+          "errors_made": 283,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 206,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.9,
+          "n_answered": 450,
+          "accuracy": 0.4689,
+          "errors_made": 239,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 156,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.8,
+          "n_answered": 400,
+          "accuracy": 0.5125,
+          "errors_made": 195,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 106,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.7,
+          "n_answered": 350,
+          "accuracy": 0.5714,
+          "errors_made": 150,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 56,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.6,
+          "n_answered": 300,
+          "accuracy": 0.6567,
+          "errors_made": 103,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 6,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.5,
+          "n_answered": 250,
+          "accuracy": 0.744,
+          "errors_made": 64,
+          "answered_dist": {
+            "Supported": 118,
+            "Refuted": 132,
+            "NEE": 0,
+            "Conflicting": 0
+          }
+        },
+        {
+          "coverage": 0.4,
+          "n_answered": 200,
+          "accuracy": 0.76,
+          "errors_made": 48,
+          "answered_dist": {
+            "Supported": 68,
+            "Refuted": 132,
+            "NEE": 0,
+            "Conflicting": 0
+          }
+        },
+        {
+          "coverage": 0.3,
+          "n_answered": 150,
+          "accuracy": 0.8333,
+          "errors_made": 25,
+          "answered_dist": {
+            "Supported": 18,
+            "Refuted": 132,
+            "NEE": 0,
+            "Conflicting": 0
+          }
+        },
+        {
+          "coverage": 0.2,
+          "n_answered": 100,
+          "accuracy": 0.82,
+          "errors_made": 18,
+          "answered_dist": {
+            "Supported": 0,
+            "Refuted": 100,
+            "NEE": 0,
+            "Conflicting": 0
+          }
+        },
+        {
+          "coverage": 0.1,
+          "n_answered": 50,
+          "accuracy": 0.78,
+          "errors_made": 11,
+          "answered_dist": {
+            "Supported": 0,
+            "Refuted": 50,
+            "NEE": 0,
+            "Conflicting": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rule-based: grounded + prompts agree (nothing fitted)",
+      "n": 500,
+      "overall_accuracy": 0.434,
+      "aurc": 0.487,
+      "aurc_random": 0.566,
+      "points": [
+        {
+          "coverage": 1.0,
+          "n_answered": 500,
+          "accuracy": 0.434,
+          "errors_made": 283,
+          "answered_dist": {
+            "Supported": 137,
+            "Refuted": 132,
+            "NEE": 206,
+            "Conflicting": 16
+          }
+        },
+        {
+          "coverage": 0.9,
+          "n_answered": 450,
+          "accuracy": 0.4622,
+          "errors_made": 242,
+          "answered_dist": {
+            "Supported": 129,
+            "Refuted": 126,
+            "NEE": 173,
+            "Conflicting": 13
+          }
+        },
+        {
+          "coverage": 0.8,
+          "n_answered": 400,
+          "accuracy": 0.4775,
+          "errors_made": 209,
+          "answered_dist": {
+            "Supported": 121,
+            "Refuted": 116,
+            "NEE": 145,
+            "Conflicting": 12
+          }
+        },
+        {
+          "coverage": 0.7,
+          "n_answered": 350,
+          "accuracy": 0.5057,
+          "errors_made": 173,
+          "answered_dist": {
+            "Supported": 116,
+            "Refuted": 108,
+            "NEE": 114,
+            "Conflicting": 9
+          }
+        },
+        {
+          "coverage": 0.6,
+          "n_answered": 300,
+          "accuracy": 0.5167,
+          "errors_made": 145,
+          "answered_dist": {
+            "Supported": 106,
+            "Refuted": 96,
+            "NEE": 93,
+            "Conflicting": 5
+          }
+        },
+        {
+          "coverage": 0.5,
+          "n_answered": 250,
+          "accuracy": 0.548,
+          "errors_made": 113,
+          "answered_dist": {
+            "Supported": 93,
+            "Refuted": 84,
+            "NEE": 69,
+            "Conflicting": 4
+          }
+        },
+        {
+          "coverage": 0.4,
+          "n_answered": 200,
+          "accuracy": 0.525,
+          "errors_made": 95,
+          "answered_dist": {
+            "Supported": 74,
+            "Refuted": 65,
+            "NEE": 59,
+            "Conflicting": 2
+          }
+        },
+        {
+          "coverage": 0.3,
+          "n_answered": 150,
+          "accuracy": 0.5267,
+          "errors_made": 71,
+          "answered_dist": {
+            "Supported": 52,
+            "Refuted": 52,
+            "NEE": 44,
+            "Conflicting": 2
+          }
+        },
+        {
+          "coverage": 0.2,
+          "n_answered": 100,
+          "accuracy": 0.56,
+          "errors_made": 44,
+          "answered_dist": {
+            "Supported": 38,
+            "Refuted": 35,
+            "NEE": 26,
+            "Conflicting": 1
+          }
+        },
+        {
+          "coverage": 0.1,
+          "n_answered": 50,
+          "accuracy": 0.6,
+          "errors_made": 20,
+          "answered_dist": {
+            "Supported": 18,
+            "Refuted": 19,
+            "NEE": 12,
+            "Conflicting": 1
+          }
+        }
+      ]
+    }
+  ]
+}

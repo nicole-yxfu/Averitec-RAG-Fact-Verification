@@ -157,6 +157,7 @@ footer.wrap { padding-top: 24px; padding-bottom: 48px; font-size: 13px; color: v
   <div class="eyebrow">Retrieval-augmented fact-checking · AVeriTeC</div>
   <h1>A fact-checker that knows when to ask a human</h1>
   <p class="lede">For each claim, the system searches the web, asks an LLM for a verdict, then decides whether to trust that verdict or send the claim to a person for review. Pick a claim, follow the four steps, then reveal what professional fact-checkers concluded.</p>
+  <p class="fine" style="max-width: 720px"><b>Read the numbers on this page with one correction.</b> The search results shown here are the original ones, and for about half the claims they include the published fact-check of that claim, which leaks the answer. With fact-check sites removed, the same method is 43% accurate answering every claim and 74% accurate on the half it is most confident about. <a href="https://github.com/nicole-yxfu/Averitec-RAG-Fact-Verification#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks" target="_blank" rel="noopener">Details on GitHub →</a></p>
   <div class="toplinks">
     <a href="https://github.com/nicole-yxfu/Averitec-RAG-Fact-Verification" target="_blank" rel="noopener">Code &amp; full evaluation on GitHub →</a>
   </div>
@@ -260,7 +261,7 @@ footer.wrap { padding-top: 24px; padding-bottom: 48px; font-size: 13px; color: v
             "A differently worded prompt gave <b>a different verdict</b>.",
             "No second-prompt result for this claim.")}
         </ul>
-        <p class="fine">The score is a small logistic model over these signals, trained with 5-fold cross-fitting so no claim is scored by a model that saw it. The least confident 30% of claims go to a human. Dropping the judge signal entirely leaves the result almost unchanged (78.9% → 79.1% accuracy on the answered claims).</p>
+        <p class="fine">The score is a small logistic model over these signals, trained with 5-fold cross-fitting so no claim is scored by a model that saw it. The least confident 30% of claims go to a human. Dropping the judge signal entirely leaves the result almost unchanged (78.9% → 79.1% accuracy on the answered claims, on this page's partly leaked evidence).</p>
       </section>
 
       <section class="card step">

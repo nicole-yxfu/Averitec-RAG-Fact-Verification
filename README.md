@@ -12,7 +12,7 @@
 |---|---|
 | What moves accuracy most? | **Mostly leakage, it turned out.** Open-web search beats the closed corpus (Macro-F1 0.364 → 0.450, exact McNemar p = 2.5 × 10⁻⁷), but half the claims had a published fact-check in their top 5. With fact-check sites removed, web search scores 0.356, tied with BM25 (p = 0.36). [Details](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks) |
 | Does better ranking help? | **No.** Hybrid retrieval plus cross-encoder re-ranking against the deployed baseline: p = 0.86. The usual "widen the pool, then re-rank" control inflates the apparent gain 2–3×. [Details](#does-better-ranking-help-a-pre-registered-null-result) |
-| What actually paid? | **Letting it abstain.** Answering only the 70% of claims it is most confident about lifts accuracy from 60.4% to 78.9%, with no new model and no extra API cost. [Details](#selective-prediction-how-much-work-can-it-take-off-a-human) |
+| What actually paid? | **Letting it abstain.** On leak-free evidence (fact-check sites removed), answering only the half of claims it is most confident about lifts accuracy from 43.4% to 74.4%, with no new model and no extra API cost. It removes 42% of the error area that random abstention leaves. [Details](#selective-prediction-how-much-work-can-it-take-off-a-human) |
 | Can the LLM judge be trusted? | **Not blindly.** A blind human check found it answering from its own knowledge on "not enough evidence" verdicts (agreed 4 / 14); a corrected prompt reached 12 / 14 (in-sample). [Details](#how-far-can-the-judge-be-trusted-a-blind-human-check) |
 | Is it engineered, not just a notebook? | FastAPI + Docker service (warm p50 ≈ 1 s, \$0.00024 per claim), run artifacts the pipeline cannot score itself, CI on every push, 109 tests. Earlier claims that turned out to be confounded or wrong are [corrected in place](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks), not deleted. |
 
@@ -46,9 +46,11 @@ No deployed fact-checking pipeline answers every claim — the model is triage, 
 
 ![Risk-coverage curve](docs/risk_coverage.png)
 
-> Forced to answer all 500 dev claims, the system is **60.4%** accurate. Allowed to abstain, it answers **70% of claims at 78.9%** accuracy — cutting human review load by 70% — and the 30% it declines includes **every single *not enough evidence* verdict**, the class it is right about only 15% of the time.
+> On leak-free evidence, forced to answer all 500 dev claims, the system is **43.4%** accurate. Allowed to abstain, it answers **half of the claims at 74.4%** accuracy (or 70% of them at 57.1%). The half it declines includes **every *not enough evidence* verdict**, the class it is right about only 10% of the time.
 
-That is worth more than every retrieval change in this project combined, and it needed no new retrieval, no new model and no extra API spend — only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human). One caveat: these accuracies are measured on the open-web evidence, which is partly leaked fact-checks ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)). The comparison against random abstention uses the same evidence on both sides, but on clean evidence the absolute numbers would be lower.
+It needed no new retrieval, no new model and no extra API spend, only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human).
+
+**Re-checked after the leakage correction.** An earlier version of this section reported 60.4% → 78.9% at 70% coverage. Those numbers came from the original open-web evidence, which is partly leaked fact-checks ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)). Re-run on the same evidence with fact-check sites removed, the absolute accuracies drop, but the method holds: against random abstention it removes 42% of the error area, against 46% on the leaked evidence (the grey curve above).
 
 An **oracle-gap error analysis** (quantitative decomposition + a 20-case qualitative study, with 3 independent LLM annotators adjudicating the cases the first pass was unsure about) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
@@ -97,7 +99,7 @@ BM25 scores the same on both halves (47.2% vs 46.0%), so the split is not simply
 
 **Prediction, recorded before the run** (`results/factcheck_ablation_prediction.txt`): Macro-F1 would fall to about 0.38–0.40, and the gap to BM25 would stop being significant. The second half held; the drop was larger than predicted. Re-running the published open-web predictions the same week changed the outcome on only 12 claims (7 vs 5, p = 0.77), so the drop is not model drift.
 
-**What this changes.** The evidence-ladder headline is withdrawn as a claim about evidence sources: on this benchmark, open-web search mostly measures whether the existing fact-check can be found. For a live fact-checker that is a legitimate first step, but it says nothing about verifying a claim nobody has checked yet. Comparisons made *within* the open-web runs (ranking, prompt, abstention signals) give both sides the same leaked evidence, so they are still fair comparisons, but their absolute numbers are inflated.
+**What this changes.** The evidence-ladder headline is withdrawn as a claim about evidence sources: on this benchmark, open-web search mostly measures whether the existing fact-check can be found. For a live fact-checker that is a legitimate first step, but it says nothing about verifying a claim nobody has checked yet. Comparisons made *within* the open-web runs (ranking, prompt, abstention signals) give both sides the same leaked evidence, so they are still fair comparisons, but their absolute numbers are inflated. The abstention result has been re-run on leak-free evidence ([below](#selective-prediction-how-much-work-can-it-take-off-a-human)).
 
 **Limits of this control.** URL matching misses fact-checks on unlisted sites and keeps news articles published after the claim, so 0.356 is still an optimistic estimate for leakage-free open-web retrieval. The proper fix is a cut-off at the claim date, which the search API used here does not offer. That has not been done.
 
@@ -170,7 +172,7 @@ An LLM judge is a model, and its numbers are only as good as its agreement with 
 
 **Read these with three caveats.** (1) The v2 prompt was written *after* reading these disagreements, so its agreement on the same 50 is in-sample and optimistic; a fresh sample would be the honest test. (2) κ = 0.45 is "moderate": the judge went from near chance to usable, not to trustworthy, and with 48 items every number above moves by several points if a few labels change — read them as approximate. (3) One human annotator.
 
-**What this changes elsewhere.** The abstention layer used the judge's verdict as one of its signals, so it was re-run three ways: with the v1 judge AURC 0.214, with v2 0.216, with **no judge at all 0.223** — all far from random abstention's 0.396, and 78.9–79.1% accuracy at 70% coverage either way. The headline abstention result does not rest on the flawed judge. And the NEE weakness the accuracy analysis finds (below) is real, but it is mostly a **retrieval** failure: the system usually says "not enough evidence" because the search found nothing relevant, which is the honest answer to bad evidence.
+**What this changes elsewhere.** The abstention layer used the judge's verdict as one of its signals, so it was re-run three ways: with the v1 judge AURC 0.214, with v2 0.216, with **no judge at all 0.223** — all far from random abstention's 0.396, and 78.9–79.1% accuracy at 70% coverage either way (these three runs use the original, partly leaked evidence). The headline abstention result does not rest on the flawed judge. And the NEE weakness the accuracy analysis finds (below) is real, but it is mostly a **retrieval** failure: the system usually says "not enough evidence" because the search found nothing relevant, which is the honest answer to bad evidence.
 
 Reproduce (the gold column first materializes gold QA pairs into retrieval-cache shape, then runs the same judge):
 
@@ -207,38 +209,66 @@ Macro-F1 scores a system that *must* answer. Full Fact, Meta's third-party progr
 
 `src/selective_prediction.py` ranks claims by confidence and reports accuracy over the fraction answered. Three signals, all available at inference time on an unseen claim:
 
-| Signal | What it costs | Accuracy when it fires |
-|---|---|---|
-| Faithfulness judge says the verdict is grounded | 1 extra LLM call | 0.685 (365 claims) vs 0.358 when it says ungrounded |
-| A second prompt reaches the same verdict | 1 extra LLM call | 0.636 (451) vs 0.306 on disagreement |
-| The predicted class itself | free | **`refuted` 0.853** (218) · `supported` 0.662 · `conflicting` 0.200 · **`NEE` 0.154** |
+All numbers below are on the open-web evidence **with fact-check sites removed** ([why](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)); the original, partly leaked evidence is shown alongside for comparison.
+
+| Signal | What it costs | Accuracy when it fires: leak-free | … original evidence |
+|---|---|---|---|
+| Faithfulness judge says the verdict is grounded | 1 extra LLM call | 0.508 (309 claims) vs 0.318 when it says ungrounded | 0.685 (365) vs 0.358 |
+| A second prompt reaches the same verdict | 1 extra LLM call | 0.455 (459) vs 0.195 on disagreement | 0.636 (451) vs 0.306 |
+| The predicted class itself | free | **`refuted` 0.856** (132) · `supported` 0.591 · `conflicting` 0.188 · **`NEE` 0.097** (206) | `refuted` 0.853 (218) · `supported` 0.662 · `conflicting` 0.200 · `NEE` 0.154 (117) |
 
 The third is the strongest and the most actionable: *"never auto-answer **not enough evidence**"* is a one-line shipping policy worth more than any ranking change tested here.
 
-| Coverage | Answered | Accuracy | Errors | Supported | Refuted | NEE | Conflicting |
-|---|---|---|---|---|---|---|---|
-| 100% | 500 | 0.6040 | 198 | 142 | 218 | 117 | 20 |
-| 90% | 450 | 0.6467 | 159 | 142 | 218 | 70 | 17 |
-| 80% | 400 | 0.7100 | 116 | 142 | 218 | 25 | 12 |
-| **70%** | **350** | **0.7886** | **74** | 132 | 218 | **0** | **0** |
-| 50% | 250 | 0.8280 | 43 | 35 | 215 | 0 | 0 |
-| 30% | 150 | 0.8533 | 22 | 0 | 150 | 0 | 0 |
+| Coverage | Answered | Accuracy | Errors | Supported | Refuted | NEE | Conflicting | Accuracy, original evidence |
+|---|---|---|---|---|---|---|---|---|
+| 100% | 500 | 0.4340 | 283 | 137 | 132 | 206 | 16 | 0.6040 |
+| 90% | 450 | 0.4689 | 239 | 137 | 132 | 156 | 16 | 0.6467 |
+| 80% | 400 | 0.5125 | 195 | 137 | 132 | 106 | 16 | 0.7100 |
+| 70% | 350 | 0.5714 | 150 | 137 | 132 | 56 | 16 | 0.7886 |
+| **50%** | **250** | **0.7440** | **64** | 118 | 132 | **0** | **0** | 0.8280 |
+| 30% | 150 | 0.8333 | 25 | 18 | 132 | 0 | 0 | 0.8533 |
 
-**AURC 0.214 against 0.396 for abstaining at random** — the confidence ordering removes roughly half the area under the error curve.
+**AURC 0.330 against 0.566 for abstaining at random** (−42%); on the original evidence it was 0.214 against 0.396 (−46%). The confidence ordering works about as well either way; what the leak changed is the level.
 
-**The leakage control.** Combining those signals needs a fitted model, and fitting it on the same 500 claims it is then scored on would mean the "never trust NEE" rule was learned from the very claims used to report its benefit. Every score above is therefore **cross-fitted**: 5-fold, each claim scored by a model fitted on the other folds only. A *fitted-nothing* rule (grounded + prompts agree, no labels touched at any point) is reported alongside and still reaches AURC 0.308 — weaker, but it confirms the signal is not an artifact of the fitting. This is still dev data the project has developed against, so the honest framing is **out-of-fold on dev**, not held-out test.
+**Why the leak-free operating point moves from 70% to 50%.** Without fact-check pages the model answers *not enough evidence* on 206 claims, 41% of the set, and is right on only 10% of them. At 70% coverage 56 of those must still be answered, so accuracy stays at 57%. Declining all of them already caps coverage at 59%; the 50% point also hands over the least confident *supported* verdicts.
+
+**The leakage control.** Combining those signals needs a fitted model, and fitting it on the same 500 claims it is then scored on would mean the "never trust NEE" rule was learned from the very claims used to report its benefit. Every score above is therefore **cross-fitted**: 5-fold, each claim scored by a model fitted on the other folds only. A *fitted-nothing* rule (grounded + prompts agree, no labels touched at any point) is reported alongside. On the original evidence it reached AURC 0.308; on leak-free evidence only **0.487 against 0.566** for random, so without the fitted model most of the benefit disappears. This is still dev data the project has developed against, so the honest framing is **out-of-fold on dev**, not held-out test.
 
 **Where the curve stops helping.** Below ~30% coverage accuracy flattens and then falls. That is not noise to be smoothed away: the features take only a dozen distinct values, so once everything but `refuted` has been filtered out there is nothing left to rank *within* that class. More coverage reduction would need a finer-grained confidence signal, such as token log-probabilities.
 
 ```bash
+# leak-free evidence (fact-check sites removed), then the three signals on it
+python src/filter_factcheck.py \
+    --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
+    --out results/ddg_direct_dev500_nofactcheck_retrieval_cache.json
+python src/reprompt_eval.py --data-file data/dev.json --prompt-style plain \
+    --retrieval-cache results/ddg_direct_dev500_nofactcheck_retrieval_cache.json \
+    --output-cache results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json
+python src/reprompt_eval.py --data-file data/dev.json --prompt-style nee_guard \
+    --retrieval-cache results/ddg_direct_dev500_nofactcheck_retrieval_cache.json \
+    --output-cache results/ddg_direct_dev500_nofactcheck_nee_guard_eval_cache.json
+python src/rag_eval.py --judge-version v1 \
+    --retrieval-cache results/ddg_direct_dev500_nofactcheck_retrieval_cache.json \
+    --prediction-cache results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json \
+    --output-cache results/faithfulness_ddg_nofactcheck_dev500.json
+python src/selective_prediction.py \
+    --predictions   results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json \
+    --faithfulness  results/faithfulness_ddg_nofactcheck_dev500.json \
+    --second-prompt results/ddg_direct_dev500_nofactcheck_nee_guard_eval_cache.json \
+    --out results/selective_prediction_dev500_nofactcheck.json
+
+# original evidence, for comparison
 python src/selective_prediction.py \
     --predictions   results/ddg_direct_dev500_plain_eval_cache.json \
     --faithfulness  results/faithfulness_ddg_plain_dev500.json \
     --second-prompt results/ddg_dev500_nee_guard_eval_cache.json \
     --out results/selective_prediction_dev500.json
+
 python src/plot_risk_coverage.py \
-    --report results/selective_prediction_dev500.json \
-    --out docs/risk_coverage.png
+    --report  results/selective_prediction_dev500_nofactcheck.json \
+    --compare results/selective_prediction_dev500.json \
+    --compare-label "same method, original evidence (partly leaked)" \
+    --operating-point 0.5 --out docs/risk_coverage.png
 ```
 
 ## Does better ranking help? A pre-registered null result

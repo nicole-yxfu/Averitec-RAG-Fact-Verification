@@ -78,11 +78,11 @@
 
   <rect class="go" x="808" y="44" width="128" height="52" rx="10"/>
   <text class="gt" x="820" y="66">Answer</text>
-  <text class="s" x="820" y="84">70% · 78.9% right</text>
+  <text class="s" x="820" y="84">50% · 74% right</text>
 
   <rect class="hold" x="808" y="104" width="128" height="52" rx="10"/>
   <text class="ht" x="820" y="126">Human review</text>
-  <text class="s" x="820" y="144">the other 30%</text>
+  <text class="s" x="820" y="144">the other 50%</text>
 
   <line class="rule" x1="24" y1="186" x2="936" y2="186"/>
 
