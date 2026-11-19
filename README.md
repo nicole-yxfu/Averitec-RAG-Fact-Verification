@@ -1,6 +1,6 @@
 # What Actually Drives Retrieval-Augmented Fact Verification?
 
-**A controlled study on AVeriTeC showing that *where* evidence comes from matters far more than *how* it is retrieved — and that the most useful change was teaching the system when to hand a claim to a human.**
+**A controlled study on AVeriTeC: better ranking did not help, an apparent open-web gain turned out to be leaked fact-check articles, and the most useful change was teaching the system when to hand a claim to a human.**
 
 **[▶ Try the interactive demo](https://nicole-yxfu.github.io/Averitec-RAG-Fact-Verification/)** · [Can the LLM judge be trusted?](#how-far-can-the-judge-be-trusted-a-blind-human-check) · [How results are evaluated](#evaluation-contract-run-directories-and-a-ci-gate)
 
@@ -10,11 +10,11 @@
 
 | Question | Answer |
 |---|---|
-| What moves accuracy most? | **The evidence source.** Searching the open web instead of a closed corpus: Macro-F1 0.364 → 0.450 (exact McNemar p = 2.5 × 10⁻⁷). |
+| What moves accuracy most? | **Mostly leakage, it turned out.** Open-web search beats the closed corpus (Macro-F1 0.364 → 0.450, exact McNemar p = 2.5 × 10⁻⁷), but half the claims had a published fact-check in their top 5. With fact-check sites removed, web search scores 0.356, tied with BM25 (p = 0.36). [Details](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks) |
 | Does better ranking help? | **No.** Hybrid retrieval plus cross-encoder re-ranking against the deployed baseline: p = 0.86. The usual "widen the pool, then re-rank" control inflates the apparent gain 2–3×. [Details](#does-better-ranking-help-a-pre-registered-null-result) |
 | What actually paid? | **Letting it abstain.** Answering only the 70% of claims it is most confident about lifts accuracy from 60.4% to 78.9%, with no new model and no extra API cost. [Details](#selective-prediction-how-much-work-can-it-take-off-a-human) |
 | Can the LLM judge be trusted? | **Not blindly.** A blind human check found it answering from its own knowledge on "not enough evidence" verdicts (agreed 4 / 14); a corrected prompt reached 12 / 14 (in-sample). [Details](#how-far-can-the-judge-be-trusted-a-blind-human-check) |
-| Is it engineered, not just a notebook? | FastAPI + Docker service (warm p50 ≈ 1 s, \$0.00024 per claim), run artifacts the pipeline cannot score itself, CI on every push, 104 tests. Earlier claims that turned out to be confounded or wrong are [corrected in place](#a-correction-the-closed-web-prompt-rows-saw-different-evidence), not deleted. |
+| Is it engineered, not just a notebook? | FastAPI + Docker service (warm p50 ≈ 1 s, \$0.00024 per claim), run artifacts the pipeline cannot score itself, CI on every push, 109 tests. Earlier claims that turned out to be confounded or wrong are [corrected in place](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks), not deleted. |
 
 ### The question
 
@@ -22,7 +22,9 @@ Fact-checking with retrieval-augmented LLMs has three tunable components — the
 
 ### Headline result
 
-> **Evidence Source ≫ Prompt Design > Retrieval Strategy**
+> ~~**Evidence Source ≫ Prompt Design > Retrieval Strategy**~~
+>
+> **Corrected (November 2026):** most of the evidence-source gain is leakage. Open-web search often returns the published fact-check of the claim; with fact-check sites removed, it is no better than BM25. [See the correction.](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks) The ranking result below still holds, because those comparisons keep the evidence source fixed.
 
 Climbing an evidence-availability ladder on the official 500-claim dev set (Macro-F1):
 
@@ -34,7 +36,7 @@ Climbing an evidence-availability ladder on the official 500-claim dev set (Macr
 | **DuckDuckGo open-web + plain prompt** | **0.4495** | **+0.085, McNemar p = 2.5e-7** |
 | Gold evidence (oracle) | 0.5633 | upper bound |
 
-Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling. In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** adds a secondary **+0.031** on the open web, where both prompts saw identical evidence. (An earlier version of this README also claimed +0.040 on the closed web; that comparison turned out to change the evidence as well as the prompt. [See the correction.](#a-correction-the-closed-web-prompt-rows-saw-different-evidence))
+Switching the **evidence source** (closed → open web) gives the single largest gain (+0.085, statistically significant), closing 43% of the gap to the oracle ceiling, **but almost all of it comes from retrieved fact-check articles** ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)). In contrast, swapping the **retrieval architecture** (BM25 → dense re-ranking) moves Macro-F1 by just −0.007 (within noise), and sophisticated query reformulation *hurts* (keyword −0.035, decomposition −0.042). A simpler **prompt** adds a secondary **+0.031** on the open web, where both prompts saw identical evidence. (An earlier version of this README also claimed +0.040 on the closed web; that comparison turned out to change the evidence as well as the prompt. [See the correction.](#a-correction-the-closed-web-prompt-rows-saw-different-evidence))
 
 The retrieval result replicates on the stronger evidence rung: hybrid retrieval (BM25 + dense fused by RRF) and cross-encoder re-ranking over a widened open-web pool land at **p = 1.0 and p = 0.86** against the deployed baseline — [see the null result and the control that nearly hid it](#does-better-ranking-help-a-pre-registered-null-result).
 
@@ -46,7 +48,7 @@ No deployed fact-checking pipeline answers every claim — the model is triage, 
 
 > Forced to answer all 500 dev claims, the system is **60.4%** accurate. Allowed to abstain, it answers **70% of claims at 78.9%** accuracy — cutting human review load by 70% — and the 30% it declines includes **every single *not enough evidence* verdict**, the class it is right about only 15% of the time.
 
-That is worth more than every retrieval change in this project combined, and it needed no new retrieval, no new model and no extra API spend — only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human).
+That is worth more than every retrieval change in this project combined, and it needed no new retrieval, no new model and no extra API spend — only the confidence signals already on disk. [Details and the leakage control](#selective-prediction-how-much-work-can-it-take-off-a-human). One caveat: these accuracies are measured on the open-web evidence, which is partly leaked fact-checks ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)). The comparison against random abstention uses the same evidence on both sides, but on clean evidence the absolute numbers would be lower.
 
 An **oracle-gap error analysis** (quantitative decomposition + a 20-case qualitative study, with 3 independent LLM annotators adjudicating the cases the first pass was unsure about) traces the residual error to the Conflicting class (54.6% of the gap) and an annotation-convention mismatch — and shows ~20% of the gap is irreducible annotation ambiguity, i.e. the gold ceiling is not ground truth.
 
@@ -70,9 +72,44 @@ All configurations on the official 500-claim dev set (Macro-F1 + per-class F1). 
 |  | **DuckDuckGo + plain prompt** | **0.4495** | 0.712 | 0.711 | 0.237 | 0.138 | 500 |
 | Oracle | Gold evidence | 0.5633 | 0.858 | 0.862 | 0.487 | 0.045 | 500 |
 
-Reading down the three evidence rungs (closed → open → oracle) is the main result; the two prompt rows under *Open web* isolate the prompt effect at a fixed source; *Dense rerank* and *8-shot ICL* are the retrieval- and prompt-side ablations. Even under gold evidence, the **Conflicting** class stays near zero (F1 0.045) — the motivation for the error analysis below.
+Reading down the three evidence rungs (closed → open → oracle) was meant to be the main result, but the open-web rung is inflated by leaked fact-checks (see the first correction below); the two prompt rows under *Open web* isolate the prompt effect at a fixed source; *Dense rerank* and *8-shot ICL* are the retrieval- and prompt-side ablations. Even under gold evidence, the **Conflicting** class stays near zero (F1 0.045) — the motivation for the error analysis below.
 
-† and ‡ mark rows with a known defect, explained next. Every other closed-web row showed the LLM the same thing: five BM25 passages, each cut to its **first 300 characters**.
+† and ‡ mark rows with a known defect, explained below. Every other closed-web row showed the LLM the same thing: five BM25 passages, each cut to its **first 300 characters**.
+
+### A correction: the open-web gain was mostly leaked fact-checks
+
+The open-web search (`ddgs`, claim as query, top 5) has **no date filter and no site exclusion**. AVeriTeC claims are real claims that fact-checkers have already checked, so the search often returns the published verdict itself. On **261 of 500** dev claims, at least one of the five results is a page on a fact-checking site (PolitiFact, FactCheck.org, Lead Stories, AFP Fact Check, Snopes and others, matched by URL). The closed Knowledge Store is built to prevent exactly this, and the open-web runs did not apply the same rule.
+
+Two checks, both on the 487 claims that no run refused:
+
+| Evidence | Macro-F1 | Accuracy | vs BM25 (discordant claims, exact McNemar) |
+|---|---|---|---|
+| BM25, closed corpus | 0.368 | 46.6% | |
+| Open web, as published (re-run Nov 2026) | 0.447 | 60.2% | 124 vs 58, p = 1.1 × 10⁻⁶ |
+| Open web, **fact-check URLs removed** | **0.356** | **43.9%** | 80 vs 93, p = 0.36 |
+
+| Claims | n | Open web | BM25 | Discordant, p |
+|---|---|---|---|---|
+| A fact-check page in the top 5 | 250 | 72.8% | 47.2% | 83 vs 19, p = 1.0 × 10⁻¹⁰ |
+| No fact-check page in the top 5 | 237 | 46.8% | 46.0% | 41 vs 39, p = 0.91 |
+
+BM25 scores the same on both halves (47.2% vs 46.0%), so the split is not simply easy versus hard claims. The open-web advantage exists only where a fact-check page was retrieved. Removing those pages (`src/filter_factcheck.py`; the remaining passages keep their order, and 10 claims are left with none) and re-prompting the same model erases it.
+
+**Prediction, recorded before the run** (`results/factcheck_ablation_prediction.txt`): Macro-F1 would fall to about 0.38–0.40, and the gap to BM25 would stop being significant. The second half held; the drop was larger than predicted. Re-running the published open-web predictions the same week changed the outcome on only 12 claims (7 vs 5, p = 0.77), so the drop is not model drift.
+
+**What this changes.** The evidence-ladder headline is withdrawn as a claim about evidence sources: on this benchmark, open-web search mostly measures whether the existing fact-check can be found. For a live fact-checker that is a legitimate first step, but it says nothing about verifying a claim nobody has checked yet. Comparisons made *within* the open-web runs (ranking, prompt, abstention signals) give both sides the same leaked evidence, so they are still fair comparisons, but their absolute numbers are inflated.
+
+**Limits of this control.** URL matching misses fact-checks on unlisted sites and keeps news articles published after the claim, so 0.356 is still an optimistic estimate for leakage-free open-web retrieval. The proper fix is a cut-off at the claim date, which the search API used here does not offer. That has not been done.
+
+```bash
+python src/filter_factcheck.py \
+    --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
+    --out results/ddg_direct_dev500_nofactcheck_retrieval_cache.json
+python src/reprompt_eval.py --data-file data/dev.json --prompt-style plain \
+    --retrieval-cache results/ddg_direct_dev500_nofactcheck_retrieval_cache.json \
+    --output-cache results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json
+python src/factcheck_leakage_report.py --out results/factcheck_leakage_control.json
+```
 
 ### A correction: the closed-web prompt rows saw different evidence
 
@@ -107,7 +144,7 @@ Faithfulness across the full evidence ladder (all 500 official dev claims, judge
 
 Two findings this adds on top of accuracy — one survived a human check, one did not:
 
-1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. *Provisional:* all three columns were scored by the original judge, which the check below found to be biased against one verdict class, and the classes are not equally common on every rung. Re-scoring the closed-web and gold columns with the corrected judge would settle it.
+1. **Faithfulness climbs the same evidence ladder as accuracy** — 0.637 → 0.753 → 0.822, mirroring Macro-F1's 0.364 → 0.450 → 0.563. *Provisional:* all three columns were scored by the original judge, which the check below found to be biased against one verdict class, and the classes are not equally common on every rung. Re-scoring the closed-web and gold columns with the corrected judge would settle it. The open-web column is also scored on partly leaked evidence ([correction](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks)): a retrieved fact-check makes a verdict easy to ground.
 2. ~~"Not enough evidence" is the least-grounded verdict at every rung.~~ **Withdrawn.** This was mostly the judge's own error, not the system's: on the open web, the corrected judge rates 90% of NEE verdicts as grounded, not 52%. See below.
 
 ### How far can the judge be trusted? A blind human check
@@ -399,7 +436,7 @@ python src/eval_verdict.py --run runs/ddg_dev500_plain        # 0.4495  95% CI [
 python src/eval_verdict.py --run runs/gold_dev500_oracle      # 0.5633  95% CI [0.524, 0.607]
 ```
 
-The bootstrap intervals are worth a look: the closed- and open-web intervals don't overlap, which is the evidence-source finding seen from a second angle. `bm25_dev500_plain` and `bm25_dev500_standard` have byte-identical `retrieved.jsonl` files. That makes the shared *ranking* checkable, and it is also what surfaced the correction above: the same ranking was shown to the model as different text.
+The bootstrap intervals are worth a look: the closed- and open-web intervals don't overlap, though most of that gap turned out to be [leaked fact-checks](#a-correction-the-open-web-gain-was-mostly-leaked-fact-checks). Saved runs are also what made that check possible: the retrieved URLs were on disk, so the leakage could be measured without re-running anything. `bm25_dev500_plain` and `bm25_dev500_standard` have byte-identical `retrieved.jsonl` files. That makes the shared *ranking* checkable, and it is also what surfaced the correction above: the same ranking was shown to the model as different text.
 
 **CI gate** (`src/ci_gate.py`, `.github/workflows/ci.yml`): every candidate in `ci/gate.yaml` must pass breakage checks on a fixed 30-claim set, with no API calls. The checks cover unparseable replies, collapse onto one label, a gross accuracy drop, missing claims, and an "identical to baseline" warning, which is how the NaN cross-encoder looked. Thirty claims cannot detect a one-point regression, and the gate doesn't pretend to. It decides whether a candidate deserves a McNemar test on dev500.
 
@@ -423,7 +460,7 @@ python src/reprompt_eval.py \
     --retrieval-cache results/bm25_baseline_official_dev_with_metadata_top5_cache.json \
     --output-cache results/bm25_official_dev_plain_prompt_cache.json   # 0.3644
 
-# 4. Open-web: DuckDuckGo (the +0.085 result)
+# 4. Open-web: DuckDuckGo (the +0.085 result, mostly leakage: see step 8)
 python src/open_web_baseline.py \
     --data-file data/dev.json \
     --output-cache results/ddg_direct_dev500_retrieval_cache.json --sample -1
@@ -435,7 +472,7 @@ python src/reprompt_eval.py \
 # 5. Oracle upper bound
 python src/gold_baseline.py --split official_dev --sample -1           # 0.5633
 
-# 6. Prompt ablation (Finding: plain > standard, replicates across sources)
+# 6. Prompt ablation (plain > standard on the open web, identical evidence)
 python src/reprompt_eval.py --data-file data/dev.json \
     --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
     --output-cache results/ddg_direct_dev500_standard_eval_cache.json --prompt-style standard
@@ -443,11 +480,20 @@ python src/reprompt_eval.py --data-file data/dev.json \
 # 7. Error analysis (oracle gap decomposition + qualitative case dump)
 python src/analyze_gold_gap.py
 python src/prep_gold_gap_cases.py
+
+# 8. Leakage control: remove fact-check sites from the open-web evidence, re-prompt, compare
+python src/filter_factcheck.py \
+    --retrieval-cache results/ddg_direct_dev500_retrieval_cache.json \
+    --out results/ddg_direct_dev500_nofactcheck_retrieval_cache.json
+python src/reprompt_eval.py --data-file data/dev.json --prompt-style plain \
+    --retrieval-cache results/ddg_direct_dev500_nofactcheck_retrieval_cache.json \
+    --output-cache results/ddg_direct_dev500_nofactcheck_plain_eval_cache.json   # 0.356 on 487
+python src/factcheck_leakage_report.py --out results/factcheck_leakage_control.json
 ```
 
 ## Tests
 
-Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 104 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
+Minimal unit tests cover the pure, high-traffic components every reported number depends on — the places where a silent bug would corrupt a published number rather than crash. 109 tests, no network, no model downloads, no Knowledge Store; CI runs them on every push:
 
 ```bash
 python tests/test_core.py        # label normalization, atomic writes, few-shot schema, cache integrity
@@ -458,6 +504,7 @@ python tests/test_runs.py        # run contract, verdict scoring, CI gate, and t
                                  # published numbers re-derived from runs/
 python tests/test_demo.py        # the demo page's numbers match the published report
 python tests/test_judge_check.py # faithfulness-judge check: blindness, re-weighting maths
+python tests/test_factcheck_filter.py  # leakage control: fact-check URLs removed, news kept
 # or:  pytest tests/
 ```
 
@@ -470,7 +517,9 @@ python tests/test_judge_check.py # faithfulness-judge check: blindness, re-weigh
 **Core pipeline**
 - `bm25_baseline.py` — BM25 Okapi retrieval over the Knowledge Store; 3-tier cache, atomic writes, `--retrieval-only` decoupling. The project's backbone.
 - `dense_rerank.py` — BM25 prefilter → mpnet bi-encoder rerank → top-5 (retrieval-strategy ablation).
-- `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder.
+- `open_web_baseline.py` — DuckDuckGo open-web retrieval (direct claim-as-query, top-5); the open-web rung of the evidence ladder. No date filter, so it retrieves published fact-checks (see the leakage correction).
+- `filter_factcheck.py` — removes fact-check-site passages from a cached open-web run, for the leakage control.
+- `factcheck_leakage_report.py` — scores BM25, open web and open web without fact-check pages on the same claims, split by whether a fact-check page was retrieved.
 - `hybrid_retrieval.py` — wide open-web candidate pool, then five rankings over the *same* pool: engine order, BM25, dense, RRF fusion, RRF + cross-encoder. Pool fetch and ranking are separate stages, so every variant is recomputed without touching the network.
 - `reprompt_eval.py` — apples-to-apples LLM re-prompting on any retrieval cache; `--prompt-style {plain,standard,nee_guard}`, `--fewshot-file`.
 - `service.py` — FastAPI wrapper exposing the open-web pipeline as `POST /verify` (+ `/health`, `/docs`); reuses the retrieval/prompt/LLM functions verbatim.

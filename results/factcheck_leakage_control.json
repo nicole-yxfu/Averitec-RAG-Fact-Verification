@@ -1,0 +1,147 @@
+{
+ "n": 487,
+ "excluded_refused": 13,
+ "groups": {
+  "all": {
+   "n": 487,
+   "scores": {
+    "bm25": {
+     "macro_f1": 0.3677,
+     "accuracy": 0.4661,
+     "nee_predicted": 186
+    },
+    "web": {
+     "macro_f1": 0.4508,
+     "accuracy": 0.6057,
+     "nee_predicted": 115
+    },
+    "web_rerun": {
+     "macro_f1": 0.4473,
+     "accuracy": 0.6016,
+     "nee_predicted": 113
+    },
+    "web_nofc": {
+     "macro_f1": 0.3563,
+     "accuracy": 0.4394,
+     "nee_predicted": 205
+    }
+   },
+   "mcnemar": {
+    "bm25->web_nofc": {
+     "only_a_right": 93,
+     "only_b_right": 80,
+     "p_value": 0.36162873671930007
+    },
+    "web_nofc->web_rerun": {
+     "only_a_right": 10,
+     "only_b_right": 89,
+     "p_value": 5.521266925181343e-17
+    },
+    "bm25->web_rerun": {
+     "only_a_right": 58,
+     "only_b_right": 124,
+     "p_value": 1.1185548577208837e-06
+    },
+    "web->web_rerun": {
+     "only_a_right": 7,
+     "only_b_right": 5,
+     "p_value": 0.7744140625
+    }
+   }
+  },
+  "factcheck_hit": {
+   "n": 250,
+   "scores": {
+    "bm25": {
+     "macro_f1": 0.3464,
+     "accuracy": 0.472,
+     "nee_predicted": 100
+    },
+    "web": {
+     "macro_f1": 0.499,
+     "accuracy": 0.732,
+     "nee_predicted": 17
+    },
+    "web_rerun": {
+     "macro_f1": 0.4838,
+     "accuracy": 0.728,
+     "nee_predicted": 18
+    },
+    "web_nofc": {
+     "macro_f1": 0.3192,
+     "accuracy": 0.404,
+     "nee_predicted": 110
+    }
+   },
+   "mcnemar": {
+    "bm25->web_nofc": {
+     "only_a_right": 55,
+     "only_b_right": 38,
+     "p_value": 0.09656519729770463
+    },
+    "web_nofc->web_rerun": {
+     "only_a_right": 7,
+     "only_b_right": 88,
+     "p_value": 6.048586330822969e-19
+    },
+    "bm25->web_rerun": {
+     "only_a_right": 19,
+     "only_b_right": 83,
+     "p_value": 1.0158259578897715e-10
+    },
+    "web->web_rerun": {
+     "only_a_right": 4,
+     "only_b_right": 3,
+     "p_value": 1.0
+    }
+   }
+  },
+  "no_hit": {
+   "n": 237,
+   "scores": {
+    "bm25": {
+     "macro_f1": 0.3776,
+     "accuracy": 0.4599,
+     "nee_predicted": 86
+    },
+    "web": {
+     "macro_f1": 0.3587,
+     "accuracy": 0.4726,
+     "nee_predicted": 98
+    },
+    "web_rerun": {
+     "macro_f1": 0.375,
+     "accuracy": 0.4684,
+     "nee_predicted": 95
+    },
+    "web_nofc": {
+     "macro_f1": 0.3807,
+     "accuracy": 0.4768,
+     "nee_predicted": 95
+    }
+   },
+   "mcnemar": {
+    "bm25->web_nofc": {
+     "only_a_right": 38,
+     "only_b_right": 42,
+     "p_value": 0.7375543089843226
+    },
+    "web_nofc->web_rerun": {
+     "only_a_right": 3,
+     "only_b_right": 1,
+     "p_value": 0.625
+    },
+    "bm25->web_rerun": {
+     "only_a_right": 39,
+     "only_b_right": 41,
+     "p_value": 0.9110721212260926
+    },
+    "web->web_rerun": {
+     "only_a_right": 3,
+     "only_b_right": 2,
+     "p_value": 1.0
+    }
+   }
+  }
+ }
+}

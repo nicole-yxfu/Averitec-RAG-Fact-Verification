@@ -109,7 +109,7 @@
 
   <rect class="card" x="488" y="228" width="208" height="104" rx="10"/>
   <text class="h" x="502" y="254">CI on every push</text>
-  <text class="s" x="502" y="276">104 unit tests</text>
+  <text class="s" x="502" y="276">109 unit tests</text>
   <text class="s" x="502" y="298">30-claim breakage gate:</text>
   <text class="s" x="502" y="314">format, label collapse,</text>
   <text class="s" x="502" y="330">accuracy, silent no-ops</text>

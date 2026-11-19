@@ -1,0 +1,2 @@
+Recorded 2026-11-17T09:57:40Z, before the run.
+Prediction: with fact-check URLs removed, open-web Macro-F1 falls from 0.450 to about 0.38-0.40 (near BM25 0.364), and the gap to BM25 is no longer significant (McNemar p > 0.05). Reason: on claims with no fact-check hit, web and BM25 already tie; claims that lost fact-check pages may keep some help from news coverage of the same story.
